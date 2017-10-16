@@ -13,11 +13,11 @@ post `/register`
 请求格式:
 ```javascript
 {
-    user: 'zhangsan',
-    pass: '****',
-    age: 18,
-    sex: 0,    // 0(男)/1(女)
-    tel: 13417730176
+    user: 'zhangsan',   // 员工名
+    pass: '****',       // 密码
+    age: 18,            // 年龄
+    sex: 0,             // 性别 0(男)/1(女)
+    tel: 13417730176    // 手机
 }
 ```
 
@@ -74,11 +74,11 @@ get  `/userList` 或者  get `/userList?page=1`
     message: '',
     data: [
         {
-            user: '张三',
-            age: 18,
-            sex: xx,
-            tel: 12222222,
-            state: 0(管理员)/1(员工)
+            user: '张三',    // 员工名
+            age: 18,         // 员工年龄
+            sex: 0,          // 员工性别 0(男)/1(女)
+            tel: 12222222,   // 员工电话
+            state: 0         // 0(管理员)/1(员工)
         },
         ...
     ]
@@ -95,17 +95,26 @@ get `/userList?uid=xxxx`
     succes: true/false,
     message: '',
     data: {
-        user: '张三',
-        age: 18,
-        sex: xx,
-        tel: 12222222,
-        state: 0(管理员)/1(员工),
-        shangji: {
+        user: '张三',     // 员工名
+        age: 18,          // 员工年龄
+        sex: 0,           // 员工性别 0(男)/1(女)
+        tel: 12222222,    // 员工电话
+        state: 0,         // 0(管理员)/1(员工)
+        business: [       // 商机
             {
-
+                id: xxx,        // 商机ID
+                uName: '',      // 员工姓名
+                client: {       // 客户信息
+                    name: xxx,           // 公司名称
+                    type: xxx,           // 公司类型
+                    contact: 'xxxx',     // 联系人
+                    contactTel: 111,     // 联系人电话
+                    contactPost: 'xxx',  // 联系人职位
+                    time: xxx            // 创建时间
+                }
             },
-            ....
-        }
+            ...
+        ]
     }
 }
 ```
