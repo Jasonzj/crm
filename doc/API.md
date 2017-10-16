@@ -14,10 +14,10 @@ post `/register`
 ```javascript
 {
     user: 'zhangsan',
-	pass: '****',
-	age: 18,
-	sex: 0,    // 0(男)/1(女)
-	tel: 13417730176
+    pass: '****',
+    age: 18,
+    sex: 0,    // 0(男)/1(女)
+    tel: 13417730176
 }
 ```
 
@@ -39,8 +39,8 @@ post `/login`
 请求格式:
 ```javascript
 {
-	user: 'zhangsan',
-	pass: '********'
+    user: 'zhangsan',
+    pass: '********'
 }
 ```
 
