@@ -13,7 +13,7 @@ post `/register`
 请求格式:
 ```javascript
 {
-	user: 'zhangsan',
+    user: 'zhangsan',
 	pass: '****',
 	age: 18,
 	sex: 0,    // 0(男)/1(女)
