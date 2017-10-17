@@ -7,7 +7,7 @@ post `/register`
 
 接受post参数
 - user 用户名 
-- pass 密码
+- pass 密码 
 - age 年龄
 - sex 性别
 - tel 联系方式
@@ -15,7 +15,7 @@ post `/register`
 请求格式:
 ```javascript
 {
-    user: 'zhangsan',   // 员工名
+    user: 'zhangsan',   // 员工名 
     pass: '****',       // 密码
     age: 18,            // 年龄
     sex: 0,             // 性别 0(男)/1(女)
