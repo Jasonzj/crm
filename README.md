@@ -1,6 +1,6 @@
 # CRM系统API文档
 
-## 1. 登入注册
+## 1. 登入注册 
 
 ### POST/注册
 post `/register`
