@@ -15,7 +15,7 @@ post `/register`
 请求格式:
 ```javascript
 {
-    user: 'zhangsan',   // 员工名
+    user: 'zhangsan',   // 员工名 
     pass: '****',       // 密码
     age: 18,            // 年龄
     sex: 0,             // 性别 0(男)/1(女)
