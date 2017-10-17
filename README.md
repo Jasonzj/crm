@@ -7,7 +7,7 @@ post `/register`
 
 接受post参数
 - user 用户名 
-- pass 密码
+- pass 密码 
 - age 年龄
 - sex 性别
 - tel 联系方式
