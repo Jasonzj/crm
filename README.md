@@ -76,7 +76,7 @@ get  `/userList` 或者  get `/userList?page=1`
     message: '',
     data: [
         {
-            id: 111,          // 员工ID
+            id: 111,         // 员工ID
             user: '张三',     // 员工名
             age: 18,         // 员工年龄
             sex: 0,          // 员工性别 0(男)/1(女)
@@ -98,8 +98,8 @@ get `/userList?uid=xxxx`
     succes: true/false,
     message: '',
     data: {
-	    id: 111,          // 员工ID
-        user: '张三',      // 员工名
+        id: 111,          // 员工ID
+        user: '张三',     // 员工名
         age: 18,          // 员工年龄
         sex: 0,           // 员工性别 0(男)/1(女)
         tel: 12222222,    // 员工电话
