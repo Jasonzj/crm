@@ -74,6 +74,8 @@ get  `/userList` 或者  get `/userList?page=1`
 {
     succes: true/false,
     message: '',
+    page: 8,            // 总页数
+    currentPage: 1,     // 当前分页 
     data: [
         {
             id: 111,         // 员工ID
@@ -196,6 +198,8 @@ get  `/business` 或 get `/business?page=x`
 {
     succes: true/false,
     message: '',
+    page: 8,            // 总页数
+    currentPage: 1,     // 当前分页
     data: [
         {
             id: xxx,        // 商机ID
@@ -350,6 +354,8 @@ get  `/visit` 或 get `/visit?page=x`
 {
     succes: true/false,
     message: '',
+    page: 8,            // 总页数
+    currentPage: 1,     // 当前分页
     data: [             // 拜访记录列表
         {
             id: xx,        // 拜访记录ID
@@ -476,7 +482,9 @@ get  `/contract` 或 get  `/contract?page=x`
 {
     succes: true/false,
     message: '',
-    data: [         // 合同列表
+    page: 8,            // 总页数
+    currentPage: 1,     // 当前分页
+    data: [             // 合同列表
         {
             id: xx,        // 合同ID
             title: ''      // 合同标题
