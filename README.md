@@ -134,7 +134,7 @@ get `/searchUser?userName=张三`
 返回格式: 
 ```javascript
 {
-	succes: true/false,
+    succes: true/false,
     message: '',
     data: [
         {
