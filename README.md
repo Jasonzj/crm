@@ -1,9 +1,9 @@
-# CRM系统API文档
+# CRM系统API文档V1
 
 ## 1. 登入注册
 
 ### POST/注册
-post `/register`
+post `/api/v1/register`
 
 接受post参数
 - user 用户名 
@@ -32,7 +32,7 @@ post `/register`
 ```
 
 ###  POST/登入
-post `/login`
+post `/api/v1/login`
 
 参数
 - user 用户名
@@ -56,7 +56,7 @@ post `/login`
 
 ## 2. 员工管理
 
-get `/userList`
+get `/api/v1/userList`
 
 > 默认返回所有列表
 
@@ -67,7 +67,7 @@ get `/userList`
 #### 示例:
 获取所有用户列表和获取单独一页用户列表:
 
-get  `/userList` 或者  get `/userList?page=1`
+get  `/api/v1/userList` 或者  get `/api/v1/userList?page=1`
 
 返回格式:
 ```javascript
@@ -92,7 +92,7 @@ get  `/userList` 或者  get `/userList?page=1`
 
 获取用户详情：
 
-get `/userList?uid=xxxx`
+get `/api/v1/userList?uid=xxxx`
 
 返回格式:
 ```javascript
@@ -126,14 +126,14 @@ get `/userList?uid=xxxx`
 ```
 
 ### GET/搜索
-get `/searchUser`
+get `/api/v1/searchUser`
 
 参数
 - userName
 
 示例:
 
-get `/searchUser?userName=张三`
+get `/api/v1/searchUser?userName=张三`
 
 返回格式: 
 ```javascript
@@ -158,7 +158,7 @@ get `/searchUser?userName=张三`
 
 ### POST/修改用户详情
 
-post `/editUser`
+post `/api/v1/editUser`
 
 请求格式:
 ```javascript
@@ -180,7 +180,7 @@ post `/editUser`
 ```
 
 ## 3. 商机
-get `/business`
+get `/api/v1/business`
 > 默认返回所有列表
 
 参数
@@ -191,7 +191,7 @@ get `/business`
 ### GET/获取列表或详情
 #### 示例:
 获取所有商机列表和获取单独一页商机列表:
-get  `/business` 或 get `/business?page=x`
+get  `/api/v1/business` 或 get `/api/v1/business?page=x`
 
 返回格式:
 ```javascript
@@ -219,7 +219,7 @@ get  `/business` 或 get `/business?page=x`
 ```
 
 获取商机详情
-get `/business?id=x`
+get `/api/v1/business?id=x`
 ```javascript
 {
     succes: true/false,
@@ -242,7 +242,7 @@ get `/business?id=x`
 ```
 
 ### GET/搜索
-get `/searchBusiness`
+get `/api/v1/searchBusiness`
 
 参数
 - userName
@@ -250,8 +250,8 @@ get `/searchBusiness`
 
 示例:
 
-get `/searchBusiness?userName=张三`    (根据员工名搜索)
-get `/searchBusiness?companyName=xxx有限公司` (根据公司名搜索)
+get `/api/v1/searchBusiness?userName=张三`    (根据员工名搜索)
+get `/api/v1/searchBusiness?companyName=xxx有限公司` (根据公司名搜索)
 
 返回格式:
 ```javascript
@@ -277,7 +277,7 @@ get `/searchBusiness?companyName=xxx有限公司` (根据公司名搜索)
 ```
 
 ### POST/修改商机
-post `/editBusiness`
+post `/api/v1/editBusiness`
 
 
 请求格式:
@@ -308,7 +308,7 @@ post `/editBusiness`
 
 ### POST/添加商机
 
-post `/addBusiness`
+post `/api/v1/addBusiness`
 
 请求格式:
 ```javascript
@@ -337,7 +337,7 @@ post `/addBusiness`
 ```
 
 ## 3. 拜访
-get `/visit`
+get `/api/v1/visit`
 > 默认返回所有记录
 
 参数
@@ -349,7 +349,7 @@ get `/visit`
 #### 示例:
 获取所有拜访列表和获取单独一页拜访列表:
 
-get  `/visit` 或 get `/visit?page=x`
+get  `/api/v1/visit` 或 get `/api/v1/visit?page=x`
 ```javascript
 {
     succes: true/false,
@@ -390,7 +390,7 @@ get ` /visit?id=xx`
 ```
 
 ### GET/搜索
-get `/searchVisit`
+get `/api/v1/searchVisit`
 
 参数
 - companyName
@@ -398,8 +398,8 @@ get `/searchVisit`
 
 示例:
 
-get `/searchVisit?companyName=xxx有限公司` (根据公司名搜索)
-get `/searchVisit?userName=xxx有限公司` (根据拜访人搜索)
+get `/api/v1/searchVisit?companyName=xxx有限公司` (根据公司名搜索)
+get `/api/v1/searchVisit?userName=xxx有限公司` (根据拜访人搜索)
 
 返回格式:
 ```javascript
@@ -423,7 +423,7 @@ get `/searchVisit?userName=xxx有限公司` (根据拜访人搜索)
 
 ### POST/添加拜访
 
-post  `/addVisit`
+post  `/api/v1/addVisit`
 
 请求格式:
 ```javascript
@@ -444,7 +444,7 @@ post  `/addVisit`
 
 ### POST/修改拜访
 
-post  `/editVisit`
+post  `/api/v1/editVisit`
 
 请求格式:
 ```javascript
@@ -466,7 +466,7 @@ post  `/editVisit`
 ```
 
 ## 4.合同
-get  `/contractList`
+get  `/api/v1/contractList`
 > 默认返回所有记录
 
 参数
@@ -477,7 +477,7 @@ get  `/contractList`
 ### GET/获取列表或详情
 #### 示例:
 获取所有合同列表和获取单独一页合同列表:
-get  `/contract` 或 get  `/contract?page=x`
+get  `/api/v1/contract` 或 get  `/api/v1/contract?page=x`
 ```javascript
 {
     succes: true/false,
@@ -497,7 +497,7 @@ get  `/contract` 或 get  `/contract?page=x`
 }
 ```
 
-get `/contract?id=xx`
+get `/api/v1/contract?id=xx`
 ```javascript
 {
     succes: true/false,
@@ -516,14 +516,14 @@ get `/contract?id=xx`
 ```
 
 ### GET/搜索
-get `/searchContract`
+get `/api/v1/searchContract`
 
 参数
 - companyName
 
 示例:
 
-get `/searchContract?companyName=xxx有限公司` (根据公司名搜索)
+get `/api/v1/searchContract?companyName=xxx有限公司` (根据公司名搜索)
 
 返回格式:
 ```javascript
@@ -544,7 +544,7 @@ get `/searchContract?companyName=xxx有限公司` (根据公司名搜索)
 ```
 
 ### post/添加合同
-post `/addContract`
+post `/api/v1/addContract`
 
 请求格式:
 ```javascript
@@ -569,7 +569,7 @@ post `/addContract`
 ```
 
 ### post/修改合同
-post `/editContract`
+post `/api/v1/editContract`
 
 请求格式:
 ```javascript
