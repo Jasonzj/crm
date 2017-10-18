@@ -21,7 +21,7 @@ post `/api/v1/register`
     pass: '****',       // 密码
     age: 18,            // 年龄
     sex: 0,             // 性别 0(男)/1(女)
-    tel: 13417730176    // 手机
+    tel: '13417730176'  // 手机
 }
 ```
 
@@ -84,7 +84,7 @@ get  `/api/v1/userList` 或者  get `/api/v1/userList?page=1`
             user: '张三',     // 员工名
             age: 18,         // 员工年龄
             sex: 0,          // 员工性别 0(男)/1(女)
-            tel: 12222222,   // 员工电话
+            tel: '12222222', // 员工电话
             state: 0         // 0(管理员)/1(员工)
         },
         ...
@@ -111,7 +111,7 @@ get `/api/v1/userList?uid=xxxx`
         business: [       // 商机
             {
                 id: xxx,        // 商机ID
-                uName: '',      // 员工姓名
+                // uName: '',      // 员工姓名
                 client: {       // 客户信息
                     name: xxx,           // 公司名称
                     type: xxx,           // 公司类型
@@ -148,7 +148,7 @@ get `/api/v1/searchUser?userName=张三`
             user: '张三',     // 员工名
             age: 18,         // 员工年龄
             sex: 0,          // 员工性别 0(男)/1(女)
-            tel: 12222222,   // 员工电话
+            tel: '12222222', // 员工电话
             state: 0         // 0(管理员)/1(员工)
         },
         ...
@@ -169,7 +169,7 @@ post `/api/v1/editUser`
     user: '张三',
     age: 18,
     sex: xx,
-    tel: 12222222
+    tel: '12222222'
 }
 ```
 
@@ -362,7 +362,7 @@ get  `/api/v1/visit` 或 get `/api/v1/visit?page=x`
         {
             id: xx,        // 拜访记录ID
             name: '',      // 拜访公司名字
-            userName: xx,  // 拜访员工名
+            uName: xx,     // 拜访员工名
             time: xx-xx,   // 拜访时间
             result: '',    // 拜访结果
             note: ''       // 拜访备注
@@ -383,7 +383,7 @@ get ` /visit?id=xx`
         id: xx,        // 拜访记录ID
         name: '',      // 拜访公司名字
         time: xx-xx,   // 拜访时间
-        userName: xx,  // 拜访员工名
+        uName: xx,     // 拜访员工名
         result: '',    // 拜访结果
         note: ''       // 拜访备注
         content: ''    // 拜访内容
@@ -412,7 +412,7 @@ get `/api/v1/searchVisit?userName=xxx有限公司` (根据拜访人搜索)
         {
             id: xx,        // 拜访记录ID
             name: '',      // 拜访公司名字
-            userName: xx,  // 拜访员工名
+            uName: xx,     // 拜访员工名
             time: xx-xx,   // 拜访时间
             result: '',    // 拜访结果
             note: ''       // 拜访备注
@@ -454,7 +454,7 @@ post  `/api/v1/editVisit`
     id: xx,        // 拜访记录ID
     name: '',      // 拜访公司名字
     time: xx-xx,   // 拜访时间
-    result: '',    // 拜访结果
+    result: 0,     // 拜访结果
     note: ''       // 拜访备注
     content: ''    // 拜访内容
 }
