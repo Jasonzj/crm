@@ -1,36 +1,21 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 
 // components
 import Counter from 'components/Counter'
 
 // action
-import { getData, increment, decrement, incrementAsync, decrementAsync } from 'action'
+import * as action from 'action'
 
 @connect(
     state => ({
         value: state.counter,
         data: state.data
     }),
-    dispatch => ({
-        onIncrement() {
-            dispatch(increment())
-        },
-        onDecrement() {
-            dispatch(decrement())
-        },
-        onIncrementAsync() {
-            dispatch(incrementAsync())
-        },
-        onDecrementAsync() {
-            dispatch(decrementAsync())
-        },
-        getData() {
-            dispatch(getData())
-        }
-    })
+    dispatch => bindActionCreators({ ...action }, dispatch)
 )
 class HelloWorld extends PureComponent {
     render() {

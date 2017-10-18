@@ -5,22 +5,22 @@ export const SET_INCREMENT = 'SET_INCREMENT'
 export const SET_DECREMENT = 'SET_DECREMENT'
 export const SET_DATA = 'SET_DATA'
 
-export const increment = () => ({
+export const onIncrement = () => ({
     type: SET_INCREMENT
 })
 
-export const incrementAsync = () => async (dispatch) => {
+export const onIncrementAsync = () => async (dispatch) => {
     await sleep(1000)
-    dispatch(increment())
+    dispatch(onIncrement())
 }
 
-export const decrement = () => ({
+export const onDecrement = () => ({
     type: SET_DECREMENT
 })
 
-export const decrementAsync = () => async (dispatch) => {
+export const onDecrementAsync = () => async (dispatch) => {
     await sleep(1000)
-    dispatch(decrement())
+    dispatch(onDecrement())
 }
 
 export const setData = data => ({
