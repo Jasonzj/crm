@@ -21,10 +21,9 @@ new WebpackDevServer(webpack(config), {
     setup(app) {                   // 访问Express App 对象，添加自定义中间件
         // 代理服务器
         if (process.env.NODE_ENV !== 'production') {
-            app.use('/book/*', proxy({
-                target: 'https://www.easy-mock.com/mock/593611b991470c0ac101d474',  // 目标host
+            app.use('/api/*', proxy({
+                target: 'https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955',  // 目标host
                 secure: false,
-
             }))
         }
     }

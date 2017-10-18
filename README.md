@@ -17,7 +17,8 @@ post `/api/v1/register`
 请求格式:
 ```javascript
 {
-    user: 'zhangsan',   // 员工名 
+    user: 'zhangsan',   // 员工用户名
+    name: '张三',       // 员工真实姓名
     pass: '****',       // 密码
     age: 18,            // 年龄
     sex: 0,             // 性别 0(男)/1(女)
@@ -53,6 +54,14 @@ post `/api/v1/login`
 {
     success: true/false,    // true为成功，false失败
     message: ''             // 成功或失败信息
+    data: {
+        uid: xxx,           // 员工id
+        user: 'zhangsan',   // 员工用户名
+        name: '张三',       // 员工真实姓名
+        age: 18,            // 年龄
+        sex: 0,             // 性别 0(男)/1(女)
+        tel: '13417730176'  // 手机
+    }
 }
 ```
 
@@ -80,8 +89,9 @@ get  `/api/v1/userList` 或者  get `/api/v1/userList?page=1`
     currentPage: 1,     // 当前分页 
     data: [
         {
-            id: 111,         // 员工ID
-            user: '张三',     // 员工名
+            uid: 111,        // 员工ID
+            user: 'zs',      // 员工账号
+            name: '张三',    // 员工真实姓名
             age: 18,         // 员工年龄
             sex: 0,          // 员工性别 0(男)/1(女)
             tel: '12222222', // 员工电话
@@ -102,8 +112,9 @@ get `/api/v1/userList?uid=xxxx`
     succes: true/false,
     message: '',
     data: {
-        id: 111,          // 员工ID
-        user: '张三',     // 员工名
+        uid: 111,         // 员工ID
+        user: 'zsss',     // 员工账号
+        name: '张三',     // 员工真实姓名
         age: 18,          // 员工年龄
         sex: 0,           // 员工性别 0(男)/1(女)
         tel: 12222222,    // 员工电话
@@ -111,7 +122,6 @@ get `/api/v1/userList?uid=xxxx`
         business: [       // 商机
             {
                 id: xxx,        // 商机ID
-                uName: '',      // 员工姓名
                 client: {       // 客户信息
                     name: xxx,           // 公司名称
                     type: xxx,           // 公司类型
@@ -131,11 +141,11 @@ get `/api/v1/userList?uid=xxxx`
 get `/api/v1/searchUser`
 
 参数
-- userName
+- eName
 
 示例:
 
-get `/api/v1/searchUser?userName=张三`
+get `/api/v1/searchUser?eName=张三`
 
 返回格式: 
 ```javascript
@@ -144,8 +154,9 @@ get `/api/v1/searchUser?userName=张三`
     message: '',
     data: [
         {
-            id: 111,         // 员工ID
-            user: '张三',     // 员工名
+            uid: 111,        // 员工ID
+            user: 'zss',     // 员工账户名
+            name: '张三',    // 员工真实姓名
             age: 18,         // 员工年龄
             sex: 0,          // 员工性别 0(男)/1(女)
             tel: '12222222', // 员工电话
@@ -165,8 +176,9 @@ post `/api/v1/editUser`
 请求格式:
 ```javascript
 {
-    uid: xxx,
-    user: '张三',
+    uid: xxx,  (只能用户本人或管理员修改)
+    user: 'zss',
+    name: '张三',
     age: 18,
     sex: xx,
     tel: '12222222'
@@ -177,7 +189,15 @@ post `/api/v1/editUser`
 ```javascript
 {
     succes: true/false,
-    message: ''
+    message: '',
+    data: {
+        uid: xxx,
+        user: 'zss',
+        name: '张三',
+        age: 18,
+        sex: xx,
+        tel: '12222222'
+    }
 }
 ```
 
@@ -205,7 +225,7 @@ get  `/api/v1/business` 或 get `/api/v1/business?page=x`
     data: [
         {
             id: xxx,        // 商机ID
-            uName: '',      // 员工姓名
+            eName: '',      // 员工真实姓名
             client: {       // 客户信息
                 name: xxx,           // 公司名称
                 type: xxx,           // 公司类型
@@ -228,7 +248,9 @@ get `/api/v1/business?id=x`
     message: '',
     data: {
         id: xxx,        // 商机ID
-        uName: '',      // 员工姓名
+        uid: '',        // 员工id
+        uName: '',      // 员工账户名
+        eName: '',      // 员工真实姓名
         client: {
             name: xxx,           // 公司名称
             type: xxx,           // 公司类型
@@ -247,12 +269,12 @@ get `/api/v1/business?id=x`
 get `/api/v1/searchBusiness`
 
 参数
-- userName
+- eName
 - companyName
 
 示例:
 
-get `/api/v1/searchBusiness?userName=张三`    (根据员工名搜索)
+get `/api/v1/searchBusiness?eName=张三`    (根据员工真实姓名搜索)
 get `/api/v1/searchBusiness?companyName=xxx有限公司` (根据公司名搜索)
 
 返回格式:
@@ -263,7 +285,7 @@ get `/api/v1/searchBusiness?companyName=xxx有限公司` (根据公司名搜索)
     data: [
         {
             id: xxx,        // 商机ID
-            uName: '',      // 员工姓名
+            eName: '',      // 员工真实姓名
             client: {       // 客户信息
                 name: xxx,           // 公司名称
                 type: xxx,           // 公司类型
@@ -286,7 +308,7 @@ post `/api/v1/editBusiness`
 ```javascript
 {
     id: xxx,        // 商机ID
-    uName: '',      // 员工姓名
+    uid: '',        // 员工id(只能添加人修改或管理员修改)
     client: {
         name: xxx,           // 公司名称
         type: xxx,           // 公司类型
@@ -304,7 +326,23 @@ post `/api/v1/editBusiness`
 ```javascript
 {
     succes: true/false,
-    message: ''
+    message: '',
+    data: {
+        id: xxx,        // 商机ID
+        uid: '',        // 员工id
+        uName: '',      // 员工账户名
+        eName: '',      // 员工真实姓名
+        client: {
+            name: xxx,           // 公司名称
+            type: xxx,           // 公司类型
+            contact: 'xxxx',     // 联系人
+            contactTel: 111,     // 联系人电话
+            contactPost: 'xxx',  // 联系人职位
+            time: xxx,           // 创建时间
+            intro: `xxxxxxxxxx`  // 公司简介
+            address: 'xxx'       // 公司地址
+        }
+    }
 }
 ```
 
@@ -316,7 +354,7 @@ post `/api/v1/addBusiness`
 ```javascript
 {
     id: xxx,        // 商机ID
-    uName: '',      // 员工姓名
+    uid: '',        // 员工id
     client: {
         name: xxx,           // 公司名称
         type: xxx,           // 公司类型
@@ -362,7 +400,7 @@ get  `/api/v1/visit` 或 get `/api/v1/visit?page=x`
         {
             id: xx,        // 拜访记录ID
             name: '',      // 拜访公司名字
-            uName: xx,     // 拜访员工名
+            eName: xx,     // 拜访员工真实姓名
             time: xx-xx,   // 拜访时间
             result: '',    // 拜访结果
             note: ''       // 拜访备注
@@ -383,7 +421,9 @@ get ` /visit?id=xx`
         id: xx,        // 拜访记录ID
         name: '',      // 拜访公司名字
         time: xx-xx,   // 拜访时间
+        uid: xx,       // 拜访员工id
         uName: xx,     // 拜访员工名
+        eName: xx,     // 拜访员工真实姓名
         result: '',    // 拜访结果
         note: ''       // 拜访备注
         content: ''    // 拜访内容
@@ -396,12 +436,12 @@ get `/api/v1/searchVisit`
 
 参数
 - companyName
-- userName
+- eName
 
 示例:
 
 get `/api/v1/searchVisit?companyName=xxx有限公司` (根据公司名搜索)
-get `/api/v1/searchVisit?userName=xxx有限公司` (根据拜访人搜索)
+get `/api/v1/searchVisit?eName=xxx` (根据拜访人搜索)
 
 返回格式:
 ```javascript
@@ -412,7 +452,7 @@ get `/api/v1/searchVisit?userName=xxx有限公司` (根据拜访人搜索)
         {
             id: xx,        // 拜访记录ID
             name: '',      // 拜访公司名字
-            uName: xx,     // 拜访员工名
+            eName: xx,     // 拜访员工真实姓名
             time: xx-xx,   // 拜访时间
             result: '',    // 拜访结果
             note: ''       // 拜访备注
@@ -430,6 +470,7 @@ post  `/api/v1/addVisit`
 请求格式:
 ```javascript
 {
+    uid: xx,           // 拜访员工ID
     time: xx-xx,       // 拜访时间 (年月日)
     content: 'xxx',    // 拜访内容
     result: 0,         // 拜访结果 (0成功, 1待定，2失败)
@@ -452,9 +493,10 @@ post  `/api/v1/editVisit`
 ```javascript
 {
     id: xx,        // 拜访记录ID
+    uid: xx,       // 拜访员工id(只能拜访员工或管理员修改)
     name: '',      // 拜访公司名字
     time: xx-xx,   // 拜访时间
-    result: 0,     // 拜访结果
+    result: '',    // 拜访结果
     note: ''       // 拜访备注
     content: ''    // 拜访内容
 }
@@ -463,7 +505,17 @@ post  `/api/v1/editVisit`
 ```javascript
 {
     succes: true/false,
-    message: ''
+    message: '',
+    data: {
+        id: xx,        // 拜访记录ID
+        name: '',      // 拜访公司名字
+        time: xx-xx,   // 拜访时间
+        uName: xx,     // 拜访员工名
+        eName: xx,     // 拜访员工真实姓名
+        result: '',    // 拜访结果
+        note: ''       // 拜访备注
+        content: ''    // 拜访内容
+    }
 }
 ```
 
@@ -491,6 +543,7 @@ get  `/api/v1/contract` 或 get  `/api/v1/contract?page=x`
             id: xx,        // 合同ID
             title: ''      // 合同标题
             name: '',      // 公司名字
+            eName: '',     // 合同跟进人真实姓名
             time: xx-xx,   // 合同时间
             state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
         },
@@ -506,8 +559,11 @@ get `/api/v1/contract?id=xx`
     message: '',
     data: {         // 合同详情
         id: xx,        // 合同ID
+        uid: xx,       // 合同跟进人id
         title: ''      // 合同标题
         name: '',      // 公司名字
+        uName: '',     // 合同跟进人账户
+        eName: '',     // 合同跟进人真实姓名
         time: xx-xx,   // 合同时间
         content: '',   // 合同内容
         result: '',    // 合同结果
@@ -522,10 +578,12 @@ get `/api/v1/searchContract`
 
 参数
 - companyName
+- eName
 
 示例:
 
 get `/api/v1/searchContract?companyName=xxx有限公司` (根据公司名搜索)
+get `/api/v1/searchContract?eName=xxx` (根据合同跟进人搜索)
 
 返回格式:
 ```javascript
@@ -537,6 +595,7 @@ get `/api/v1/searchContract?companyName=xxx有限公司` (根据公司名搜索)
             id: xx,        // 合同ID
             title: ''      // 合同标题
             name: '',      // 公司名字
+            eName: '',     // 合同跟进人真实姓名
             time: xx-xx,   // 合同时间
             state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
         },
@@ -552,6 +611,7 @@ post `/api/v1/addContract`
 ```javascript
 {
     id: xx,        // 合同ID (后台生成)
+    uid: xx,       // 合同跟进人id(添加人)
     title: ''      // 合同标题
     name: '',      // 公司名字
     time: xx-xx,   // 合同时间
@@ -577,6 +637,7 @@ post `/api/v1/editContract`
 ```javascript
 {
     id: xx,        // 合同ID
+    uid: xx,       // 合同跟进人id(添加人)  只能添加人修改或管理员修改
     title: ''      // 合同标题
     name: '',      // 公司名字
     time: xx-xx,   // 合同时间
@@ -590,7 +651,19 @@ post `/api/v1/editContract`
 返回格式:
 ```javascript
 {
-    success: true/false
-    message: ''
+    success: true/false,
+    message: '',
+    data: {
+        id: xx,        // 合同ID
+        title: ''      // 合同标题
+        name: '',      // 公司名字
+        uName: '',     // 合同跟进人账户
+        eName: '',     // 合同跟进人真实姓名
+        time: xx-xx,   // 合同时间
+        content: '',   // 合同内容
+        result: '',    // 合同结果
+        note: ''，     // 合同备注
+        state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
+    }
 }
 ```

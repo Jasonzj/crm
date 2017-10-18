@@ -29,7 +29,11 @@ export const setData = data => ({
 })
 
 export const getData = () => async (dispatch) => {
-    const data = await axios.get('/book/navigation')
-    dispatch(setData(data.data.data))
+    const data = await axios.post('/api/v1/login', {
+        user: 'admin',
+        pass: 'admin'
+    })
+    console.log(data)
+    // dispatch(setData(data.data.data))
 }
 
