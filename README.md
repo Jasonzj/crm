@@ -83,7 +83,7 @@ get  `/api/v1/userList` 或者  get `/api/v1/userList?page=1`
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     page: 8,            // 总页数
     currentPage: 1,     // 当前分页 
@@ -109,7 +109,7 @@ get `/api/v1/userList?uid=xxxx`
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: {
         uid: 111,         // 员工ID
@@ -150,7 +150,7 @@ get `/api/v1/searchUser?eName=张三`
 返回格式: 
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: [
         {
@@ -188,7 +188,7 @@ post `/api/v1/editUser`
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: {
         uid: xxx,
@@ -218,7 +218,7 @@ get  `/api/v1/business` 或 get `/api/v1/business?page=x`
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     page: 8,            // 总页数
     currentPage: 1,     // 当前分页
@@ -244,7 +244,7 @@ get  `/api/v1/business` 或 get `/api/v1/business?page=x`
 get `/api/v1/business?id=x`
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: {
         id: xxx,        // 商机ID
@@ -280,7 +280,7 @@ get `/api/v1/searchBusiness?companyName=xxx有限公司` (根据公司名搜索)
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: [
         {
@@ -325,7 +325,7 @@ post `/api/v1/editBusiness`
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: {
         id: xxx,        // 商机ID
@@ -371,7 +371,7 @@ post `/api/v1/addBusiness`
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: ''
 }
 ```
@@ -392,7 +392,7 @@ get `/api/v1/visit`
 get  `/api/v1/visit` 或 get `/api/v1/visit?page=x`
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     page: 8,            // 总页数
     currentPage: 1,     // 当前分页
@@ -415,7 +415,7 @@ get ` /visit?id=xx`
 
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: {
         id: xx,        // 拜访记录ID
@@ -446,7 +446,7 @@ get `/api/v1/searchVisit?eName=xxx` (根据拜访人搜索)
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: [             // 拜访记录列表
         {
@@ -480,7 +480,7 @@ post  `/api/v1/addVisit`
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: ''
 }
 ```
@@ -504,7 +504,7 @@ post  `/api/v1/editVisit`
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: {
         id: xx,        // 拜访记录ID
@@ -534,7 +534,7 @@ get  `/api/v1/contractList`
 get  `/api/v1/contract` 或 get  `/api/v1/contract?page=x`
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     page: 8,            // 总页数
     currentPage: 1,     // 当前分页
@@ -555,7 +555,7 @@ get  `/api/v1/contract` 或 get  `/api/v1/contract?page=x`
 get `/api/v1/contract?id=xx`
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: {         // 合同详情
         id: xx,        // 合同ID
@@ -588,7 +588,7 @@ get `/api/v1/searchContract?eName=xxx` (根据合同跟进人搜索)
 返回格式:
 ```javascript
 {
-    succes: true/false,
+    success: true/false,
     message: '',
     data: [         // 合同列表
         {
