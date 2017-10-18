@@ -29,9 +29,13 @@ export const setData = data => ({
 })
 
 export const getData = () => async (dispatch) => {
-    const data = await axios.post('/api/v1/login', {
-        user: 'admin',
-        pass: 'admin'
+    const data = await axios.post('/api/v1/editUser', {
+        uid: 'xxxxxxx',
+        user: 'zss',
+        name: '张三',
+        age: 18,
+        sex: 0,
+        tel: '13417730176'
     })
     console.log(data)
     // dispatch(setData(data.data.data))
