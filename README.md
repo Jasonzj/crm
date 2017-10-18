@@ -2,7 +2,7 @@
 
 > 以下 api 路径均以 api/v1 为前缀
 
-## 1. 登入注册
+## 1. 登入注册 
 
 ### POST/注册
 post `/api/v1/register`
