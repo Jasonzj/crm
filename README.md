@@ -1,10 +1,9 @@
 # CRM系统API文档V1
 
 > 以下 api 路径均以 api/v1 为前缀
+> 测试接口的default请无视
 
 [测试接口地址](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955/api/v1)
-
-> 测试接口的default请无视
 
 ## 1. 登入注册 
 
