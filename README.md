@@ -69,7 +69,7 @@ post `/api/v1/login`
 
 ## 2. 员工管理
 
-get `/api/v1/userList`
+get  `/api/v1/userList` 
 
 > 默认返回所有列表
 
@@ -80,7 +80,7 @@ get `/api/v1/userList`
 #### 示例:
 获取所有用户列表和获取单独一页用户列表:
 
-get  `/api/v1/userList` 或者  get `/api/v1/userList?page=1`
+get [/api/v1/userList](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955/api/v1/userList) 或者  get [/api/v1/userList?page=1](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955/api/v1/userList?page=1)
 
 返回格式:
 ```javascript
@@ -106,7 +106,7 @@ get  `/api/v1/userList` 或者  get `/api/v1/userList?page=1`
 
 获取用户详情：
 
-get `/api/v1/userList?uid=xxxx`
+get [/api/v1/userList?uid=1](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955/api/v1/userList?uid=1)
 
 返回格式:
 ```javascript
@@ -147,7 +147,7 @@ get `/api/v1/searchUser`
 
 示例:
 
-get `/api/v1/searchUser?eName=张三`
+get [/api/v1/searchUser?eName=张三](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955/api/v1/searchUser?eName=张三)
 
 返回格式: 
 ```javascript
