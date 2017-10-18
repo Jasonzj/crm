@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": '',
+  data: function({
+    _req,
+    Mock
+  }) {
+    return {
+      ..._req.body
+    }
+  }
+}

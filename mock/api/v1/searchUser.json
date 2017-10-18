@@ -1,0 +1,37 @@
+{
+  "success": function ({
+    _req
+  }) {
+    if (_req.query.eName) {
+      return true
+    }
+    return false
+  },
+  "message": '',
+  "data|1-5": [{
+    "id": "@id",
+    "user|+1": [
+      'zhangsan',
+      'lisi',
+      'sadxsx',
+      'dsaxasxas',
+      'zhadxngsan',
+      'zhanadgsan',
+      'sdwqeqweq',
+      'sdadxzz',
+      'ssdasd',
+      'xxxzaas',
+      'xxaaweewq',
+      'sdxqqweqe'
+    ],
+    "name": function({
+      _req
+    }) {
+      return _req.query.eName
+    },
+    "age|18-40": 40,
+    "sex|0-1": 0,
+    "tel": /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,
+    "state": 1
+  }]
+}

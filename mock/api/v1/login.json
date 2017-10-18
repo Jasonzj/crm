@@ -1,0 +1,51 @@
+{
+  success: function({
+    _req
+  }) {
+    var user = _req.body.user
+    var pass = _req.body.pass
+    if (user === 'admin' && pass === 'admin') {
+      return true
+    }
+    return false
+  },
+  message: function({
+    _req
+  }) {
+    var user = _req.body.user
+    var pass = _req.body.pass
+    if (user === 'admin' && pass === 'admin') {
+      return 1
+    }
+    return 0
+  },
+  data: function({
+    _req,
+    Mock
+  }) {
+    var user = _req.body.user
+    var pass = _req.body.pass
+    if (user === 'admin' && pass === 'admin') {
+      return Mock.mock({
+        "uid": "@id",
+        "user": user,
+        "name|1": [
+          '张三',
+          '李四',
+          '小红',
+          '胖虎',
+          '小泽玛利亚',
+          '小夫',
+          '熊xx',
+          '武松',
+          '李白',
+          '高渐离'
+        ],
+        "age|18-40": 40,
+        "sex|0-1": 0,
+        "tel": /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,
+        "state": 1
+      })
+    }
+  }
+}
