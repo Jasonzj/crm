@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import counter from './counter'
-import data from './data.js'
+import userManage from './userManage'
 
 const rootReducer = combineReducers({
     counter,
-    data
+    userManage
 })
 
 export default rootReducer
