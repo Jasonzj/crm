@@ -8,18 +8,18 @@ import {
 
 // components
 import HomeContainer from 'containers/HomeContainer'
-import HelloWorld from 'containers/HelloWorld'
+// import HelloWorld from 'containers/HelloWorld'
 
 // lazyContainer
-const HelloReact = asyncComponent(() => import(/* webpackChunkName: "HelloReact" */ '../containers/HelloReact/index'))
+// const HelloReact = asyncComponent(() => import(/* webpackChunkName: "HelloReact" */ '../containers/HelloReact/index'))
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../containers/404'))
 
 const RouteConfig = () => (
     <Router>
         <HomeContainer>
             <Switch>
-                <Route exact path="/" component={HelloWorld} />
-                <Route path="/react" component={HelloReact} />
+                {/* <Route exact path="/" component={HelloWorld} />
+                <Route path="/react" component={HelloReact} /> */}
                 <Route component={NotFound} />
             </Switch>
         </HomeContainer>

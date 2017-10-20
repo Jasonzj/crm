@@ -22,6 +22,18 @@ config.module.rules[1] = {
     include: base.SRC_PATH
 }
 
+config.module.rules[2] = {
+    test: /\.css$/,
+    use: [
+        {
+            loader: 'style-loader'
+        },
+        {
+            loader: 'css-loader'
+        }
+    ]
+}
+
 config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({

@@ -94,6 +94,23 @@ exports.config = {
                 include: SRC_PATH
             },
             {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        'css-loader',
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: loader => [
+                                    autoprefixer({ browsers: ['last 5 versions'] })
+                                ]
+                            }
+                        }
+                    ]
+                })
+            },
+            {
                 test: /\.(png|jpg|gif|svg)$/,
                 use: ['url-loader?limit=1000&name=files/[md5:hash:base64:10].[ext]'],
                 exclude: NODE_MODULES_PATH,

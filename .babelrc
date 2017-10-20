@@ -16,6 +16,7 @@
             "moduleName": "babel-runtime"
         }],
         "react-hot-loader/babel",
-        "transform-decorators-legacy"
+        "transform-decorators-legacy",
+        ["import", { "libraryName": "antd", "style": "css" }]
     ]
 }
