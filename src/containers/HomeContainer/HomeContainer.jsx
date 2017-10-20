@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout } from 'antd'
 
-const { Content, Header, Sider } = Layout
+const { Content, Header } = Layout
 
 // component
 import Sidebar from 'components/Sidebar'

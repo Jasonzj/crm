@@ -1,3 +1,3 @@
-import HomeContainer from './HomeContainer'
+import index from './HomeContainer'
 
-export default HomeContainer
+export default index
