@@ -1,5 +1,6 @@
 import instance from 'utils/instance'
 import { getUserListPage } from 'utils/api'
+import { actions as appActions } from './app'
 
 // Actions
 export const types = {
@@ -13,8 +14,10 @@ export const actions = {
         data
     }),
     getUserListPage: page => async (dispatch) => {
+        dispatch(appActions.startFetch())
         const data = await instance.get(getUserListPage(page))
         dispatch(actions.setUserLists(data.data.data))
+        dispatch(appActions.finishFetch())
     }
 }
 

@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Layout } from 'antd'
+import { Layout, Spin } from 'antd'
+import { Route } from 'react-router-dom'
 
 const { Content, Header } = Layout
 
+// container
+import UserManage from 'containers/UserManage'
+
 // component
 import Sidebar from 'components/Sidebar'
+import Loading from 'components/Loading'
 
-// style
-import './style.scss'
-
-const HomeContainer = ({ children }) => (
+const HomeContainer = ({ match }) => (
     <Layout className="ant-layout-has-sider">
         <Sidebar />
         <Layout>
@@ -18,14 +20,15 @@ const HomeContainer = ({ children }) => (
                 员工管理
             </Header>
             <Content className="main">
-                { children }
+                <Loading />
+                <Route exact path={match.url} component={UserManage} />
             </Content>
         </Layout>
     </Layout>
 )
 
 HomeContainer.propTypes = {
-    children: PropTypes.any
+    match: PropTypes.object
 }
 
 export default HomeContainer

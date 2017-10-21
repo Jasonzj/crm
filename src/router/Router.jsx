@@ -6,21 +6,22 @@ import {
     Switch
 } from 'react-router-dom'
 
-// components
+// container
 import HomeContainer from 'containers/HomeContainer'
-import UserManage from 'containers/UserManage'
+import SignIn from 'containers/SignIn'
 
 // lazyContainer
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../containers/404'))
 
 const RouteConfig = () => (
     <Router>
-        <HomeContainer>
+        <div style={{ height: '100%' }}>
             <Switch>
-                <Route exact path="/" component={UserManage} />
+                <Route exact path="/" component={HomeContainer} />
+                <Route path="/sign_in" component={SignIn} />
                 <Route component={NotFound} />
             </Switch>
-        </HomeContainer>
+        </div>
     </Router>
 )
 
