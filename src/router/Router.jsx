@@ -11,7 +11,6 @@ import HomeContainer from 'containers/HomeContainer'
 import UserManage from 'containers/UserManage'
 
 // lazyContainer
-// const HelloReact = asyncComponent(() => import(/* webpackChunkName: "HelloReact" */ '../containers/HelloReact/index'))
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../containers/404'))
 
 const RouteConfig = () => (
@@ -19,7 +18,6 @@ const RouteConfig = () => (
         <HomeContainer>
             <Switch>
                 <Route exact path="/" component={UserManage} />
-                {/* <Route path="/react" component={HelloReact} /> */}
                 <Route component={NotFound} />
             </Switch>
         </HomeContainer>

@@ -5,21 +5,20 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 // actions
-import * as userManage from 'action/userManage'
+import { actions } from 'reduxFile/userManage'
 
 @connect(
     state => ({
-        ...state
+        ...state.userManage
     }),
-    dispatch => bindActionCreators({ ...userManage }, dispatch)
+    dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class UserManage extends Component {
     componentWillMount() {
-        // const { userLists } = this.props
-        // if (userLists.length === 0) {
-        //     // this.props.getUserList(1)
-        // }
-        console.log(this.props)
+        const { userLists } = this.props
+        if (userLists.length === 0) {
+            this.props.getUserListPage(1)
+        }
     }
 
     render() {
@@ -33,7 +32,7 @@ class UserManage extends Component {
 
 UserManage.propTypes = {
     userLists: PropTypes.array,
-    getUserLists: PropTypes.func
+    getUserListPage: PropTypes.func
 }
 
 export default UserManage

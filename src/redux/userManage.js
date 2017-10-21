@@ -1,3 +1,4 @@
+import instance from 'utils/instance'
 import { getUserListPage } from 'utils/api'
 
 // Actions
@@ -12,13 +13,17 @@ export const actions = {
         data
     }),
     getUserListPage: page => async (dispatch) => {
-        const data = await axios.get(getUserListPage(page))
-        dispatch(setUserList(data.data.data))
+        const data = await instance.get(getUserListPage(page))
+        dispatch(actions.setUserLists(data.data.data))
     }
 }
 
+const initialState = {
+    userLists: []
+}
+
 // Reducer
-export default (state = {}, action) => {
+export default (state = initialState, action) => {
     switch (action.type) {
         case types.SET_USERLISTS:
             return {
