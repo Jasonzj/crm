@@ -12,7 +12,12 @@ config.module.rules[1] = {
             loader: 'style-loader'
         },
         {
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+                module: true,
+                sourceMap: true,
+                localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
         },
         {
             loader: 'sass-loader'

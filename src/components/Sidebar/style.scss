@@ -8,12 +8,12 @@
     color: #fff;
 }
 
-.logo--big {
+.logoBig {
     @extend %logo;
     font-size: 18px;
 }
 
-.logo--small {
+.logoSmall {
     @extend %logo;
     font-size: 14px;
 }

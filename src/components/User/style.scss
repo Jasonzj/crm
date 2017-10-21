@@ -1,0 +1,15 @@
+.user {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    height: 40px;
+    cursor: pointer;
+
+    span:hover {
+        box-shadow: 0 0 8px rgba(0,0,0,.1);
+    }
+    
+}

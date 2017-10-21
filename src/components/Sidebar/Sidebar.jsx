@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import { Layout, Menu, Icon } from 'antd'
-import './style.scss'
+
+// scss
+import styles from './style.scss'
 
 const { Sider } = Layout
 
@@ -17,13 +19,16 @@ class Sidebar extends PureComponent {
     }
 
     render() {
+        const { collapsed } = this.state
+        const { user } = this.props
+
         return (
             <Sider
-                collapsed={this.state.collapsed}
+                collapsed={collapsed}
                 onCollapse={this.onCollapse}
                 collapsible
             >
-                <div className={this.state.collapsed ? 'logo--small' : 'logo--small'}>
+                <div className={collapsed ? styles.logoSmall : styles.logoBig}>
                     CRM
                 </div>
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>

@@ -80,7 +80,14 @@ exports.config = {
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
-                        'css-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                module: true,
+                                sourceMap: true,
+                                localIdentName: '[name]__[local]___[hash:base64:5]'
+                            }
+                        },
                         {
                             loader: 'postcss-loader',
                             options: {
