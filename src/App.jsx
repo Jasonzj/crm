@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import Router from 'router'     // 路由配置
-import store from 'store'       // store
+import store from 'reduxFile'   // store
 import './app.scss'             // 全局样式
 
 const App = () => (

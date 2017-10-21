@@ -74,6 +74,7 @@
         "jsx-a11y/href-no-hash": 0,
         "no-undef": 0,
         "no-unused-vars": 0,
-        "import/no-mutable-exports": 0
+        "import/no-mutable-exports": 0,
+        "key-spacing": 0
     }
 }
