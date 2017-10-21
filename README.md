@@ -357,7 +357,6 @@ post `/api/v1/addBusiness`
 请求格式:
 ```javascript
 {
-    id: xxx,        // 商机ID
     uid: '',        // 员工id
     client: {
         name: xxx,           // 公司名称
@@ -376,7 +375,8 @@ post `/api/v1/addBusiness`
 ```javascript
 {
     success: true/false,
-    message: ''
+    message: '',
+    id: xxxxx       // 新建的商机ID
 }
 ```
 
@@ -485,7 +485,8 @@ post  `/api/v1/addVisit`
 ```javascript
 {
     success: true/false,
-    message: ''
+    message: ''，
+    id: xxxxx       // 新建的拜访ID
 }
 ```
 
@@ -629,8 +630,9 @@ post `/api/v1/addContract`
 返回格式:
 ```javascript
 {
-    success: true/false
-    message: ''
+    success: true/false,
+    message: '',
+    id: xxxxx       // 新建的合同ID
 }
 ```
 
