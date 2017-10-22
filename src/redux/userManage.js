@@ -1,10 +1,11 @@
 import instance from 'utils/instance'
-import { getUserListPage } from 'utils/api'
+import { getUserListPage, editorUser } from 'utils/api'
 import { actions as appActions } from './app'
 
 // Actions
 export const types = {
-    SET_USERLISTS: 'userManage/SET_USERLISTS'
+    SET_USERLISTS: 'userManage/SET_USERLISTS',
+    UPDATE_USER: 'userManage/UPDATE_USER',
 }
 
 // Action Creators
@@ -16,8 +17,14 @@ export const actions = {
     }),
     getUserListPage: page => async (dispatch) => {
         dispatch(appActions.startFetch())
-        const data = await instance.get(getUserListPage(page))
-        dispatch(actions.setUserLists(data.data))
+        const result = await instance.get(getUserListPage(page))
+        dispatch(actions.setUserLists(result.data))
+        dispatch(appActions.finishFetch())
+    },
+    updateUser: data => async (dispatch) => {
+        dispatch(appActions.startFetch())
+        const result = await instance.post(editorUser, data)
+        console.log(result)
         dispatch(appActions.finishFetch())
     }
 }

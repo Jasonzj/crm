@@ -20,6 +20,12 @@ import { actions } from 'reduxFile/app'
 // scss
 import styles from './style.scss'
 
+const breadcrumbNameMap = {
+    '/': 'Home',
+    '/userManage': 'User',
+}
+
+
 @connect(
     state => ({
         isFetching: state.app.isFetching,
