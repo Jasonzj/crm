@@ -3,7 +3,7 @@ import { Layout, Menu, Icon, Switch } from 'antd'
 import PropTypes from 'prop-types'
 
 // scss
-import styles from './style.scss'
+import styles from '../style'
 
 const { Sider } = Layout
 

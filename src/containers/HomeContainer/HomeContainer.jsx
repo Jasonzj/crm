@@ -11,8 +11,8 @@ const { Content, Header } = Layout
 import UserManage from 'containers/UserManage'
 
 // component
-import Sidebar from 'components/Sidebar'
-import User from 'components/User'
+import Sidebar from './subComponents/Sidebar.jsx'
+import User from './subComponents/User.jsx'
 
 // actions
 import { actions } from 'reduxFile/app'

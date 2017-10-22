@@ -6,7 +6,7 @@ const SubMenu = Menu.SubMenu
 const MenuItemGroup = Menu.ItemGroup
 
 // scss
-import styles from './style'
+import styles from '../style'
 
 const User = ({
     user,

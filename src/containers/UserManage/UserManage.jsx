@@ -4,8 +4,49 @@ import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+// component
+import Lists from 'components/Lists'
+
 // actions
 import { actions } from 'reduxFile/userManage'
+
+const columns = [
+    {
+        title: '姓名',
+        dataIndex: 'name',
+        render: text => <a href="#">{text}</a>,
+    },
+    {
+        title: '用户名',
+        dataIndex: 'user'
+    },
+    {
+        title: '年龄',
+        dataIndex: 'age'
+    },
+    {
+        title: '性别',
+        dataIndex: 'sex',
+        render: num => ['男', '女'][num]
+    },
+    {
+        title: '权限',
+        dataIndex: 'state',
+        render: num => ['管理员', '普通'][num]
+    },
+    {
+        title: '手机号码',
+        dataIndex: 'tel'
+    },
+    // {
+    //     title: 'Operation',
+    //     key: 'operation',
+    //     width: 100,
+    //     render: (text, record) => (
+    //         // <DropOption />
+    //     )
+    // }
+]
 
 @connect(
     state => ({
@@ -23,15 +64,20 @@ class UserManage extends Component {
         }
 
         // 判断登入
-        if (!signIn) {            
+        if (!signIn) {
             history.push('/sign_in')
         }
     }
 
     render() {
+        const { userLists } = this.props
+        
         return (
             <div>
-                1
+                <Lists
+                    data={userLists}
+                    columns={columns}
+                />
             </div>
         )
     }
