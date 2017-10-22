@@ -23,7 +23,7 @@ class UserManage extends Component {
         }
 
         // 判断登入
-        if (!signIn) {                
+        if (!signIn) {            
             history.push('/sign_in')
         }
     }

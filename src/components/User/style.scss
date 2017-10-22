@@ -1,7 +1,13 @@
 .user {
-    height: 100%;
-    display: flex;
-    align-items: center;
+    li {
+        height: 100%;
+    }
+    div {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .avatar {
@@ -11,5 +17,5 @@
     span:hover {
         box-shadow: 0 0 8px rgba(0,0,0,.1);
     }
-    
 }
+

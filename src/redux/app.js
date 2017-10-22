@@ -3,8 +3,8 @@ import { signIn } from 'utils/api'
 
 // Action
 export const types = {
-    SET_LOG_OUT:  'app/SET_LOG_OUT',
     SET_SIGN_IN:  'app/SET_SIGN_IN',
+    SET_SIGN_OUT:  'app/SET_SIGN_OUT',
     SET_ERROR:    'app/SET_ERROR',
     START_FETCH:  'app/START_FETCH',
     FINISH_FETCH: 'app/FINISH_FETCH',
@@ -12,7 +12,7 @@ export const types = {
 
 // Action Creators
 export const actions = {
-    setLogOut: () => ({ type: types.SET_LOG_OUT }),
+    setLogOut: () => ({ type: types.SET_SIGN_OUT }),
     setSignIn: data => ({ type: types.SET_SIGN_IN, data }),
     startFetch: () => ({ type: types.START_FETCH }),
     finishFetch: () => ({ type: types.FINISH_FETCH }),
@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
                 signIn: action.data.success,
                 user: { ...action.data.data }
             }
-        case types.SET_LOG_OUT:
+        case types.SET_SIGN_OUT:
             return { ...state, signIn: false }
         case types.SET_ERROR:
             return { ...state, error: action.data }

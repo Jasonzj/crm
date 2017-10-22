@@ -8,4 +8,17 @@
     display: flex;
     justify-content: space-between;
     background: #fff;
+    padding-left: 10px;
+}
+
+.trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: color .3s;
+
+    &:hover {
+        color: #108ee9;
+    }
 }

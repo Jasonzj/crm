@@ -17,3 +17,31 @@
     @extend %logo;
     font-size: 14px;
 }
+
+.inline {
+    background: #fff;
+}
+
+%switch {
+    width: 100%;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    align-items: center;
+    justify-content: space-around;
+    color: #999;
+}
+
+.dark {
+    @extend %switch;
+    background: #494949;
+}
+
+.light {
+    @extend %switch;
+}
+
+.bulb {
+    margin-right: 5px;
+}

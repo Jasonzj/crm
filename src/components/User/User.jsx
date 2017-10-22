@@ -1,32 +1,38 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { Avatar } from 'antd'
+import React from 'react'
+import { Avatar, Menu } from 'antd'
 import PropTypes from 'prop-types'
+
+const SubMenu = Menu.SubMenu
+const MenuItemGroup = Menu.ItemGroup
 
 // scss
 import styles from './style'
 
-@connect(
-    state => ({
-        user: state.app.user
-    })
+const User = ({
+    user,
+    onSignOut
+}) => (
+    <Menu
+        mode="horizontal"
+        className={styles.user}
+        onClick={onSignOut}
+    >
+        <SubMenu
+            title={
+                <Avatar size="large" src={user.avatar} />
+            }
+        >
+            <MenuItemGroup title={user.name} />
+            <Menu.Item key="signout">
+                Sign out
+            </Menu.Item>
+        </SubMenu>
+    </Menu>
 )
-class User extends PureComponent {
-    render() {
-        const { user } = this.props
-
-        return (
-            <div className={styles.user}>
-                <span className={styles.avatar}>
-                    <Avatar size="large" src={user.avatar} />
-                </span>
-            </div>
-        )
-    }
-}
 
 User.propTypes = {
-    user: PropTypes.object
+    user: PropTypes.object,
+    onSignOut: PropTypes.func
 }
 
 export default User
