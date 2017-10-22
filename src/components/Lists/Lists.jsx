@@ -4,16 +4,28 @@ import PropTypes from 'prop-types'
 
 const Lists = ({
     data,
-    columns
+    columns,
+    loading,
+    pagination,
+    rowSelection
 }) => (
     <div>
-        <Table dataSource={data} columns={columns} />
+        <Table
+            loading={loading}
+            dataSource={data}
+            columns={columns}
+            pagination={pagination}
+            rowSelection={rowSelection}
+        />
     </div>
 )
 
 Lists.propTypes = {
     data: PropTypes.array,
-    columns: PropTypes.array
+    loading: PropTypes.bool,
+    columns: PropTypes.array,
+    pagination: PropTypes.object,
+    rowSelection: PropTypes.object
 }
 
 export default Lists

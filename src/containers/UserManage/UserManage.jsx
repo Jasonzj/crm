@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 
 // component
 import Lists from 'components/Lists'
+import DropOption from 'components/DropOption'
 
 // actions
 import { actions } from 'reduxFile/userManage'
@@ -38,24 +39,48 @@ const columns = [
         title: '手机号码',
         dataIndex: 'tel'
     },
-    // {
-    //     title: 'Operation',
-    //     key: 'operation',
-    //     width: 100,
-    //     render: (text, record) => (
-    //         // <DropOption />
-    //     )
-    // }
+    {
+        title: 'Operation',
+        key: 'operation',
+        width: 100,
+        render: (text, record) => (
+            <DropOption
+                onMenuClick={e => console.log(record, e)}
+                menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
+            />
+        )
+    }
 ]
+
+const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
+    },
+    getCheckboxProps: record => ({
+        disabled: record.name === 'Disabled User', // Column configuration not to be checked
+    }),
+}
 
 @connect(
     state => ({
         ...state.userManage,
-        signIn: state.app.signIn
+        signIn: state.app.signIn,
+        isFetching: state.app.isFetching
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class UserManage extends Component {
+    constructor(props) {
+        super(props)
+        this.pagination = {
+            defaultCurrent: 1,
+            total: 300,
+            onChange(page) {
+                props.getUserListPage(page)
+            }
+        }
+    }
+
     componentWillMount() {
         const { userLists, signIn, history } = this.props
 
@@ -70,13 +95,16 @@ class UserManage extends Component {
     }
 
     render() {
-        const { userLists } = this.props
-        
+        const { userLists, isFetching } = this.props
+
         return (
             <div>
                 <Lists
                     data={userLists}
                     columns={columns}
+                    loading={isFetching}
+                    pagination={this.pagination}
+                    rowSelection={rowSelection}
                 />
             </div>
         )
@@ -87,6 +115,7 @@ UserManage.propTypes = {
     signIn: PropTypes.bool,
     history: PropTypes.object,
     userLists: PropTypes.array,
+    isFetching: PropTypes.bool,
     getUserListPage: PropTypes.func,
 }
 

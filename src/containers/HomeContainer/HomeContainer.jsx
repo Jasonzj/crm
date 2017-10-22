@@ -79,7 +79,7 @@ class HomeContainer extends PureComponent {
                         />
                     </Header>
                     <Content className={styles.main}>
-                        { isFetching && <Spin size="large" /> }
+                        {/* { isFetching && <Spin size="large" /> } */}
                         <Route exact path={match.url} component={UserManage} />
                     </Content>
                 </Layout>
