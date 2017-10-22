@@ -9,19 +9,21 @@ export const types = {
 
 // Action Creators
 export const actions = {
-    setUserLists: data => ({
+    setUserLists: ({ data, total, currentPage }) => ({
         type: types.SET_USERLISTS,
-        data
+        data,
+        total
     }),
     getUserListPage: page => async (dispatch) => {
         dispatch(appActions.startFetch())
         const data = await instance.get(getUserListPage(page))
-        dispatch(actions.setUserLists(data.data.data))
+        dispatch(actions.setUserLists(data.data))
         dispatch(appActions.finishFetch())
     }
 }
 
 const initialState = {
+    total: null,
     userLists: []
 }
 
@@ -31,7 +33,8 @@ export default (state = initialState, action) => {
         case types.SET_USERLISTS:
             return {
                 ...state,
-                userLists: action.data
+                total: action.total,
+                userLists: action.data.map(item => ({ ...item, key: item.id }))
             }
         default:
             return state

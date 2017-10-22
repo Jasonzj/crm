@@ -41,7 +41,6 @@ const columns = [
     },
     {
         title: 'Operation',
-        key: 'operation',
         width: 100,
         render: (text, record) => (
             <DropOption
@@ -57,7 +56,7 @@ const rowSelection = {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
     },
     getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', // Column configuration not to be checked
+        disabled: record.name === 'Disabled User'
     }),
 }
 
@@ -72,11 +71,13 @@ const rowSelection = {
 class UserManage extends Component {
     constructor(props) {
         super(props)
+
+        const { total, getUserListPage } = props
         this.pagination = {
-            defaultCurrent: 1,
-            total: 300,
+            total,
+            showQuickJumper: true,
             onChange(page) {
-                props.getUserListPage(page)
+                getUserListPage(page)
             }
         }
     }
@@ -113,9 +114,11 @@ class UserManage extends Component {
 
 UserManage.propTypes = {
     signIn: PropTypes.bool,
+    total: PropTypes.number,
     history: PropTypes.object,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,
+    currentPage: PropTypes.number,
     getUserListPage: PropTypes.func,
 }
 
