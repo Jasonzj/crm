@@ -7,7 +7,8 @@ const Loading = ({ spinning }) => {
     return (
         <div
             className={classNames(styles.loader, {
-                [styles.hidden]: !spinning
+                [styles.hidden]: !spinning,
+                [styles.fullScreen]: true
             })}
         >
             <div className={styles.warpper}>

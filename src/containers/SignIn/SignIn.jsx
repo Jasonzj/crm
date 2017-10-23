@@ -9,6 +9,8 @@ import styles from './style'
 // action
 import { actions } from 'reduxFile/app'
 
+import Loading from 'components/Loading'
+
 const FormItem = Form.Item
 
 @connect(
@@ -54,10 +56,11 @@ class SignIn extends Component {
     }
 
     render() {
-        const { isFetching, form: { getFieldDecorator } } = this.props
+        const { isFetching, loading, form: { getFieldDecorator } } = this.props
 
         return (
             <div className={styles.signIn}>
+                <Loading spinning={loading} />
                 <div className={styles.main}>
                     <div className={styles.title}>
                         <Link to={'/sign_in'} className={styles.active}>
