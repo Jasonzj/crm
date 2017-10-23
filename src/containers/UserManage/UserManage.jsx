@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
-import { Avatar } from 'antd'
+import { Avatar, Table } from 'antd'
 import PropTypes from 'prop-types'
 
 // component
@@ -51,6 +51,7 @@ class UserManage extends Component {
                 title: '姓名',
                 dataIndex: 'name',
                 render: text => <a href="#">{text}</a>,
+                sorter: (a, b) => a.name.length - b.name.length
             },
             {
                 title: '用户名',
@@ -58,12 +59,18 @@ class UserManage extends Component {
             },
             {
                 title: '年龄',
-                dataIndex: 'age'
+                dataIndex: 'age',
+                sorter: (a, b) => a.age - b.age,
             },
             {
                 title: '性别',
                 dataIndex: 'sex',
-                render: num => ['男', '女'][num]
+                render: num => ['男', '女'][num],
+                filters: [
+                    { text: '男', value: 0 },
+                    { text: '女', value: 1 },
+                ],
+                onFilter: (value, record) => record.sex == value
             },
             {
                 title: '权限',
@@ -105,17 +112,23 @@ class UserManage extends Component {
         }
     }
 
+    handleChange = (pagination, filters, sorter) => {
+        console.log('Various parameters', pagination, filters, sorter)
+    }
+
     render() {
         const { userLists, isFetching } = this.props
 
         return (
             <div>
-                <Lists
-                    data={userLists}
+                <Table
+                    scroll={{ x: 800 }}
+                    dataSource={userLists}
                     columns={this.columns}
                     loading={isFetching}
                     pagination={this.pagination}
                     rowSelection={rowSelection}
+                    onChange={this.handleChange}
                 />
             </div>
         )
