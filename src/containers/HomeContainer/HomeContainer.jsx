@@ -15,7 +15,7 @@ import Sidebar from './subComponents/Sidebar.jsx'
 import User from './subComponents/User.jsx'
 
 // actions
-import { actions } from 'reduxFile/app'
+import { actions } from 'ducks/app'
 
 // scss
 import styles from './style.scss'

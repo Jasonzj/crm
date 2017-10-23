@@ -14,7 +14,7 @@ const APP_PATH = resolve(SRC_PATH, 'entry.js')
 const BUILD_PATH = resolve(ROOT_PATH, 'build')
 const NODE_MODULES_PATH = resolve(ROOT_PATH, 'node_modules')
 const ACTION_PATH = resolve(ROOT_PATH, 'src/redux/action')
-const REDUX_PATH = resolve(ROOT_PATH, 'src/redux')
+const DUCKS_PATH = resolve(ROOT_PATH, 'src/ducks')
 const REDUCERS_PATH = resolve(ROOT_PATH, 'src/redux/reducers')
 const STORE_PATH = resolve(ROOT_PATH, 'src/redux/store')
 const ROUTER_PATH =  resolve(ROOT_PATH, 'src/router')
@@ -57,7 +57,7 @@ exports.config = {
         alias: {
             action: ACTION_PATH,
             reducers: REDUCERS_PATH,
-            reduxFile: REDUX_PATH,
+            ducks: DUCKS_PATH,
             store: STORE_PATH,
             router: ROUTER_PATH,
             components: COMPONENTS_PATH,

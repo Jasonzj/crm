@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import styles from './style'
 
 // action
-import { actions } from 'reduxFile/app'
+import { actions } from 'ducks/app'
 
 import Loading from 'components/Loading'
 

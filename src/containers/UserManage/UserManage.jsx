@@ -10,7 +10,7 @@ import Lists from 'components/Lists'
 import DropOption from 'components/DropOption'
 
 // actions
-import { actions } from 'reduxFile/userManage'
+import { actions } from 'ducks/userManage'
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
