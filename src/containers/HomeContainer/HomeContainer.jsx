@@ -32,8 +32,8 @@ const breadcrumbNameMap = {
         user: state.app.user
     }),
     dispatch => ({
-        setLogOut() {
-            dispatch(actions.setLogOut())
+        setSignOut() {
+            dispatch(actions.setSignOut())
         }
     })
 )
@@ -46,17 +46,13 @@ class HomeContainer extends PureComponent {
         }
     }
 
-    onCollapse = () => {
-        this.setState({ collapsed: !this.state.collapsed })
-    }
-
-    changeTheme = () => {
-        this.setState({ sideInline: !this.state.sideInline })
+    onChangeState = state => () => {
+        this.setState({ [state]: !this.state[state] })
     }
 
     onSignOut = (e) => {
         if (e.key === 'signout') {
-            this.props.setLogOut()
+            this.props.setSignOut()
             this.props.history.push('/sign_in')
         }
     }
@@ -70,14 +66,14 @@ class HomeContainer extends PureComponent {
                 <Sidebar
                     collapsed={collapsed}
                     sideInline={sideInline}
-                    changeTheme={this.changeTheme}
+                    changeTheme={this.onChangeState('sideInline')}
                 />
                 <Layout>
                     <Header className={styles.header}>
                         <Icon
                             className={styles.trigger}
                             type={collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.onCollapse}
+                            onClick={this.onChangeState('collapsed')}
                         />
                         <User
                             user={user}
@@ -97,7 +93,7 @@ HomeContainer.propTypes = {
     user: PropTypes.object,
     match: PropTypes.object,
     history: PropTypes.object,
-    setLogOut: PropTypes.func,
+    setSignOut: PropTypes.func,
     isFetching: PropTypes.bool
 }
 
