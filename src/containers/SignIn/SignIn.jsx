@@ -13,7 +13,8 @@ const FormItem = Form.Item
 
 @connect(
     state => ({
-        signIn: state.app.signIn
+        signIn: state.app.signIn,
+        loading: state.app.loading
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
@@ -23,10 +24,17 @@ class SignIn extends Component {
         this.jumpIndex(signIn, history)
     }
 
+    componentDidUpdate() {
+        const { loading, finishLoader } = this.props
+        loading && finishLoader()
+    }
+
+    componentWillUnmount() {
+        this.props.startLoader()
+    }
+
     jumpIndex(bool, history) {
-        if (bool) {
-            history.push('/')
-        }
+        bool && history.push('/')
     }
 
     handleSubmit = (e) => {
@@ -40,7 +48,7 @@ class SignIn extends Component {
                     if (success) {
                         message.info(message)
                         this.jumpIndex(success, history)
-                        return true
+                        return success
                     }
                     message.error(message)
                 })
@@ -109,13 +117,16 @@ class SignIn extends Component {
     }
 }
 
-const Index = Form.create()(SignIn);
+const Index = Form.create()(SignIn)
 
 SignIn.propTypes = {
     login: PropTypes.func,
     form: PropTypes.object,
     signIn: PropTypes.bool,
     history: PropTypes.object,
+    loading: PropTypes.bool,
+    startLoader: PropTypes.func,
+    finishLoader: PropTypes.func,
     getFieldDecorator: PropTypes.func,
 }
 
