@@ -11,9 +11,6 @@ import DropOption from 'components/DropOption'
 
 // actions
 import { actions } from 'reduxFile/userManage'
-import { actions as appActions } from 'reduxFile/app'
-
-const { finishLoader, startLoader } = appActions
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -28,10 +25,9 @@ const rowSelection = {
     state => ({
         ...state.userManage,
         signIn: state.app.signIn,
-        isFetching: state.app.isFetching,
-        loading: state.app.loading
+        isFetching: state.app.isFetching
     }),
-    dispatch => bindActionCreators({ ...actions, finishLoader, startLoader }, dispatch)
+    dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class UserManage extends Component {
     constructor(props) {
@@ -110,8 +106,7 @@ class UserManage extends Component {
     }
 
     render() {
-        const { userLists, isFetching, loading, finishLoader } = this.props
-        loading && finishLoader()
+        const { userLists, isFetching } = this.props
 
         return (
             <div>
@@ -132,9 +127,7 @@ UserManage.propTypes = {
     total: PropTypes.number,
     history: PropTypes.object,
     userLists: PropTypes.array,
-    loading: PropTypes.bool,
     isFetching: PropTypes.bool,
-    finishLoader: PropTypes.func,
     getUserListPage: PropTypes.func,
 }
 

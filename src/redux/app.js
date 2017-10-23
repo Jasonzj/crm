@@ -22,8 +22,10 @@ export const actions = {
     finishLoader: () => ({ type: types.FINISH_LOADER }),
     setError: error => ({ type: types.SET_ERROR, data: error }),
     login: values => async (dispatch) => {
+        dispatch(actions.startFetch())
         const data = await instance.post(signIn, values)
         dispatch(actions.setSignIn(data.data))
+        dispatch(actions.finishFetch())
         return data
     }
 }
@@ -52,11 +54,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 signIn: data.success,
-                user: {
-                    name: data.data.name,
-                    uid: data.data.uid,
-                    avatar: data.data.avatar
-                }
+                user: data.data
             }
         case types.SET_SIGN_OUT:
             return { ...state, signIn: false }

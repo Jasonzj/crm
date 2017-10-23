@@ -14,7 +14,8 @@ const FormItem = Form.Item
 @connect(
     state => ({
         signIn: state.app.signIn,
-        loading: state.app.loading
+        loading: state.app.loading,
+        isFetching: state.app.isFetching
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
@@ -27,10 +28,6 @@ class SignIn extends Component {
     componentDidUpdate() {
         const { loading, finishLoader } = this.props
         loading && finishLoader()
-    }
-
-    componentWillUnmount() {
-        this.props.startLoader()
     }
 
     jumpIndex(bool, history) {
@@ -57,7 +54,7 @@ class SignIn extends Component {
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form
+        const { isFetching, form: { getFieldDecorator } } = this.props
 
         return (
             <div className={styles.signIn}>
@@ -106,6 +103,7 @@ class SignIn extends Component {
                                 type="primary"
                                 htmlType="submit"
                                 className={styles.button}
+                                loading={isFetching}
                             >
                                 登入
                             </Button>
@@ -125,7 +123,7 @@ SignIn.propTypes = {
     signIn: PropTypes.bool,
     history: PropTypes.object,
     loading: PropTypes.bool,
-    startLoader: PropTypes.func,
+    isFetching: PropTypes.bool,
     finishLoader: PropTypes.func,
     getFieldDecorator: PropTypes.func,
 }

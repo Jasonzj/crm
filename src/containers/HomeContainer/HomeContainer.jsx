@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Layout, Spin, Icon } from 'antd'
+import { Layout, Icon } from 'antd'
 import { Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -85,7 +85,6 @@ class HomeContainer extends PureComponent {
                         />
                     </Header>
                     <Content className={styles.main}>
-                        {/* { isFetching && <Spin size="large" /> } */}
                         <Route exact path={match.url} component={UserManage} />
                     </Content>
                 </Layout>
