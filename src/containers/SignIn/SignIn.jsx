@@ -42,7 +42,7 @@ class SignIn extends Component {
     }
 
     jumpIndex(bool, history) {
-        bool && history.push('/')
+        bool && history.push('/admin/user')
     }
 
     handleSubmit = (e) => {
@@ -73,11 +73,11 @@ class SignIn extends Component {
                 <Loading spinning={loading} />
                 <div className={styles.main}>
                     <div className={styles.title}>
-                        <Link to={'/sign_in'} className={styles.active}>
+                        <Link to={'admin/sign_in'} className={styles.active}>
                             登入
                         </Link>
                         <b>·</b>
-                        <Link to={'/sign_up'}>
+                        <Link to={'admin/sign_up'}>
                             注册
                         </Link>
                     </div>

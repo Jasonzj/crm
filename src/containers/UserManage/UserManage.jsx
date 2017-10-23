@@ -24,24 +24,35 @@ const rowSelection = {
 @connect(
     state => ({
         ...state.userManage,
-        signIn: state.app.signIn,
         isFetching: state.app.isFetching
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class UserManage extends Component {
-    constructor(props) {
-        super(props)
+    componentWillMount() {
+        const { userLists, history } = this.props
 
-        const { total, getUserListPage } = props
-        this.pagination = {
+        if (userLists.length === 0) {
+            this.props.getUserListPage(1)
+        }
+    }
+
+    updateUser = (record, e) => {
+        if (e.key === '1') {
+            // this.props.updateUser(record)
+        }
+    }
+
+    render() {
+        const { userLists, isFetching, total, getUserListPage } = this.props
+        const pagination = {
             total,
             showQuickJumper: true,
             onChange(page) {
                 getUserListPage(page)
             }
         }
-        this.columns = [
+        const columns = [
             {
                 title: '头像',
                 dataIndex: 'avatar',
@@ -92,43 +103,16 @@ class UserManage extends Component {
                 )
             }
         ]
-    }
-
-    componentWillMount() {
-        const { userLists, signIn, history } = this.props
-
-        if (userLists.length === 0) {
-            this.props.getUserListPage(1)
-        }
-
-        // 判断登入
-        if (!signIn) {
-            history.push('/sign_in')
-        }
-    }
-    updateUser = (record, e) => {
-        if (e.key === '1') {
-            // this.props.updateUser(record)
-        }
-    }
-
-    handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter)
-    }
-
-    render() {
-        const { userLists, isFetching } = this.props
 
         return (
             <div>
                 <Table
                     scroll={{ x: 800 }}
                     dataSource={userLists}
-                    columns={this.columns}
+                    columns={columns}
                     loading={isFetching}
-                    pagination={this.pagination}
+                    pagination={pagination}
                     rowSelection={rowSelection}
-                    onChange={this.handleChange}
                 />
             </div>
         )
@@ -136,7 +120,6 @@ class UserManage extends Component {
 }
 
 UserManage.propTypes = {
-    signIn: PropTypes.bool,
     total: PropTypes.number,
     history: PropTypes.object,
     userLists: PropTypes.array,

@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Layout, Icon } from 'antd'
 import { Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import localStore from 'utils/localStore'
+import asyncComponent from '../../AsyncComponent'
 
 const { Content, Header } = Layout
 
-// container
-import UserManage from 'containers/UserManage'
+// lazyContainer
+const UserManage = asyncComponent(() => import(/* webpackChunkName: "UserManage" */ '../UserManage'))
 
 // component
 import Sidebar from './subComponents/Sidebar.jsx'
@@ -21,16 +21,11 @@ import { actions } from 'ducks/app'
 // scss
 import styles from './style.scss'
 
-const breadcrumbNameMap = {
-    '/': 'Home',
-    '/userManage': 'User',
-}
-
-
 @connect(
     state => ({
         isFetching: state.app.isFetching,
-        user: state.app.user
+        user: state.app.user,
+        signIn: state.app.signIn,
     }),
     dispatch => ({
         setSignOut() {
@@ -46,6 +41,11 @@ class HomeContainer extends PureComponent {
             collapsed: false,
             sideInline
         }
+    }
+
+    componentWillMount() {
+        const { signIn, history } = this.props
+        !signIn && history.push('/sign_in')
     }
 
     onChangeState = state => () => {
@@ -85,7 +85,7 @@ class HomeContainer extends PureComponent {
                         />
                     </Header>
                     <Content className={styles.main}>
-                        <Route exact path={match.url} component={UserManage} />
+                        <Route exact path={`${match.url}/user`} component={UserManage} />
                     </Content>
                 </Layout>
             </Layout>
@@ -95,10 +95,11 @@ class HomeContainer extends PureComponent {
 
 HomeContainer.propTypes = {
     user: PropTypes.object,
+    signIn: PropTypes.bool,
     match: PropTypes.object,
     history: PropTypes.object,
     setSignOut: PropTypes.func,
-    isFetching: PropTypes.bool
+    isFetching: PropTypes.bool,
 }
 
 export default HomeContainer

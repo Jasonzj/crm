@@ -1,33 +1,26 @@
 import React from 'react'
-import asyncComponent from '../AsyncComponent.js'
+import asyncComponent from '../AsyncComponent'
 import {
     HashRouter as Router,
     Route,
-    Switch
+    Switch,
+    Redirect
 } from 'react-router-dom'
-import PropTypes from 'prop-types'
-
-// container
-import HomeContainer from 'containers/HomeContainer'
-import SignIn from 'containers/SignIn'
 
 // lazyContainer
+const HomeContainer = asyncComponent(() => import(/* webpackChunkName: "HomeContainer" */ '../containers/HomeContainer'))
+const SignIn = asyncComponent(() => import(/* webpackChunkName: "SignIn" */ '../containers/SignIn'))
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../containers/404'))
 
-const RouteConfig = ({ loading }) => (
+const RouteConfig = () => (
     <Router>
-        <div style={{ height: '100%' }}>
-            <Switch>
-                <Route exact path="/" component={HomeContainer} />
-                <Route path="/sign_in" component={SignIn} />
-                <Route component={NotFound} />
-            </Switch>
-        </div>
+        <Switch>
+            <Route exact path="/" render={() => (<Redirect to="/admin" />)} />
+            <Route path="/admin" component={HomeContainer} />
+            <Route path="/sign_in" component={SignIn} />
+            <Route component={NotFound} />
+        </Switch>
     </Router>
 )
-
-RouteConfig.propTypes = {
-    loading: PropTypes.bool
-}
 
 export default RouteConfig
