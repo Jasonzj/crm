@@ -82,10 +82,14 @@ class SignIn extends Component {
                         </Link>
                     </div>
                     <Form onSubmit={this.handleSubmit} className={styles.form}>
-                        <FormItem>
+                        <FormItem hasFeedback>
                             {
                                 getFieldDecorator('user', {
-                                    rules: [{ required: true, message: '请输入你的用户名!' }],
+                                    rules: [
+                                        { required: true, message: '请输入你的用户名!' },
+                                        { min: 5, message: '最小长度不能低于5' },
+                                        { max: 18, message: '最大长度不能超过18' }
+                                    ],
                                 })(
                                     <Input
                                         size="large"
@@ -95,10 +99,14 @@ class SignIn extends Component {
                                 )
                             }
                         </FormItem>
-                        <FormItem>
+                        <FormItem hasFeedback>
                             {
                                 getFieldDecorator('pass', {
-                                    rules: [{ required: true, message: '请输入你的密码!' }],
+                                    rules: [
+                                        { required: true, message: '请输入你的密码!' },
+                                        { min: 5, message: '最小长度不能低于5' },
+                                        { max: 18, message: '最大长度不能超过18' }
+                                    ],
                                 })(
                                     <Input
                                         size="large"

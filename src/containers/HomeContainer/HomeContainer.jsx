@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Layout, Icon } from 'antd'
 import { Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import localStore from 'utils/localStore'
 
 const { Content, Header } = Layout
 
@@ -40,14 +41,17 @@ const breadcrumbNameMap = {
 class HomeContainer extends PureComponent {
     constructor() {
         super()
+        const sideInline = localStore.fetch('sideInline') || false
         this.state = {
             collapsed: false,
-            sideInline: false
+            sideInline
         }
     }
 
     onChangeState = state => () => {
-        this.setState({ [state]: !this.state[state] })
+        const value = !this.state[state]
+        this.setState({ [state]: value })
+        if (state === 'sideInline') localStore.save(state, value)
     }
 
     onSignOut = (e) => {
