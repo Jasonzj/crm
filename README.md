@@ -84,13 +84,14 @@ get  `/api/v1/userList`
 
 get [/api/v1/userList](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955/api/v1/userList) 或者  get [/api/v1/userList?page=1](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955/api/v1/userList?page=1)
 
+> 默认10条一个分页
+
 返回格式:
 ```javascript
 {
     success: true/false,
     message: '',
-    page: 8,            // 总页数
-    currentPage: 1,     // 当前分页 
+    total: 133,   // 员工总数
     data: [
         {
             uid: 111,        // 员工ID
@@ -99,7 +100,8 @@ get [/api/v1/userList](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9ad955/a
             age: 18,         // 员工年龄
             sex: 0,          // 员工性别 0(男)/1(女)
             tel: '12222222', // 员工电话
-            state: 0         // 0(管理员)/1(员工)
+            state: 0，       // 0(管理员)/1(员工)
+            avatar: "http://dummyimage.com/'100x100'/f2d479/#757575'&text='png"  // 头像
         },
         ...
     ]
@@ -122,21 +124,8 @@ get [/api/v1/userList?uid=1](https://www.easy-mock.com/mock/59e6fb7d750b1a6a0b9a
         age: 18,          // 员工年龄
         sex: 0,           // 员工性别 0(男)/1(女)
         tel: 12222222,    // 员工电话
-        state: 0,         // 0(管理员)/1(员工)
-        business: [       // 商机
-            {
-                id: xxx,        // 商机ID
-                client: {       // 客户信息
-                    name: xxx,           // 公司名称
-                    type: xxx,           // 公司类型
-                    contact: 'xxxx',     // 联系人
-                    contactTel: 111,     // 联系人电话
-                    contactPost: 'xxx',  // 联系人职位
-                    time: xxx            // 创建时间
-                }
-            },
-            ...
-        ]
+        state: 0，        // 0(管理员)/1(员工)
+        avatar: "http://dummyimage.com/'100x100'/f2d479/#757575'&text='png"  // 头像
     }
 }
 ```
@@ -156,6 +145,7 @@ get [/api/v1/searchUser?eName=张三](https://www.easy-mock.com/mock/59e6fb7d750
 {
     success: true/false,
     message: '',
+    total: 4,       // 员工总数
     data: [
         {
             uid: 111,        // 员工ID
@@ -164,7 +154,8 @@ get [/api/v1/searchUser?eName=张三](https://www.easy-mock.com/mock/59e6fb7d750
             age: 18,         // 员工年龄
             sex: 0,          // 员工性别 0(男)/1(女)
             tel: '12222222', // 员工电话
-            state: 0         // 0(管理员)/1(员工)
+            state: 0,        // 0(管理员)/1(员工)
+            avatar: "http://dummyimage.com/'100x100'/f2d479/#757575'&text='png"  // 头像
         },
         ...
     ]
@@ -193,17 +184,29 @@ post `/api/v1/editUser`
 ```javascript
 {
     success: true/false,
-    message: '',
-    data: {
-        uid: xxx,
-        user: 'zss',
-        name: '张三',
-        age: 18,
-        sex: xx,
-        tel: '12222222'
-    }
+    message: ''
 }
 ```
+
+### POST/删除用户
+post `/api/v1/removeUser`
+
+请求格式:
+```javascript
+{
+    uid: xxx,  // 当前操作用户ID 用于权限认证 (只能管理员删除)
+    removeId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
+}
+```
+
+返回格式:
+```javascript
+{
+    success: true/false,
+    message: ''
+}
+```
+
 
 ## 3. 商机
 get `/api/v1/business`
@@ -224,11 +227,11 @@ get  `/api/v1/business` 或 get `/api/v1/business?page=x`
 {
     success: true/false,
     message: '',
-    page: 8,            // 总页数
-    currentPage: 1,     // 当前分页
+    total: 133,     // 商机总数
     data: [
         {
             id: xxx,        // 商机ID
+            uid: '',        // 员工id
             eName: '',      // 员工真实姓名
             client: {       // 客户信息
                 name: xxx,           // 公司名称
@@ -286,9 +289,11 @@ get `/api/v1/searchBusiness?companyName=xxx有限公司` (根据公司名搜索)
 {
     success: true/false,
     message: '',
+    total: 4,     // 商机总数
     data: [
         {
             id: xxx,        // 商机ID
+            uid: '',        // 员工id
             eName: '',      // 员工真实姓名
             client: {       // 客户信息
                 name: xxx,           // 公司名称
@@ -330,23 +335,7 @@ post `/api/v1/editBusiness`
 ```javascript
 {
     success: true/false,
-    message: '',
-    data: {
-        id: xxx,        // 商机ID
-        uid: '',        // 员工id
-        uName: '',      // 员工账户名
-        eName: '',      // 员工真实姓名
-        client: {
-            name: xxx,           // 公司名称
-            type: xxx,           // 公司类型
-            contact: 'xxxx',     // 联系人
-            contactTel: 111,     // 联系人电话
-            contactPost: 'xxx',  // 联系人职位
-            time: xxx,           // 创建时间
-            intro: `xxxxxxxxxx`  // 公司简介
-            address: 'xxx'       // 公司地址
-        }
-    }
+    message: ''
 }
 ```
 
@@ -380,6 +369,25 @@ post `/api/v1/addBusiness`
 }
 ```
 
+### POST/删除商机
+post `/api/v1/removeBusiness`
+
+请求格式:
+```javascript
+{
+    uid: xxx,  // 当前操作用户ID 用于权限认证 (管理员都能删除， 员工只能删除自己的商机)
+    removeId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
+}
+```
+
+返回格式:
+```javascript
+{
+    success: true/false,
+    message: ''
+}
+```
+
 ## 3. 拜访
 get `/api/v1/visit`
 > 默认返回所有记录
@@ -398,12 +406,12 @@ get  `/api/v1/visit` 或 get `/api/v1/visit?page=x`
 {
     success: true/false,
     message: '',
-    page: 8,            // 总页数
-    currentPage: 1,     // 当前分页
+    total: 133,         // 总拜访数
     data: [             // 拜访记录列表
         {
             id: xx,        // 拜访记录ID
             name: '',      // 拜访公司名字
+            uid: '',       // 拜访员工id
             eName: xx,     // 拜访员工真实姓名
             time: xx-xx,   // 拜访时间
             result: '',    // 拜访结果
@@ -452,10 +460,12 @@ get `/api/v1/searchVisit?eName=xxx` (根据拜访人搜索)
 {
     success: true/false,
     message: '',
+    total: 4,           // 总拜访数
     data: [             // 拜访记录列表
         {
             id: xx,        // 拜访记录ID
             name: '',      // 拜访公司名字
+            uid: xx,       // 拜访员工id
             eName: xx,     // 拜访员工真实姓名
             time: xx-xx,   // 拜访时间
             result: '',    // 拜访结果
@@ -510,17 +520,26 @@ post  `/api/v1/editVisit`
 ```javascript
 {
     success: true/false,
-    message: '',
-    data: {
-        id: xx,        // 拜访记录ID
-        name: '',      // 拜访公司名字
-        time: xx-xx,   // 拜访时间
-        uName: xx,     // 拜访员工名
-        eName: xx,     // 拜访员工真实姓名
-        result: '',    // 拜访结果
-        note: ''       // 拜访备注
-        content: ''    // 拜访内容
-    }
+    message: ''
+}
+```
+
+### POST/删除拜访
+post `/api/v1/removeVisit`
+
+请求格式:
+```javascript
+{
+    uid: xxx,  // 当前操作用户ID 用于权限认证 (管理员都能删除， 员工只能删除自己的拜访)
+    removeId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
+}
+```
+
+返回格式:
+```javascript
+{
+    success: true/false,
+    message: ''
 }
 ```
 
@@ -541,13 +560,13 @@ get  `/api/v1/contract` 或 get  `/api/v1/contract?page=x`
 {
     success: true/false,
     message: '',
-    page: 8,            // 总页数
-    currentPage: 1,     // 当前分页
+    total: 133,         // 合同总数
     data: [             // 合同列表
         {
             id: xx,        // 合同ID
             title: ''      // 合同标题
             name: '',      // 公司名字
+            uid: xx,       // 合同跟进人id
             eName: '',     // 合同跟进人真实姓名
             time: xx-xx,   // 合同时间
             state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
@@ -595,11 +614,13 @@ get `/api/v1/searchContract?eName=xxx` (根据合同跟进人搜索)
 {
     success: true/false,
     message: '',
+    total: 4,       // 合同总数
     data: [         // 合同列表
         {
             id: xx,        // 合同ID
             title: ''      // 合同标题
             name: '',      // 公司名字
+            uid: xx,       // 合同跟进人id
             eName: '',     // 合同跟进人真实姓名
             time: xx-xx,   // 合同时间
             state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
@@ -658,18 +679,25 @@ post `/api/v1/editContract`
 ```javascript
 {
     success: true/false,
-    message: '',
-    data: {
-        id: xx,        // 合同ID
-        title: ''      // 合同标题
-        name: '',      // 公司名字
-        uName: '',     // 合同跟进人账户
-        eName: '',     // 合同跟进人真实姓名
-        time: xx-xx,   // 合同时间
-        content: '',   // 合同内容
-        result: '',    // 合同结果
-        note: ''，     // 合同备注
-        state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
-    }
+    message: ''
+}
+```
+
+### POST/删除拜访
+post `/api/v1/removeContract`
+
+请求格式:
+```javascript
+{
+    uid: xxx,  // 当前操作用户ID 用于权限认证 (管理员都能删除， 员工只能删除自己的合同)
+    removeId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
+}
+```
+
+返回格式:
+```javascript
+{
+    success: true/false,
+    message: ''
 }
 ```
