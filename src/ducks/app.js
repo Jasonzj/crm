@@ -17,7 +17,7 @@ export const actions = {
     startFetch: () => ({ type: types.START_FETCH }),
     finishFetch: () => ({ type: types.FINISH_FETCH }),
     setError: error => ({ type: types.SET_ERROR, data: error }),
-    login: values => async (dispatch) => {
+    onSignIn: values => async (dispatch) => {
         dispatch(actions.startFetch())
         const data = await instance.post(signIn, values)
         dispatch(actions.setSignIn(data.data))

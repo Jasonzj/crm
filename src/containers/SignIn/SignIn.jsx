@@ -16,20 +16,29 @@ const FormItem = Form.Item
 @connect(
     state => ({
         signIn: state.app.signIn,
-        loading: state.app.loading,
         isFetching: state.app.isFetching
     }),
-    dispatch => bindActionCreators({ ...actions }, dispatch)
+    dispatch => ({
+        onSignIn(values) {
+            return dispatch(actions.onSignIn(values))
+        }
+    })
 )
 class SignIn extends Component {
+    constructor() {
+        super()
+        this.state = { loading: true }
+    }
+
     componentWillMount() {
         const { signIn, history } = this.props
+        const { loading } = this.state
         this.jumpIndex(signIn, history)
     }
 
-    componentDidUpdate() {
-        const { loading, finishLoader } = this.props
-        loading && finishLoader()
+    componentWillReceiveProps() {
+        const { loading } = this.state
+        loading && this.setState({ loading: false })
     }
 
     jumpIndex(bool, history) {
@@ -38,11 +47,11 @@ class SignIn extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        const { form, login, history } = this.props
+        const { form, onSignIn, history } = this.props
 
         form.validateFields((err, values) => {
             if (!err) {
-                login(values).then((data) => {
+                onSignIn(values).then((data) => {
                     const { success, message } = data.data
                     if (success) {
                         message.info(message)
@@ -56,7 +65,8 @@ class SignIn extends Component {
     }
 
     render() {
-        const { isFetching, loading, form: { getFieldDecorator } } = this.props
+        const { isFetching, form: { getFieldDecorator } } = this.props
+        const { loading } = this.state
 
         return (
             <div className={styles.signIn}>
@@ -121,13 +131,11 @@ class SignIn extends Component {
 const Index = Form.create()(SignIn)
 
 SignIn.propTypes = {
-    login: PropTypes.func,
     form: PropTypes.object,
     signIn: PropTypes.bool,
+    onSignIn: PropTypes.func,
     history: PropTypes.object,
-    loading: PropTypes.bool,
     isFetching: PropTypes.bool,
-    finishLoader: PropTypes.func,
     getFieldDecorator: PropTypes.func,
 }
 
