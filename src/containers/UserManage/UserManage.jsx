@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
@@ -6,7 +6,6 @@ import { Avatar, Table } from 'antd'
 import PropTypes from 'prop-types'
 
 // component
-import Lists from 'components/Lists'
 import DropOption from 'components/DropOption'
 
 // actions
@@ -28,7 +27,7 @@ const rowSelection = {
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
-class UserManage extends Component {
+class UserManage extends PureComponent {
     componentWillMount() {
         const { userLists, history } = this.props
 

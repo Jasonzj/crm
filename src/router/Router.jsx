@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import asyncComponent from '../AsyncComponent'
 import {
     HashRouter as Router,

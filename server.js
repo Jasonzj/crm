@@ -9,7 +9,6 @@ const config = base.config                  // config
 
 new WebpackDevServer(webpack(config), {
     hot: true,                     // 启用 webpack 的模块热替换特性
-    quiet: true,
     compress: true,                // 一切服务都启用 gzip 压缩
     historyApiFallback: true,      // 当使用HTML5HistoryAPI时,任意的404响应都可能需要被替代为index.html
     watchOptions: {                // 监听选项

@@ -1,15 +1,14 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 import PropTypes from 'prop-types'
 import styles from './style'
+import Loading from 'components/Loading'
 
 // action
 import { actions } from 'ducks/app'
-
-import Loading from 'components/Loading'
 
 const FormItem = Form.Item
 
@@ -24,7 +23,7 @@ const FormItem = Form.Item
         }
     })
 )
-class SignIn extends Component {
+class SignIn extends PureComponent {
     constructor() {
         super()
         this.state = { loading: true }
@@ -32,13 +31,8 @@ class SignIn extends Component {
 
     componentWillMount() {
         const { signIn, history } = this.props
-        const { loading } = this.state
         this.jumpIndex(signIn, history)
-    }
-
-    componentWillReceiveProps() {
-        const { loading } = this.state
-        loading && this.setState({ loading: false })
+        setTimeout(() => this.setState({ loading: false }), 50)
     }
 
     jumpIndex(bool, history) {
