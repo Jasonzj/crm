@@ -27,8 +27,9 @@ const UModal = ({
             const data = {
                 ...getFieldsValue(),
                 uid: item.key,
-                eid: item.id
+                eid: item.eid
             }
+
             onOk(data)
         })
     }
@@ -132,7 +133,7 @@ const UModal = ({
 const Index = Form.create()(UModal)
 
 UModal.propTypes = {
-    onOK: PropTypes.func,
+    onOk: PropTypes.func,
     item: PropTypes.object,
     form: PropTypes.object,
 }

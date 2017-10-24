@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
@@ -30,7 +30,7 @@ const rowSelection = {
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
-class UserManage extends PureComponent {
+class UserManage extends Component {
     constructor() {
         super()
         this.state = {
@@ -43,24 +43,24 @@ class UserManage extends PureComponent {
         const { userLists, history } = this.props
 
         if (userLists.length === 0) {
-            this.props.getUserListPage(1)
+            this.props.aGetUserListPage(1)
         }
     }
 
-    onUpdateUser = (record, e) => {
+    handleOption = (record, e) => {
         if (e.key === '1') {
-            this.setState({ modalVisible: true })
             this.setState({
+                modalVisible: true,
                 item: {
                     ...record,
-                    id: this.props.uid
+                    eid: this.props.uid
                 }
             })
         }
     }
 
     onModalOk = (data) => {
-        console.log(data)
+        this.props.aUpdateUser(data)
         this.onModalCancel()
     }
 
@@ -69,13 +69,13 @@ class UserManage extends PureComponent {
     }
 
     render() {
-        const { userLists, isFetching, total, getUserListPage, uState } = this.props
-        const { modalVisible, item } = this.state
+        const { userLists, isFetching, total, aGetUserListPage, uState } = this.props
+        const { modalVisible, item, modalKey } = this.state
         const pagination = {
             total,
             showQuickJumper: true,
             onChange(page) {
-                getUserListPage(page)
+                aGetUserListPage(page)
             }
         }
         const columns = [
@@ -117,20 +117,11 @@ class UserManage extends PureComponent {
             {
                 title: '手机号码',
                 dataIndex: 'tel'
-            },
-            // {
-            //     title: 'Operation',
-            //     width: 100,
-            //     render: (text, record) => (
-            //         <DropOption
-            //             onMenuClick={e => this.onUpdateUser(record, e)}
-            //             menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
-            //         />
-            //     )
-            // }
+            }
         ]
         const modalProps = {
             item,
+            modalKey,
             visible: modalVisible,
             title: 'update',
             onOk: this.onModalOk,
@@ -143,7 +134,7 @@ class UserManage extends PureComponent {
                 width: 100,
                 render: (text, record) => (
                     <DropOption
-                        onMenuClick={e => this.onUpdateUser(record, e)}
+                        onMenuClick={e => this.handleOption(record, e)}
                         menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
                     />
                 )
@@ -160,7 +151,7 @@ class UserManage extends PureComponent {
                     pagination={pagination}
                     rowSelection={rowSelection}
                 />
-                <Modal {...modalProps} />
+                { modalVisible && <Modal {...modalProps} /> }
             </div>
         )
     }
@@ -173,7 +164,8 @@ UserManage.propTypes = {
     history: PropTypes.object,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,
-    getUserListPage: PropTypes.func,
+    aUpdateUser: PropTypes.func,
+    aGetUserListPage: PropTypes.func,
 }
 
 export default UserManage

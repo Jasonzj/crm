@@ -18,8 +18,8 @@ const FormItem = Form.Item
         isFetching: state.app.isFetching
     }),
     dispatch => ({
-        onSignIn(values) {
-            return dispatch(actions.onSignIn(values))
+        aSignIn(values) {
+            return dispatch(actions.aSignIn(values))
         }
     })
 )
@@ -41,18 +41,13 @@ class SignIn extends PureComponent {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        const { form, onSignIn, history } = this.props
+        const { form, aSignIn, history } = this.props
 
         form.validateFields((err, values) => {
             if (!err) {
-                onSignIn(values).then((data) => {
+                aSignIn(values).then((data) => {
                     const { success, message } = data.data
-                    if (success) {
-                        message.info(message)
-                        this.jumpIndex(success, history)
-                        return success
-                    }
-                    message.error(message)
+                    success && this.jumpIndex(success, history)
                 })
             }
         })
@@ -135,7 +130,7 @@ const Index = Form.create()(SignIn)
 SignIn.propTypes = {
     form: PropTypes.object,
     signIn: PropTypes.bool,
-    onSignIn: PropTypes.func,
+    aSignIn: PropTypes.func,
     history: PropTypes.object,
     isFetching: PropTypes.bool,
     getFieldDecorator: PropTypes.func,

@@ -1,6 +1,7 @@
 import instance from 'utils/instance'
 import { getUserListPage, editorUser } from 'utils/api'
 import { actions as appActions } from './app'
+import { message as Msg } from 'antd'
 
 // Actions
 export const types = {
@@ -10,15 +11,13 @@ export const types = {
 
 // Action Creators
 export const actions = {
-    setUserLists: ({ data, total, currentPage }) => ({
-        type: types.SET_USERLISTS,
-        data,
-        total
-    }),
-    getUserListPage: page => async (dispatch) => {
+    updateUser: data => ({ type: types.UPDATE_USER, data }),
+    setUserLists: ({ data, total }) => ({ type: types.SET_USERLISTS, data, total }),
+    aGetUserListPage: page => async (dispatch) => {
         try {
             dispatch(appActions.startFetch())
             const result = await instance.get(getUserListPage(page))
+            !result.data.success && Msg.error('Not Data!')
             dispatch(actions.setUserLists(result.data))
             dispatch(appActions.finishFetch())
         } catch (err) {
@@ -26,17 +25,41 @@ export const actions = {
             dispatch(appActions.finishFetch())
         }
     },
-    updateUser: data => async (dispatch) => {
-        dispatch(appActions.startFetch())
-        const result = await instance.post(editorUser, data)
-        console.log(result)
-        dispatch(appActions.finishFetch())
+    aUpdateUser: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(editorUser, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.updateUser(data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            dispatch(appActions.finishFetch())
+        }
     }
 }
 
 const initialState = {
     total: null,
     userLists: []
+}
+
+const handle = (state, action) => {
+    switch (action.type) {
+        case types.UPDATE_USER:
+            if (state.uid !== action.data.uid) {
+                return state
+            }
+
+            return {
+                ...state,
+                ...action.data
+            }
+
+        default:
+            return state
+    }
 }
 
 // Reducer
@@ -46,8 +69,15 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 total: action.total,
-                userLists: action.data.map(item => ({ ...item, key: item.id }))
+                userLists: action.data.map(item => ({ ...item, key: item.uid }))
             }
+
+        case types.UPDATE_USER:
+            return {
+                ...state,
+                userLists: state.userLists.map(item => handle(item, action))
+            }
+
         default:
             return state
     }

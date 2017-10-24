@@ -1,5 +1,6 @@
 import instance from 'utils/instance'
 import { signIn } from 'utils/api'
+import { message as Msg } from 'antd'
 
 // Action
 export const types = {
@@ -17,13 +18,15 @@ export const actions = {
     startFetch: () => ({ type: types.START_FETCH }),
     finishFetch: () => ({ type: types.FINISH_FETCH }),
     setError: error => ({ type: types.SET_ERROR, data: error }),
-    onSignIn: values => async (dispatch) => {
+    aSignIn: values => async (dispatch) => {
         try {
             dispatch(actions.startFetch())
-            const data = await instance.post(signIn, values)
-            dispatch(actions.setSignIn(data.data))
+            const result = await instance.post(signIn, values)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.setSignIn(result.data))
             dispatch(actions.finishFetch())
-            return data
+            return result
         } catch (err) {
             console.error(err)
             dispatch(actions.finishFetch())
