@@ -18,11 +18,16 @@ export const actions = {
     finishFetch: () => ({ type: types.FINISH_FETCH }),
     setError: error => ({ type: types.SET_ERROR, data: error }),
     onSignIn: values => async (dispatch) => {
-        dispatch(actions.startFetch())
-        const data = await instance.post(signIn, values)
-        dispatch(actions.setSignIn(data.data))
-        dispatch(actions.finishFetch())
-        return data
+        try {
+            dispatch(actions.startFetch())
+            const data = await instance.post(signIn, values)
+            dispatch(actions.setSignIn(data.data))
+            dispatch(actions.finishFetch())
+            return data
+        } catch (err) {
+            console.error(err)
+            dispatch(actions.finishFetch())
+        }
     }
 }
 

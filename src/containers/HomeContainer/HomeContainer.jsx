@@ -9,7 +9,8 @@ import asyncComponent from '../../AsyncComponent'
 const { Content, Header } = Layout
 
 // lazyContainer
-const UserManage = asyncComponent(() => import(/* webpackChunkName: "UserManage" */ '../UserManage'))
+// const UserManage = asyncComponent(() => import(/* webpackChunkName: "UserManage" */ '../UserManage'))
+import UserManage from 'containers/UserManage'
 
 // component
 import Sidebar from './subComponents/Sidebar.jsx'

@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import logger from 'redux-logger'
 
 // reducer
 import app from './app'
@@ -17,7 +16,7 @@ if (__DEV__) {          // 开发环境
     store = createStore(
         rootReducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk)
     )
 } else {
     store = createStore(

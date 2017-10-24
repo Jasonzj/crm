@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 
 // component
 import DropOption from 'components/DropOption'
+import Modal from './subComponents/Modal'
 
 // actions
 import { actions } from 'ducks/userManage'
@@ -23,11 +24,21 @@ const rowSelection = {
 @connect(
     state => ({
         ...state.userManage,
-        isFetching: state.app.isFetching
+        isFetching: state.app.isFetching,
+        uid: state.app.user.uid,
+        uState: state.app.user.state
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class UserManage extends PureComponent {
+    constructor() {
+        super()
+        this.state = {
+            modalVisible: false,
+            item: {}
+        }
+    }
+
     componentWillMount() {
         const { userLists, history } = this.props
 
@@ -36,14 +47,30 @@ class UserManage extends PureComponent {
         }
     }
 
-    updateUser = (record, e) => {
+    onUpdateUser = (record, e) => {
         if (e.key === '1') {
-            // this.props.updateUser(record)
+            this.setState({ modalVisible: true })
+            this.setState({
+                item: {
+                    ...record,
+                    id: this.props.uid
+                }
+            })
         }
     }
 
+    onModalOk = (data) => {
+        console.log(data)
+        this.onModalCancel()
+    }
+
+    onModalCancel = () => {
+        this.setState({ modalVisible: false })
+    }
+
     render() {
-        const { userLists, isFetching, total, getUserListPage } = this.props
+        const { userLists, isFetching, total, getUserListPage, uState } = this.props
+        const { modalVisible, item } = this.state
         const pagination = {
             total,
             showQuickJumper: true,
@@ -91,17 +118,37 @@ class UserManage extends PureComponent {
                 title: '手机号码',
                 dataIndex: 'tel'
             },
-            {
+            // {
+            //     title: 'Operation',
+            //     width: 100,
+            //     render: (text, record) => (
+            //         <DropOption
+            //             onMenuClick={e => this.onUpdateUser(record, e)}
+            //             menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
+            //         />
+            //     )
+            // }
+        ]
+        const modalProps = {
+            item,
+            visible: modalVisible,
+            title: 'update',
+            onOk: this.onModalOk,
+            onCancel: this.onModalCancel,
+        }
+
+        if (uState === 0) {
+            columns.push({
                 title: 'Operation',
                 width: 100,
                 render: (text, record) => (
                     <DropOption
-                        onMenuClick={e => this.updateUser(record, e)}
+                        onMenuClick={e => this.onUpdateUser(record, e)}
                         menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
                     />
                 )
-            }
-        ]
+            })
+        }
 
         return (
             <div>
@@ -113,13 +160,16 @@ class UserManage extends PureComponent {
                     pagination={pagination}
                     rowSelection={rowSelection}
                 />
+                <Modal {...modalProps} />
             </div>
         )
     }
 }
 
 UserManage.propTypes = {
+    uid: PropTypes.number,
     total: PropTypes.number,
+    uState: PropTypes.number,
     history: PropTypes.object,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,

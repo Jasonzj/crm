@@ -16,10 +16,15 @@ export const actions = {
         total
     }),
     getUserListPage: page => async (dispatch) => {
-        dispatch(appActions.startFetch())
-        const result = await instance.get(getUserListPage(page))
-        dispatch(actions.setUserLists(result.data))
-        dispatch(appActions.finishFetch())
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.get(getUserListPage(page))
+            dispatch(actions.setUserLists(result.data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            dispatch(appActions.finishFetch())
+        }
     },
     updateUser: data => async (dispatch) => {
         dispatch(appActions.startFetch())
