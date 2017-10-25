@@ -38,10 +38,10 @@ class UserManage extends Component {
     }
 
     componentWillMount() {
-        const { userLists, history } = this.props
+        const { userLists, history, aGetUserListPage } = this.props
 
         if (userLists.length === 0) {
-            this.props.aGetUserListPage(1)
+            aGetUserListPage(1)
         }
     }
 
@@ -62,6 +62,10 @@ class UserManage extends Component {
                 }
             })
         }
+    }
+
+    onReset = () => {
+        this.props.aGetUserListPage(1)
     }
 
     onModalOk = (data) => {
@@ -178,6 +182,13 @@ class UserManage extends Component {
                     <span style={{ marginLeft: 8 }}>
                         {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
                     </span>
+                    <Button
+                        size="large"
+                        type="primary"
+                        onClick={this.onReset}
+                    >
+                            Reset
+                    </Button>
                 </div>
                 <Table
                     columns={columns}

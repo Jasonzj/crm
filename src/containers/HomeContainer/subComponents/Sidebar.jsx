@@ -44,7 +44,7 @@ const Sidebar = ({
         {
             !collapsed &&
             <div className={sideInline ? styles.light : styles.dark}>
-                <span><Icon type="bulb" className={styles.bulb} />Switch Theme</span>
+                <span><Icon type="bulb" className={styles.bulb} />选择主题</span>
                 <Switch onChange={changeTheme} defaultChecked={sideInline} checkedChildren="Light" unCheckedChildren="Dark" />
             </div>
         }
