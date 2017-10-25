@@ -24,9 +24,9 @@ const rowSelection = {
 @connect(
     state => ({
         ...state.userManage,
-        isFetching: state.app.isFetching,
         uid: state.app.user.uid,
-        uState: state.app.user.state
+        uState: state.app.user.state,
+        isFetching: state.app.isFetching,
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
