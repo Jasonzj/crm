@@ -37,7 +37,6 @@ export const actions = {
 const initialState = {
     isFetching: false,
     signIn: false,
-    error: null,
     user: {}
 }
 
@@ -57,8 +56,6 @@ export default (state = initialState, action) => {
             }
         case types.SET_SIGN_OUT:
             return { ...state, signIn: false }
-        case types.SET_ERROR:
-            return { ...state, error: data }
         default:
             return state
     }

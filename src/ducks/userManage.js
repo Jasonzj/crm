@@ -57,6 +57,12 @@ const handle = (state, action) => {
                 ...action.data
             }
 
+        case types.SET_USERLISTS:
+            return {
+                ...state,
+                key: state.uid
+            }
+
         default:
             return state
     }
@@ -69,7 +75,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 total: action.total,
-                userLists: action.data.map(item => ({ ...item, key: item.uid }))
+                userLists: action.data.map(item => handle(item, action))
             }
 
         case types.UPDATE_USER:

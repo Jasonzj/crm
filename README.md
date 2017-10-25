@@ -199,13 +199,13 @@ post `/api/v1/editUser`
 ```
 
 ### POST/删除用户
-post `/api/v1/removeUser`
+post `/api/v1/deleteUser`
 
 请求格式:
 ```javascript
 {
     uid: xxx,  // 当前操作用户ID 用于权限认证 (只能管理员删除)
-    removeId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
+    deleteId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
 }
 ```
 
@@ -381,13 +381,13 @@ post `/api/v1/addBusiness`
 ```
 
 ### POST/删除商机
-post `/api/v1/removeBusiness`
+post `/api/v1/deleteBusiness`
 
 请求格式:
 ```javascript
 {
     uid: xxx,  // 当前操作用户ID 用于权限认证 (管理员都能删除， 员工只能删除自己的商机)
-    removeId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
+    deleteId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
 }
 ```
 
@@ -537,13 +537,13 @@ post  `/api/v1/editVisit`
 ```
 
 ### POST/删除拜访
-post `/api/v1/removeVisit`
+post `/api/v1/deleteVisit`
 
 请求格式:
 ```javascript
 {
     uid: xxx,  // 当前操作用户ID 用于权限认证 (管理员都能删除， 员工只能删除自己的拜访)
-    removeId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
+    deleteId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
 }
 ```
 
@@ -696,13 +696,13 @@ post `/api/v1/editContract`
 ```
 
 ### POST/删除拜访
-post `/api/v1/removeContract`
+post `/api/v1/deleteContract`
 
 请求格式:
 ```javascript
 {
     uid: xxx,  // 当前操作用户ID 用于权限认证 (管理员都能删除， 员工只能删除自己的合同)
-    removeId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
+    deleteId: ['xxx', 'xxxx']       // 需要删除的ID数组 (可以单个或多个)
 }
 ```
 

@@ -2,16 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
-import { Avatar, Table } from 'antd'
+import { Avatar, Table, Modal } from 'antd'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 // component
 import DropOption from 'components/DropOption'
-import Modal from './subComponents/Modal'
+import editModal from './subComponents/editModal'
 
 // actions
 import { actions } from 'ducks/userManage'
 
+// styles
+import styles from './style'
+
+const confirm = Modal.confirm
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
@@ -51,9 +56,13 @@ class UserManage extends Component {
         if (e.key === '1') {
             this.setState({
                 modalVisible: true,
-                item: {
-                    ...record,
-                    eid: this.props.uid
+                item: { ...record, eid: this.props.uid }
+            })
+        } else if (e.key === '2') {
+            confirm({
+                title: '你确定要删除这个用户?',
+                onOk() {
+                    console.log(record)
                 }
             })
         }
@@ -144,14 +153,15 @@ class UserManage extends Component {
         return (
             <div>
                 <Table
-                    scroll={{ x: 800 }}
-                    dataSource={userLists}
                     columns={columns}
+                    scroll={{ x: 800 }}
                     loading={isFetching}
+                    dataSource={userLists}
                     pagination={pagination}
+                    className={styles.table}
                     rowSelection={rowSelection}
                 />
-                { modalVisible && <Modal {...modalProps} /> }
+                { modalVisible && <editModal {...modalProps} /> }
             </div>
         )
     }

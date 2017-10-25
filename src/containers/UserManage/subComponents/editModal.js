@@ -13,7 +13,7 @@ const formItemLayout = {
     },
 }
 
-const UModal = ({
+const editModal = ({
     onOk,
     form,
     item = {},
@@ -130,9 +130,9 @@ const UModal = ({
 }
 
 
-const Index = Form.create()(UModal)
+const Index = Form.create()(editModal)
 
-UModal.propTypes = {
+editModal.propTypes = {
     onOk: PropTypes.func,
     item: PropTypes.object,
     form: PropTypes.object,

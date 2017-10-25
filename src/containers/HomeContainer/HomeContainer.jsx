@@ -6,10 +6,9 @@ import PropTypes from 'prop-types'
 import localStore from 'utils/localStore'
 import asyncComponent from '../../AsyncComponent'
 
-const { Content, Header } = Layout
+const { Content, Header, Footer } = Layout
 
 // lazyContainer
-// const UserManage = asyncComponent(() => import(/* webpackChunkName: "UserManage" */ '../UserManage'))
 import UserManage from 'containers/UserManage'
 
 // component
@@ -88,6 +87,7 @@ class HomeContainer extends PureComponent {
                     <Content className={styles.main}>
                         <Route exact path={`${match.url}/user`} component={UserManage} />
                     </Content>
+                    <Footer className={styles.footer}>CRM Admin  © 2017 Jason</Footer>
                 </Layout>
             </Layout>
         )
