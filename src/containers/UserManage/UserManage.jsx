@@ -8,7 +8,7 @@ import classnames from 'classnames'
 
 // component
 import DropOption from 'components/DropOption'
-import editModal from './subComponents/editModal'
+import EditModal from './subComponents/EditModal'
 
 // actions
 import { actions } from 'ducks/userManage'
@@ -188,7 +188,7 @@ class UserManage extends Component {
                     className={styles.table}
                     rowSelection={rowSelection}
                 />
-                { modalVisible && <editModal {...modalProps} /> }
+                { modalVisible && <EditModal {...modalProps} /> }
             </div>
         )
     }

@@ -11,7 +11,7 @@ import SignIn from 'containers/SignIn'
 
 // lazyContainer
 const HomeContainer = asyncComponent(() => import(/* webpackChunkName: "HomeContainer" */ '../containers/HomeContainer'))
-const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../containers/404'))
+const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../containers/NotFound'))
 // const SignIn = asyncComponent(() => import(/* webpackChunkName: "SianIn" */ '../containers/SignIn'))
 
 const RouteConfig = () => (

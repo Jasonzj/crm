@@ -1,15 +1,19 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Layout, Icon } from 'antd'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import localStore from 'utils/localStore'
 import asyncComponent from '../../AsyncComponent'
 
 const { Content, Header, Footer } = Layout
 
-// lazyContainer
+
+// Container
 import UserManage from 'containers/UserManage'
+
+// lazyContainer
+const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../../containers/NotFound'))
 
 // component
 import Sidebar from './subComponents/Sidebar.jsx'
@@ -85,7 +89,10 @@ class HomeContainer extends PureComponent {
                         />
                     </Header>
                     <Content className={styles.main}>
-                        <Route exact path={`${match.url}/user`} component={UserManage} />
+                        <Switch>
+                            <Route exact path={`${match.url}/user`} component={UserManage} />
+                            <Route component={NotFound} />
+                        </Switch>
                     </Content>
                     <Footer className={styles.footer}>CRM Admin  © 2017 Jason</Footer>
                 </Layout>
