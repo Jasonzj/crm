@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
-import { Avatar, Table, Modal } from 'antd'
+import { Avatar, Table, Modal, Button, Popconfirm } from 'antd'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
@@ -17,14 +17,6 @@ import { actions } from 'ducks/userManage'
 import styles from './style'
 
 const confirm = Modal.confirm
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
-    },
-    getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User'
-    }),
-}
 
 @connect(
     state => ({
@@ -39,6 +31,7 @@ class UserManage extends Component {
     constructor() {
         super()
         this.state = {
+            selectedRowKeys: [],
             modalVisible: false,
             item: {}
         }
@@ -53,16 +46,19 @@ class UserManage extends Component {
     }
 
     handleOption = (record, e) => {
+        const { uid, aDeleteUser } = this.props
+
         if (e.key === '1') {
             this.setState({
                 modalVisible: true,
-                item: { ...record, eid: this.props.uid }
+                item: { ...record, eid: uid }
             })
         } else if (e.key === '2') {
             confirm({
                 title: '你确定要删除这个用户?',
                 onOk() {
-                    console.log(record)
+                    const data = { uid, deleteId: [record.uid] }
+                    aDeleteUser(data)
                 }
             })
         }
@@ -77,9 +73,22 @@ class UserManage extends Component {
         this.setState({ modalVisible: false })
     }
 
+    onSelectChange = (selectedRowKeys) => {
+        this.setState({ selectedRowKeys })
+    }
+
+    onDeleteUsers = () => {
+        const { selectedRowKeys } = this.state
+        const { uid, aDeleteUser } = this.props
+        const data = { uid, deleteId: selectedRowKeys }
+        this.setState({ selectedRowKeys: [] })
+        aDeleteUser(data)
+    }
+
     render() {
         const { userLists, isFetching, total, aGetUserListPage, uState } = this.props
-        const { modalVisible, item, modalKey } = this.state
+        const { modalVisible, item, modalKey, selectedRowKeys } = this.state
+        const hasSelected = selectedRowKeys.length > 0
         const pagination = {
             total,
             showQuickJumper: true,
@@ -136,6 +145,10 @@ class UserManage extends Component {
             onOk: this.onModalOk,
             onCancel: this.onModalCancel,
         }
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onSelectChange
+        }
 
         if (uState === 0) {
             columns.push({
@@ -152,6 +165,20 @@ class UserManage extends Component {
 
         return (
             <div>
+                <div>
+                    <Popconfirm title={'你确定删除这些用户吗?'} placement="left" onConfirm={this.onDeleteUsers}>
+                        <Button
+                            size="large"
+                            type="primary"
+                            disabled={!hasSelected}
+                        >
+                            Remove
+                        </Button>
+                    </Popconfirm>
+                    <span style={{ marginLeft: 8 }}>
+                        {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+                    </span>
+                </div>
                 <Table
                     columns={columns}
                     scroll={{ x: 800 }}
@@ -174,6 +201,7 @@ UserManage.propTypes = {
     history: PropTypes.object,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,
+    aDeleteUser: PropTypes.func,
     aUpdateUser: PropTypes.func,
     aGetUserListPage: PropTypes.func,
 }

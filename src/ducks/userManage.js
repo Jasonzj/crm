@@ -1,16 +1,18 @@
 import instance from 'utils/instance'
-import { getUserListPage, editorUser } from 'utils/api'
+import { getUserListPage, editorUser, deleteUser } from 'utils/api'
 import { actions as appActions } from './app'
 import { message as Msg } from 'antd'
 
 // Actions
 export const types = {
     SET_USERLISTS: 'userManage/SET_USERLISTS',
-    UPDATE_USER: 'userManage/UPDATE_USER',
+    UPDATE_USER:   'userManage/UPDATE_USER',
+    DELETE_USER:   'userManage/DELETE_USER',
 }
 
 // Action Creators
 export const actions = {
+    deleteUser: data => ({ type: types.DELETE_USER, data }),
     updateUser: data => ({ type: types.UPDATE_USER, data }),
     setUserLists: ({ data, total }) => ({ type: types.SET_USERLISTS, data, total }),
     aGetUserListPage: page => async (dispatch) => {
@@ -37,6 +39,19 @@ export const actions = {
             console.error(err)
             dispatch(appActions.finishFetch())
         }
+    },
+    aDeleteUser: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(deleteUser, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.deleteUser(data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            dispatch(appActions.finishFetch())
+        }
     }
 }
 
@@ -46,15 +61,16 @@ const initialState = {
 }
 
 const handle = (state, action) => {
+    const data = action.data
     switch (action.type) {
         case types.UPDATE_USER:
-            if (state.uid !== action.data.uid) {
+            if (state.uid !== data.uid) {
                 return state
             }
 
             return {
                 ...state,
-                ...action.data
+                ...data
             }
 
         case types.SET_USERLISTS:
@@ -62,6 +78,9 @@ const handle = (state, action) => {
                 ...state,
                 key: state.uid
             }
+
+        case types.DELETE_USER:
+            return !data.deleteId.includes(state.uid)
 
         default:
             return state
@@ -82,6 +101,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 userLists: state.userLists.map(item => handle(item, action))
+            }
+
+        case types.DELETE_USER:
+            return {
+                ...state,
+                userLists: state.userLists.filter(item => handle(item, action))
             }
 
         default:
