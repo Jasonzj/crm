@@ -7,3 +7,4 @@ export const getUserListUid = uid => `${api}/userList?uid=${uid}`
 export const searchUser = name => `${api}/searchUser?eName=${name}`
 export const editorUser = `${api}/editUser`
 export const deleteUser = `${api}/deleteUser`
+export const getUserBusiness = name => `${api}/searchBusiness?eName=${name}`

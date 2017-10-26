@@ -1,11 +1,12 @@
 import instance from 'utils/instance'
-import { getUserListPage, editorUser, deleteUser, searchUser } from 'utils/api'
+import { getUserListPage, editorUser, deleteUser, searchUser, getUserBusiness } from 'utils/api'
 import { actions as appActions } from './app'
 import { message as Msg } from 'antd'
 
 // Actions
 export const types = {
     SET_USERLISTS: 'userManage/SET_USERLISTS',
+    SET_BUSSINESS: 'userManage/SET_BUSSINESS',
     UPDATE_USER:   'userManage/UPDATE_USER',
     DELETE_USER:   'userManage/DELETE_USER',
 }
@@ -14,6 +15,7 @@ export const types = {
 export const actions = {
     deleteUser: data => ({ type: types.DELETE_USER, data }),
     updateUser: data => ({ type: types.UPDATE_USER, data }),
+    setBusiness: ({ data, total }) => ({ type: types.SET_BUSSINESS, data, total }),
     setUserLists: ({ data, total }) => ({ type: types.SET_USERLISTS, data, total }),
     aGetUserListPage: page => async (dispatch) => {
         try {
@@ -66,12 +68,25 @@ export const actions = {
             console.error(err)
             dispatch(appActions.finishFetch())
         }
+    },
+    aGetUserBusiness: name => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.get(getUserBusiness(name))
+            dispatch(actions.setBusiness(result.data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            dispatch(appActions.finishFetch())
+        }
     }
 }
 
 const initialState = {
     total: null,
-    userLists: []
+    bTotal: null,
+    userLists: [],
+    business: []
 }
 
 const handle = (state, action) => {
@@ -85,6 +100,14 @@ const handle = (state, action) => {
             return {
                 ...state,
                 ...data
+            }
+
+        case types.SET_BUSSINESS:
+            return {
+                ...state,
+                ...state.client,
+                key: state.id,
+                client: null,
             }
 
         case types.SET_USERLISTS:
@@ -104,6 +127,13 @@ const handle = (state, action) => {
 // Reducer
 export default (state = initialState, action) => {
     switch (action.type) {
+        case types.SET_BUSSINESS:
+            return {
+                ...state,
+                bTotal: action.total,
+                business: action.data.map(item => handle(item, action))
+            }
+
         case types.SET_USERLISTS:
             return {
                 ...state,

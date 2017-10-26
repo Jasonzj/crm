@@ -73,3 +73,45 @@ export const createColumns = (
 
     return data
 }
+
+export const createBusinessColumns = (
+    handleOption
+) => {
+    const data = [
+        {
+            title: '所属人',
+            dataIndex: 'eName'
+        },
+        {
+            title: '公司名字',
+            dataIndex: 'name'
+        },
+        {
+            title: '联系人',
+            dataIndex: 'contact'
+        },
+        {
+            title: '联系电话',
+            dataIndex: 'contactTel'
+        },
+        {
+            title: '联系人职位',
+            dataIndex: 'contactPost'
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'time'
+        },
+        {
+            title: 'Operation',
+            width: 100,
+            render: (text, record) => (
+                <DropOption
+                    onMenuClick={e => console.log(e)}
+                    menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
+                />
+            )
+        }
+    ]
+    return data
+}
