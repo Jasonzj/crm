@@ -35,3 +35,19 @@
 .remove {
     text-align: right;
 }
+
+.content {
+    line-height: 2.4;
+    font-size: 13px;
+  
+    .item {
+        display: flex;
+  
+        & > div {
+            &:first-child {
+                width: 100px;
+            }
+        }
+    }
+}
+  

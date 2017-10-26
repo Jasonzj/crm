@@ -1,5 +1,6 @@
 import React from 'react'
 import { Avatar } from 'antd'
+import { Link } from 'react-router-dom'
 import DropOption from 'components/DropOption'
 
 export const createPagination = (
@@ -24,7 +25,7 @@ export const createColumns = (
         {
             title: '姓名',
             dataIndex: 'name',
-            render: text => <a href="#">{text}</a>,
+            render: (text, record) => <Link to={`user/${record.uid}`}>{text}</Link>,
             sorter: (a, b) => a.name.length - b.name.length
         },
         {

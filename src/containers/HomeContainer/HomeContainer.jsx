@@ -8,7 +8,6 @@ import asyncComponent from '../../AsyncComponent'
 
 const { Content, Header, Footer } = Layout
 
-
 // Container
 import UserManage from 'containers/UserManage'
 
@@ -18,6 +17,7 @@ const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ 
 // component
 import Sidebar from './subComponents/Sidebar.jsx'
 import User from './subComponents/User.jsx'
+import Detail from 'containers/UserManage/subComponents/Detail'
 
 // actions
 import { actions } from 'ducks/app'
@@ -91,6 +91,7 @@ class HomeContainer extends PureComponent {
                     <Content className={styles.main}>
                         <Switch>
                             <Route exact path={`${match.url}/user`} component={UserManage} />
+                            <Route exact path={`${match.url}/user/:id`} component={Detail} />
                             <Route component={NotFound} />
                         </Switch>
                     </Content>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Layout, Menu, Icon, Switch } from 'antd'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 // scss
@@ -25,8 +26,10 @@ const Sidebar = ({
             defaultSelectedKeys={['1']}
         >
             <Menu.Item key="1">
-                <Icon type="user" />
-                <span>员工管理</span>
+                <Link to="/admin/user">
+                    <Icon type="user" />
+                    <span>员工管理</span>
+                </Link>
             </Menu.Item>
             <Menu.Item key="2">
                 <Icon type="pay-circle" />
