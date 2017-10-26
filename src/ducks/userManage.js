@@ -1,20 +1,24 @@
 import instance from 'utils/instance'
-import { getUserListPage, editorUser, deleteUser, searchUser, getUserBusiness } from 'utils/api'
+import { getUserListPage, editorUser, deleteUser, searchUser, getUserBusiness, deleteBusiness, editBusiness } from 'utils/api'
 import { actions as appActions } from './app'
 import { message as Msg } from 'antd'
 
 // Actions
 export const types = {
-    SET_USERLISTS: 'userManage/SET_USERLISTS',
-    SET_BUSSINESS: 'userManage/SET_BUSSINESS',
-    UPDATE_USER:   'userManage/UPDATE_USER',
-    DELETE_USER:   'userManage/DELETE_USER',
+    SET_USERLISTS:   'userManage/SET_USERLISTS',
+    SET_BUSSINESS:   'userManage/SET_BUSSINESS',
+    UPDATE_USER:     'userManage/UPDATE_USER',
+    DELETE_USER:     'userManage/DELETE_USER',
+    UPDATE_BUSINESS: 'userManage/UPDATE_BUSINESS',
+    DELETE_BUSINESS: 'userManage/DELETE_BUSINESS',
 }
 
 // Action Creators
 export const actions = {
     deleteUser: data => ({ type: types.DELETE_USER, data }),
     updateUser: data => ({ type: types.UPDATE_USER, data }),
+    deleteBusiness: data => ({ type: types.DELETE_BUSINESS, data }),
+    updateBusiness: data => ({ type: types.UPDATE_BUSINESS, data }),
     setBusiness: ({ data, total }) => ({ type: types.SET_BUSSINESS, data, total }),
     setUserLists: ({ data, total }) => ({ type: types.SET_USERLISTS, data, total }),
     aGetUserListPage: page => async (dispatch) => {
@@ -79,6 +83,32 @@ export const actions = {
             console.error(err)
             dispatch(appActions.finishFetch())
         }
+    },
+    aDeleteBusiness: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(deleteBusiness, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.deleteBusiness(data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            dispatch(appActions.finishFetch())
+        }
+    },
+    aUpdateBusiness: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(editBusiness, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.updateBusiness(data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            dispatch(appActions.finishFetch())
+        }
     }
 }
 
@@ -102,14 +132,6 @@ const handle = (state, action) => {
                 ...data
             }
 
-        case types.SET_BUSSINESS:
-            return {
-                ...state,
-                ...state.client,
-                key: state.id,
-                client: null,
-            }
-
         case types.SET_USERLISTS:
             return {
                 ...state,
@@ -117,6 +139,25 @@ const handle = (state, action) => {
             }
 
         case types.DELETE_USER:
+            return !data.deleteId.includes(state.uid)
+
+        case types.SET_BUSSINESS:
+            return {
+                ...state,
+                key: state.id
+            }
+
+        case types.UPDATE_BUSINESS:
+            if (state.id !== data.id) {
+                return state
+            }
+
+            return {
+                ...state,
+                ...data
+            }
+
+        case types.DELETE_BUSINESS:
             return !data.deleteId.includes(state.uid)
 
         default:
@@ -127,6 +168,18 @@ const handle = (state, action) => {
 // Reducer
 export default (state = initialState, action) => {
     switch (action.type) {
+        case types.UPDATE_BUSINESS:
+            return {
+                ...state,
+                business: state.business.map(item => handle(item, action))
+            }
+
+        case types.DELETE_BUSINESS:
+            return {
+                ...state,
+                business: state.business.filter(item => handle(item, action))
+            }
+
         case types.SET_BUSSINESS:
             return {
                 ...state,

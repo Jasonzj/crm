@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom'
 import { Table, Modal, Button, Popconfirm } from 'antd'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+
+// utils
 import shallowCompare from 'utils/shallowCompare'
+import { createColumns, createForm } from 'utils/config'
 
 // component
-import EditModal from './subComponents/EditModal'
+import EditModal from 'components/EditModal'
 import Filter from './subComponents/Filter'
 
 // actions
@@ -16,8 +19,6 @@ import { actions } from 'ducks/userManage'
 
 // styles
 import styles from './style'
-
-import { createPagination, createColumns } from './config'
 
 const confirm = Modal.confirm
 
@@ -102,22 +103,35 @@ class UserManage extends Component {
 
     render() {
         const { userLists, isFetching, total, aGetUserListPage, uState } = this.props
-        const { modalVisible, item, modalKey, selectedRowKeys } = this.state
+        const { item, modalVisible, selectedRowKeys } = this.state
         const hasSelected = selectedRowKeys.length > 0
-        const pagination = createPagination(total, page => aGetUserListPage(page))
-        const columns = createColumns(uState, this.handleOption)
+
+        const columnsConfig = {
+            uState,
+            type: 'UserManage',
+            handleOption: this.handleOption
+        }
+        const pagination = {
+            total,
+            showQuickJumper: true,
+            onChange(page) {
+                aGetUserListPage(page)
+            }
+        }
         const modalProps = {
             item,
-            modalKey,
-            visible: modalVisible,
-            title: 'update',
+            type: 'userManage',
+            title: '更新员工信息',
             onOk: this.onModalOk,
+            visible: modalVisible,
             onCancel: this.onModalCancel,
+            formData: createForm('userManage'),
         }
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange
         }
+        const columns = createColumns(columnsConfig)
 
         return (
             <div>
