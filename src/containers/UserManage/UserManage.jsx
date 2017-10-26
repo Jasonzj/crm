@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom'
 import { Avatar, Table, Modal, Button, Popconfirm } from 'antd'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import shallowCompare from 'utils/shallowCompare'
 
 // component
 import DropOption from 'components/DropOption'
 import EditModal from './subComponents/EditModal'
+import Filter from './subComponents/Filter'
 
 // actions
 import { actions } from 'ducks/userManage'
@@ -45,6 +47,10 @@ class UserManage extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(nextProps, this.props) || shallowCompare(nextState, this.state)
+    }
+
     handleOption = (record, e) => {
         const { uid, aDeleteUser } = this.props
 
@@ -75,6 +81,10 @@ class UserManage extends Component {
 
     onModalCancel = () => {
         this.setState({ modalVisible: false })
+    }
+
+    onSearchName = (name) => {
+        this.props.aSearchUser(name)
     }
 
     onSelectChange = (selectedRowKeys) => {
@@ -169,27 +179,13 @@ class UserManage extends Component {
 
         return (
             <div>
-                <div>
-                    <Popconfirm title={'你确定删除这些用户吗?'} placement="left" onConfirm={this.onDeleteUsers}>
-                        <Button
-                            size="large"
-                            type="primary"
-                            disabled={!hasSelected}
-                        >
-                            Remove
-                        </Button>
-                    </Popconfirm>
-                    <span>
-                        {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
-                    </span>
-                    <Button
-                        size="large"
-                        type="primary"
-                        onClick={this.onReset}
-                    >
-                            Reset
-                    </Button>
-                </div>
+                <Filter
+                    onReset={this.onReset}
+                    hasSelected={hasSelected}
+                    onSearchName={this.onSearchName}
+                    onDeleteUsers={this.onDeleteUsers}
+                    selectedLen={selectedRowKeys.length}
+                />
                 <Table
                     columns={columns}
                     scroll={{ x: 800 }}
@@ -212,6 +208,7 @@ UserManage.propTypes = {
     history: PropTypes.object,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,
+    aSearchUser: PropTypes.func,
     aDeleteUser: PropTypes.func,
     aUpdateUser: PropTypes.func,
     aGetUserListPage: PropTypes.func,

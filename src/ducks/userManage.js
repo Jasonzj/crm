@@ -1,5 +1,5 @@
 import instance from 'utils/instance'
-import { getUserListPage, editorUser, deleteUser } from 'utils/api'
+import { getUserListPage, editorUser, deleteUser, searchUser } from 'utils/api'
 import { actions as appActions } from './app'
 import { message as Msg } from 'antd'
 
@@ -20,6 +20,20 @@ export const actions = {
             dispatch(appActions.startFetch())
             const result = await instance.get(getUserListPage(page))
             !result.data.success && Msg.error('Not Data!')
+            dispatch(actions.setUserLists(result.data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            dispatch(appActions.finishFetch())
+        }
+    },
+    aSearchUser: name => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.get(searchUser(name))
+            console.log(result)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
             dispatch(actions.setUserLists(result.data))
             dispatch(appActions.finishFetch())
         } catch (err) {

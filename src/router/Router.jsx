@@ -7,11 +7,13 @@ import {
     Redirect
 } from 'react-router-dom'
 
+// Container
 import SignIn from 'containers/SignIn'
+import HomeContainer from 'containers/HomeContainer'
 
 // lazyContainer
-const HomeContainer = asyncComponent(() => import(/* webpackChunkName: "HomeContainer" */ '../containers/HomeContainer'))
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../containers/NotFound'))
+// const HomeContainer = asyncComponent(() => import(/* webpackChunkName: "HomeContainer" */ '../containers/HomeContainer'))
 // const SignIn = asyncComponent(() => import(/* webpackChunkName: "SianIn" */ '../containers/SignIn'))
 
 const RouteConfig = () => (
