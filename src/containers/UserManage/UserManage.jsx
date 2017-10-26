@@ -179,7 +179,7 @@ class UserManage extends Component {
                             Remove
                         </Button>
                     </Popconfirm>
-                    <span style={{ marginLeft: 8 }}>
+                    <span>
                         {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
                     </span>
                     <Button
