@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
-import { Avatar, Table, Modal, Button, Popconfirm } from 'antd'
+import { Table, Modal, Button, Popconfirm } from 'antd'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import shallowCompare from 'utils/shallowCompare'
 
 // component
-import DropOption from 'components/DropOption'
 import EditModal from './subComponents/EditModal'
 import Filter from './subComponents/Filter'
 
@@ -17,6 +16,8 @@ import { actions } from 'ducks/userManage'
 
 // styles
 import styles from './style'
+
+import { createPagination, createColumns } from './config'
 
 const confirm = Modal.confirm
 
@@ -41,10 +42,7 @@ class UserManage extends Component {
 
     componentWillMount() {
         const { userLists, history, aGetUserListPage } = this.props
-
-        if (userLists.length === 0) {
-            aGetUserListPage(1)
-        }
+        userLists.length === 0 && aGetUserListPage(1)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -53,6 +51,7 @@ class UserManage extends Component {
 
     handleOption = (record, e) => {
         const { uid, aDeleteUser } = this.props
+        const { onReset } = this
 
         if (e.key === '1') {
             this.setState({
@@ -65,6 +64,7 @@ class UserManage extends Component {
                 onOk() {
                     const data = { uid, deleteId: [record.uid] }
                     aDeleteUser(data)
+                    onReset()
                 }
             })
         }
@@ -97,60 +97,15 @@ class UserManage extends Component {
         const data = { uid, deleteId: selectedRowKeys }
         this.setState({ selectedRowKeys: [] })
         aDeleteUser(data)
+        this.onReset()
     }
 
     render() {
         const { userLists, isFetching, total, aGetUserListPage, uState } = this.props
         const { modalVisible, item, modalKey, selectedRowKeys } = this.state
         const hasSelected = selectedRowKeys.length > 0
-        const pagination = {
-            total,
-            showQuickJumper: true,
-            onChange(page) {
-                aGetUserListPage(page)
-            }
-        }
-        const columns = [
-            {
-                title: '头像',
-                dataIndex: 'avatar',
-                render: url => <Avatar size="small" src={url} />
-            },
-            {
-                title: '姓名',
-                dataIndex: 'name',
-                render: text => <a href="#">{text}</a>,
-                sorter: (a, b) => a.name.length - b.name.length
-            },
-            {
-                title: '用户名',
-                dataIndex: 'user'
-            },
-            {
-                title: '年龄',
-                dataIndex: 'age',
-                sorter: (a, b) => a.age - b.age,
-            },
-            {
-                title: '性别',
-                dataIndex: 'sex',
-                render: num => ['男', '女'][num],
-                filters: [
-                    { text: '男', value: 0 },
-                    { text: '女', value: 1 },
-                ],
-                onFilter: (value, record) => record.sex == value
-            },
-            {
-                title: '权限',
-                dataIndex: 'state',
-                render: num => ['管理员', '普通'][num]
-            },
-            {
-                title: '手机号码',
-                dataIndex: 'tel'
-            }
-        ]
+        const pagination = createPagination(total, page => aGetUserListPage(page))
+        const columns = createColumns(uState, this.handleOption)
         const modalProps = {
             item,
             modalKey,
@@ -162,19 +117,6 @@ class UserManage extends Component {
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange
-        }
-
-        if (uState === 0) {
-            columns.push({
-                title: 'Operation',
-                width: 100,
-                render: (text, record) => (
-                    <DropOption
-                        onMenuClick={e => this.handleOption(record, e)}
-                        menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
-                    />
-                )
-            })
         }
 
         return (
