@@ -17,7 +17,7 @@ import { actions } from 'ducks/userManage'
 // scss
 import styles from '../style'
 
-const { aGetUserBusiness } = actions
+const { aGetUserBusiness, agetUserDetail } = actions
 const confirm = Modal.confirm
 
 @connect(
@@ -38,19 +38,20 @@ class Detail extends PureComponent {
         }
     }
     componentWillMount() {
-        const { match, userLists, business, aGetUserBusiness } = this.props
+        const { match, userLists, business, aGetUserBusiness, agetUserDetail } = this.props
         const uid = match.params.id
-        const data = userLists.filter(item => item.uid === uid)[0] || {}
-        const keys = Object.keys(data)
-        this.content = keys.map(key => (
-            <div key={key} className={styles.item}>
-                <div>{key}</div>
-                <div>{String(data[key])}</div>
-            </div>
-        ))
+        const data = userLists.filter(item => item.uid === uid)[0]
+        const init = (name) => {
+            this.userName = name
+            aGetUserBusiness(name)
+        }
 
-        this.userName = data.name
-        aGetUserBusiness(data.name)
+        if (data) {
+            this.data = data
+            init(data.name)
+        } else {
+            agetUserDetail(uid).then(data => init(data.name))
+        }
     }
 
     onReset = () => {
@@ -99,7 +100,7 @@ class Detail extends PureComponent {
     }
 
     render() {
-        const { business, isFetching } = this.props
+        const { business, isFetching, currentUser } = this.props
         const { item, modalVisible, selectedRowKeys } = this.state
         const hasSelected = selectedRowKeys.length > 0
         const columns = createColumns({
@@ -125,9 +126,19 @@ class Detail extends PureComponent {
             client: null
         }))
 
+        const detail = this.data || currentUser
+        const keys = Object.keys(detail)
+
         return (
             <div className={styles.content}>
-                {this.content}
+                {
+                    keys.map(key => (
+                        <div key={key} className={styles.item}>
+                            <div>{key}</div>
+                            <div>{String(detail[key])}</div>
+                        </div>
+                    ))
+                }
                 <h1 className={styles.businessTitle}>员工商机</h1>
                 <Filter
                     removeTitle={'商机'}

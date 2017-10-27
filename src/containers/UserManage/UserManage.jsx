@@ -74,6 +74,7 @@ class UserManage extends Component {
 
     onReset = () => {
         this.props.aGetUserListPage(1)
+        this.setState({ selectedRowKeys: [] })
     }
 
     onModalOk = (data) => {

@@ -133,7 +133,6 @@ SignIn.propTypes = {
     aSignIn: PropTypes.func,
     history: PropTypes.object,
     isFetching: PropTypes.bool,
-    getFieldDecorator: PropTypes.func,
 }
 
 export default Index

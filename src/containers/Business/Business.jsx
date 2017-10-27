@@ -64,6 +64,7 @@ class Business extends PureComponent {
 
     onReset = () => {
         this.props.aGetBusinessPage(1)
+        this.setState({ selectedRowKeys: [] })
     }
 
     onModalOk = (data) => {

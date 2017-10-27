@@ -70,6 +70,7 @@ const createBusinessColumns = handleOption => ([
     {
         title: '所属人',
         dataIndex: 'eName',
+        render: (text, record) => <Link to={`user/${record.uid}`}>{text}</Link>,
         sorter: (a, b) => a.eName.length - b.eName.length
     },
     {

@@ -1,10 +1,20 @@
 import instance from 'utils/instance'
-import { getUserListPage, editorUser, deleteUser, searchUser, getUserBusiness, deleteBusiness, editBusiness } from 'utils/api'
 import { actions as appActions } from './app'
 import { message as Msg } from 'antd'
+import {
+    editorUser,
+    deleteUser,
+    searchUser,
+    editBusiness,
+    deleteBusiness,
+    getUserListUid,
+    getUserListPage,
+    getUserBusiness,
+} from 'utils/api'
 
 // Actions
 export const types = {
+    SET_USER:        'userManage/SET_USER',
     SET_USERLISTS:   'userManage/SET_USERLISTS',
     SET_BUSSINESS:   'userManage/SET_BUSSINESS',
     UPDATE_USER:     'userManage/UPDATE_USER',
@@ -17,10 +27,25 @@ export const types = {
 export const actions = {
     deleteUser: data => ({ type: types.DELETE_USER, data }),
     updateUser: data => ({ type: types.UPDATE_USER, data }),
+    getUserDetail: data => ({ type: types.SET_USER, data }),
     deleteBusiness: data => ({ type: types.DELETE_BUSINESS, data }),
     updateBusiness: data => ({ type: types.UPDATE_BUSINESS, data }),
     setBusiness: ({ data, total }) => ({ type: types.SET_BUSSINESS, data, total }),
     setUserLists: ({ data, total }) => ({ type: types.SET_USERLISTS, data, total }),
+    agetUserDetail: id => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.get(getUserListUid(id))
+            !result.data.success && Msg.error('Not Data!')
+            dispatch(actions.getUserDetail(result.data))
+            dispatch(appActions.finishFetch())
+            return result.data.data
+        } catch (err) {
+            console.error(err)
+            Msg.error(err)
+            dispatch(appActions.finishFetch())
+        }
+    },
     aGetUserListPage: page => async (dispatch) => {
         try {
             dispatch(appActions.startFetch())
@@ -123,7 +148,8 @@ const initialState = {
     total: null,
     bTotal: null,
     userLists: [],
-    business: []
+    business: [],
+    currentUser: {}
 }
 
 const handle = (state, action) => {
@@ -192,6 +218,12 @@ export default (state = initialState, action) => {
                 ...state,
                 bTotal: action.total,
                 business: action.data.map(item => handle(item, action))
+            }
+
+        case types.SET_USER:
+            return {
+                ...state,
+                currentUser: action.data.data
             }
 
         case types.SET_USERLISTS:
