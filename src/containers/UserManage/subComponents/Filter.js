@@ -8,33 +8,40 @@ const Search = Input.Search
 
 const Filter = ({
     onReset,
+    removeTitle,
     selectedLen,
     hasSelected,
     onSearchName,
     onDeleteUsers,
 }) => (
     <Row gutter={24} className={styles.filter}>
-        <Col sm={{ span: 8 }} xs={{ span: 24 }}>
-            <Search
-                size="large"
-                placeholder="搜索用户名字"
-                onSearch={onSearchName}
-            />
-        </Col>
-        <Col sm={{ span: 10 }} xs={{ span: 12 }}>
-            <Button
-                size="large"
-                type="primary"
-                onClick={onReset}
-            >
-                    重置
-            </Button>
-        </Col>
-        <Col sm={{ span: 6 }} xs={{ span: 12 }} className={styles.remove}>
+        {
+            onSearchName &&
+            <Col sm={{ span: 8 }} xs={{ span: 24 }}>
+                <Search
+                    size="large"
+                    placeholder="搜索用户名字"
+                    onSearch={onSearchName}
+                />
+            </Col>
+        }
+        <Col
+            xs={{ span: 24 }}
+            className={styles.remove}
+            sm={{ span: onSearchName ? 16 : 24 }}
+        >
             <span className={styles.selectSpan}>
-                {hasSelected ? `选择了 ${selectedLen} 个用户` : ''}
+                {
+                    hasSelected
+                        ? `选择了 ${selectedLen} 个${removeTitle}` 
+                        : ''
+                }
             </span>
-            <Popconfirm title={'你确定删除这些用户吗?'} placement="left" onConfirm={onDeleteUsers}>
+            <Popconfirm
+                placement="left"
+                onConfirm={onDeleteUsers}
+                title={`你确定删除这些${removeTitle}吗?`}
+            >
                 <Button
                     size="large"
                     type="primary"
@@ -43,6 +50,14 @@ const Filter = ({
                     删除
                 </Button>
             </Popconfirm>
+            <Button
+                size="large"
+                type="primary"
+                onClick={onReset}
+                style={{ marginLeft: '12px' }}
+            >
+                    重置
+            </Button>
         </Col>
     </Row>
 )
@@ -50,9 +65,10 @@ const Filter = ({
 Filter.propTypes = {
     onReset: PropTypes.func,
     hasSelected: PropTypes.bool,
+    onSearchName: PropTypes.func,
     selectedLen: PropTypes.number,
     onDeleteUsers: PropTypes.func,
-    onSearchName: PropTypes.func,
+    removeTitle: PropTypes.string,
 }
 
 export default Filter

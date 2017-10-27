@@ -136,6 +136,7 @@ class UserManage extends Component {
         return (
             <div>
                 <Filter
+                    removeTitle={'用户'}
                     onReset={this.onReset}
                     hasSelected={hasSelected}
                     onSearchName={this.onSearchName}

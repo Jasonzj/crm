@@ -9,6 +9,7 @@ import { createPagination, createColumns, createForm } from 'utils/config'
 
 // component
 import EditModal from 'components/EditModal'
+import Filter from './Filter'
 
 // actions
 import { actions } from 'ducks/userManage'
@@ -31,6 +32,7 @@ class Detail extends PureComponent {
     constructor() {
         super()
         this.state = {
+            selectedRowKeys: [],
             modalVisible: false,
             item: {}
         }
@@ -64,6 +66,18 @@ class Detail extends PureComponent {
         this.setState({ modalVisible: false })
     }
 
+    onSelectChange = (selectedRowKeys) => {
+        this.setState({ selectedRowKeys })
+    }
+
+    onDeleteBusiness = () => {
+        const { selectedRowKeys } = this.state
+        const { uid, aDeleteBusiness } = this.props
+        const data = { uid, deleteId: selectedRowKeys }
+        this.setState({ selectedRowKeys: [] })
+        aDeleteBusiness(data)
+    }
+
     handleOption = (record, e) => {
         const { uid, aDeleteBusiness } = this.props
         const { onReset } = this
@@ -86,11 +100,16 @@ class Detail extends PureComponent {
 
     render() {
         const { business, isFetching } = this.props
-        const { item, modalVisible } = this.state
+        const { item, modalVisible, selectedRowKeys } = this.state
+        const hasSelected = selectedRowKeys.length > 0
         const columns = createColumns({
             handleOption: this.handleOption,
             type: 'UserDetail'
         })
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onSelectChange
+        }
         const modalProps = {
             item,
             title: '更新商机',
@@ -100,7 +119,6 @@ class Detail extends PureComponent {
             formData: createForm('userDetail'),
             onCancel: this.onModalCancel,
         }
-
         const data = business.map(item => ({
             ...item,
             ...item.client,
@@ -110,13 +128,21 @@ class Detail extends PureComponent {
         return (
             <div className={styles.content}>
                 {this.content}
-                <span>商机:</span>
+                <h1 className={styles.businessTitle}>员工商机</h1>
+                <Filter
+                    removeTitle={'商机'}
+                    onReset={this.onReset}
+                    hasSelected={hasSelected}
+                    onDeleteUsers={this.onDeleteBusiness}
+                    selectedLen={selectedRowKeys.length}
+                />
                 <Table
                     columns={columns}
+                    dataSource={data}
                     pagination={false}
                     scroll={{ x: 800 }}
                     loading={isFetching}
-                    dataSource={data}
+                    rowSelection={rowSelection}
                 />
                 { modalVisible && <EditModal {...modalProps} /> }
             </div>
