@@ -32,7 +32,7 @@ const editModal = ({
                     uid: item.key,
                     eid: item.eid
                 },
-                userDetail: {
+                business: {
                     id: item.key,
                     uid: item.uid,
                     eid: item.eid,
@@ -44,7 +44,7 @@ const editModal = ({
                 }
             }[type]
 
-            type === 'userDetail' && delete data.client.eName
+            type === 'business' && delete data.client.eName
 
             onOk(data)
         })

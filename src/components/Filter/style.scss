@@ -1,0 +1,14 @@
+.filter {
+    & > div {
+        margin-bottom: 20px;
+    }
+}
+
+.selectSpan {
+    line-height: 32px;
+    margin-right: 20px;
+}
+
+.remove {
+    text-align: right;
+}

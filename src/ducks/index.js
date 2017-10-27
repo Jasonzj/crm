@@ -4,10 +4,12 @@ import thunk from 'redux-thunk'
 // reducer
 import app from './app'
 import userManage from './userManage'
+import business from './business'
 
 const rootReducer = combineReducers({
     app,
-    userManage
+    userManage,
+    business
 })
 
 

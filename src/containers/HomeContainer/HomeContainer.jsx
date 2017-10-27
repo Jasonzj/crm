@@ -10,8 +10,10 @@ const { Content, Header, Footer } = Layout
 
 // Container
 import UserManage from 'containers/UserManage'
+import Business from 'containers/Business'
 
 // lazyContainer
+// const Business = asyncComponent(() => import(/* webpackChunkName: "Business" */ '../../containers/Business'))
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../../containers/NotFound'))
 
 // component
@@ -49,7 +51,7 @@ class HomeContainer extends PureComponent {
 
     componentWillMount() {
         const { signIn, history } = this.props
-        !signIn && history.push('/sign_in')
+        !signIn ? history.push('/sign_in') : history.push('/admin/user')
     }
 
     onChangeState = state => () => {
@@ -91,6 +93,7 @@ class HomeContainer extends PureComponent {
                     <Content className={styles.main}>
                         <Switch>
                             <Route exact path={`${match.url}/user`} component={UserManage} />
+                            <Route exact path={`${match.url}/business`} component={Business} />
                             <Route exact path={`${match.url}/user/:id`} component={Detail} />
                             <Route component={NotFound} />
                         </Switch>

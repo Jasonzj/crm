@@ -1,34 +1,31 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { Table, Modal, message } from 'antd'
+import { Table, Modal } from 'antd'
 import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
 
 // utils
-import { createPagination, createColumns, createForm } from 'utils/config'
+import { createColumns, createForm } from 'utils/config'
 
 // component
 import EditModal from 'components/EditModal'
 import Filter from 'components/Filter'
 
 // actions
-import { actions } from 'ducks/userManage'
+import { actions } from 'ducks/business'
 
-// scss
-import styles from '../style'
-
-const { aGetUserBusiness } = actions
 const confirm = Modal.confirm
 
 @connect(
-    state => ({
-        ...state.userManage,
+    state => ({ 
+        ...state.business,
         uid: state.app.user.uid,
+        uState: state.app.user.state,
         isFetching: state.app.isFetching,
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
-class Detail extends PureComponent {
+class Business extends PureComponent {
     constructor() {
         super()
         this.state = {
@@ -37,45 +34,10 @@ class Detail extends PureComponent {
             item: {}
         }
     }
+
     componentWillMount() {
-        const { match, userLists, business, aGetUserBusiness } = this.props
-        const uid = match.params.id
-        const data = userLists.filter(item => item.uid === uid)[0] || {}
-        const keys = Object.keys(data)
-        this.content = keys.map(key => (
-            <div key={key} className={styles.item}>
-                <div>{key}</div>
-                <div>{String(data[key])}</div>
-            </div>
-        ))
-
-        this.userName = data.name
-        aGetUserBusiness(data.name)
-    }
-
-    onReset = () => {
-        this.props.aGetUserBusiness(this.userName)
-    }
-
-    onModalOk = (data) => {
-        this.props.aUpdateBusiness(data)
-        this.onModalCancel()
-    }
-
-    onModalCancel = () => {
-        this.setState({ modalVisible: false })
-    }
-
-    onSelectChange = (selectedRowKeys) => {
-        this.setState({ selectedRowKeys })
-    }
-
-    onDeleteBusiness = () => {
-        const { selectedRowKeys } = this.state
-        const { uid, aDeleteBusiness } = this.props
-        const data = { uid, deleteId: selectedRowKeys }
-        this.setState({ selectedRowKeys: [] })
-        aDeleteBusiness(data)
+        const { business, aGetBusinessPage } = this.props
+        business.length === 0 && aGetBusinessPage(1)
     }
 
     handleOption = (record, e) => {
@@ -89,26 +51,69 @@ class Detail extends PureComponent {
             })
         } else if (e.key === '2') {
             confirm({
-                title: '你确定要删除这个用户?',
+                title: '你确定要删除这个商机?',
                 onOk() {
                     const data = { uid, deleteId: [record.uid] }
-                    aDeleteBusiness(data)
+                    aDeleteBusiness(data).then((result) => {
+                        result.data.success && onReset()
+                    })
                 }
             })
         }
     }
 
+    onReset = () => {
+        this.props.aGetBusinessPage(1)
+    }
+
+    onModalOk = (data) => {
+        this.props.aUpdateBusiness(data)
+        this.onModalCancel()
+    }
+
+    onModalCancel = () => {
+        this.setState({ modalVisible: false })
+    }
+
+    onSearchName = (name) => {
+        this.props.aSearchUserBusiness(name)
+    }
+
+    onSearchCompany = (name) => {
+        this.props.aSearchCompanyBusiness(name)
+    }
+
+    onSelectChange = (selectedRowKeys) => {
+        this.setState({ selectedRowKeys })
+    }
+
+    onDeleteUsers = () => {
+        const { selectedRowKeys } = this.state
+        const { uid, aDeleteBusiness } = this.props
+        const data = { uid, deleteId: selectedRowKeys }
+        this.setState({ selectedRowKeys: [] })
+        aDeleteBusiness(data)
+        this.onReset()
+    }
+
     render() {
-        const { business, isFetching } = this.props
+        const { business, aGetBusinessPage, isFetching, total } = this.props
         const { item, modalVisible, selectedRowKeys } = this.state
         const hasSelected = selectedRowKeys.length > 0
         const columns = createColumns({
             handleOption: this.handleOption,
-            type: 'userDetail'
+            type: 'business'
         })
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange
+        }
+        const pagination = {
+            total,
+            showQuickJumper: true,
+            onChange(page) {
+                aGetBusinessPage(page)
+            }
         }
         const modalProps = {
             item,
@@ -116,7 +121,7 @@ class Detail extends PureComponent {
             type: 'business',
             onOk: this.onModalOk,
             visible: modalVisible,
-            formData: createForm('userDetail'),
+            formData: createForm('business'),
             onCancel: this.onModalCancel,
         }
         const data = business.map(item => ({
@@ -126,22 +131,22 @@ class Detail extends PureComponent {
         }))
 
         return (
-            <div className={styles.content}>
-                {this.content}
-                <h1 className={styles.businessTitle}>员工商机</h1>
+            <div>
                 <Filter
                     removeTitle={'商机'}
                     onReset={this.onReset}
                     hasSelected={hasSelected}
-                    onDeleteUsers={this.onDeleteBusiness}
+                    onSearchName={this.onSearchName}
+                    onDeleteUsers={this.onDeleteUsers}
                     selectedLen={selectedRowKeys.length}
+                    onSearchCompany={this.onSearchCompany}
                 />
                 <Table
                     columns={columns}
                     dataSource={data}
-                    pagination={false}
                     scroll={{ x: 800 }}
                     loading={isFetching}
+                    pagination={pagination}
                     rowSelection={rowSelection}
                 />
                 { modalVisible && <EditModal {...modalProps} /> }
@@ -150,15 +155,17 @@ class Detail extends PureComponent {
     }
 }
 
-Detail.propTypes = {
-    uid: PropTypes.any,
-    match: PropTypes.object,
+Business.propTypes = {
+    uid: PropTypes.number,
+    total: PropTypes.number,
+    uState: PropTypes.number,
     business: PropTypes.array,
-    userLists: PropTypes.array,
     isFetching: PropTypes.bool,
-    aDeleteBusiness: PropTypes.func,
     aUpdateBusiness: PropTypes.func,
-    aGetUserBusiness: PropTypes.func,
+    aDeleteBusiness: PropTypes.func,
+    aGetBusinessPage: PropTypes.func,
+    aSearchUserBusiness: PropTypes.func,
+    aSearchCompanyBusiness: PropTypes.func,
 }
 
-export default Detail
+export default Business

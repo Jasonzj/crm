@@ -2,7 +2,7 @@ import React from 'react'
 import { Popconfirm, Button, Row, Col, Input } from 'antd'
 import PropTypes from 'prop-types'
 
-import styles from '../style'
+import styles from './style'
 
 const Search = Input.Search
 
@@ -13,6 +13,7 @@ const Filter = ({
     hasSelected,
     onSearchName,
     onDeleteUsers,
+    onSearchCompany
 }) => (
     <Row gutter={24} className={styles.filter}>
         {
@@ -25,15 +26,25 @@ const Filter = ({
                 />
             </Col>
         }
+        {
+            onSearchCompany &&
+            <Col sm={{ span: 8 }} xs={{ span: 24 }}>
+                <Search
+                    size="large"
+                    placeholder="搜索公司名字"
+                    onSearch={onSearchCompany}
+                />
+            </Col>
+        }
         <Col
             xs={{ span: 24 }}
             className={styles.remove}
-            sm={{ span: onSearchName ? 16 : 24 }}
+            sm={{ span: onSearchName ? onSearchCompany ? 8 : 16 : 24 }}
         >
             <span className={styles.selectSpan}>
                 {
                     hasSelected
-                        ? `选择了 ${selectedLen} 个${removeTitle}` 
+                        ? `选择了 ${selectedLen} 个${removeTitle}`
                         : ''
                 }
             </span>
@@ -69,6 +80,7 @@ Filter.propTypes = {
     selectedLen: PropTypes.number,
     onDeleteUsers: PropTypes.func,
     removeTitle: PropTypes.string,
+    onSearchCompany: PropTypes.func,
 }
 
 export default Filter

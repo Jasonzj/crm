@@ -8,6 +8,8 @@ export const searchUser = name => `${api}/searchUser?eName=${name}`
 export const editorUser = `${api}/editUser`
 export const deleteUser = `${api}/deleteUser`
 export const getUserBusiness = name => `${api}/searchBusiness?eName=${name}`
+export const getCompanyBusiness = name => `${api}/searchBusiness?companyName=${name}`
+export const getBusinessPage = page => `${api}/business?page=${page}`
 export const deleteBusiness = `${api}/deleteBusiness`
 export const editBusiness = `${api}/editBusiness`
 export const addBusiness = `${api}/addBusiness`

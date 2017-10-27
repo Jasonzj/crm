@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
-import { Table, Modal, Button, Popconfirm } from 'antd'
+import { Table, Modal } from 'antd'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
@@ -12,7 +12,7 @@ import { createColumns, createForm } from 'utils/config'
 
 // component
 import EditModal from 'components/EditModal'
-import Filter from './subComponents/Filter'
+import Filter from 'components/Filter'
 
 // actions
 import { actions } from 'ducks/userManage'
@@ -42,7 +42,7 @@ class UserManage extends Component {
     }
 
     componentWillMount() {
-        const { userLists, history, aGetUserListPage } = this.props
+        const { userLists, aGetUserListPage } = this.props
         userLists.length === 0 && aGetUserListPage(1)
     }
 
@@ -64,8 +64,9 @@ class UserManage extends Component {
                 title: '你确定要删除这个用户?',
                 onOk() {
                     const data = { uid, deleteId: [record.uid] }
-                    aDeleteUser(data)
-                    onReset()
+                    aDeleteUser(data).then((result) => {
+                        result.data.success && onReset()
+                    })
                 }
             })
         }
@@ -108,7 +109,7 @@ class UserManage extends Component {
 
         const columnsConfig = {
             uState,
-            type: 'UserManage',
+            type: 'userManage',
             handleOption: this.handleOption
         }
         const pagination = {

@@ -29,6 +29,7 @@ export const actions = {
             return result
         } catch (err) {
             console.error(err)
+            Msg.error(err)
             dispatch(actions.finishFetch())
         }
     }

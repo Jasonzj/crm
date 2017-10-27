@@ -30,6 +30,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
+            Msg.error(err)
             dispatch(appActions.finishFetch())
         }
     },
@@ -37,13 +38,13 @@ export const actions = {
         try {
             dispatch(appActions.startFetch())
             const result = await instance.get(searchUser(name))
-            console.log(result)
             const { success, message } = result.data
             success ? Msg.info(message) : Msg.error(message)
             dispatch(actions.setUserLists(result.data))
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
+            Msg.error(err)
             dispatch(appActions.finishFetch())
         }
     },
@@ -57,6 +58,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
+            Msg.error(err)
             dispatch(appActions.finishFetch())
         }
     },
@@ -68,8 +70,10 @@ export const actions = {
             success ? Msg.info(message) : Msg.error(message)
             dispatch(actions.deleteUser(data))
             dispatch(appActions.finishFetch())
+            return result
         } catch (err) {
             console.error(err)
+            Msg.error(err)
             dispatch(appActions.finishFetch())
         }
     },
@@ -81,6 +85,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
+            Msg.error(err)
             dispatch(appActions.finishFetch())
         }
     },
@@ -94,6 +99,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
+            Msg.error(err)
             dispatch(appActions.finishFetch())
         }
     },
@@ -107,6 +113,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
+            Msg.error(err)
             dispatch(appActions.finishFetch())
         }
     }

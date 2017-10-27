@@ -69,11 +69,13 @@ const createUserManageColums = (
 const createBusinessColumns = handleOption => ([
     {
         title: '所属人',
-        dataIndex: 'eName'
+        dataIndex: 'eName',
+        sorter: (a, b) => a.eName.length - b.eName.length
     },
     {
         title: '公司名字',
-        dataIndex: 'name'
+        dataIndex: 'name',
+        sorter: (a, b) => a.name.length - b.name.length
     },
     {
         title: '联系人',
@@ -89,7 +91,8 @@ const createBusinessColumns = handleOption => ([
     },
     {
         title: '创建时间',
-        dataIndex: 'time'
+        dataIndex: 'time',
+        sorter: (a, b) => new Date(a.time) - new Date(b.time)
     },
     {
         title: 'Operation',
@@ -109,10 +112,11 @@ export const createColumns = ({
     handleOption
 }) => {
     switch (type) {
-        case 'UserDetail':
+        case 'userDetail':
+        case 'business':
             return createBusinessColumns(handleOption)
 
-        case 'UserManage':
+        case 'userManage':
         default:
             return createUserManageColums(uState, handleOption)
     }
@@ -240,6 +244,7 @@ const businessForm = [
 export const createForm = (type) => {
     switch (type) {
         case 'userDetail':
+        case 'business':
             return businessForm
 
         case 'userManage':

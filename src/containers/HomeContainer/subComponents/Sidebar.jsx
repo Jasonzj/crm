@@ -32,8 +32,10 @@ const Sidebar = ({
                 </Link>
             </Menu.Item>
             <Menu.Item key="2">
-                <Icon type="pay-circle" />
-                <span>商机</span>
+                <Link to="/admin/business">
+                    <Icon type="pay-circle" />
+                    <span>商机</span>
+                </Link>
             </Menu.Item>
             <Menu.Item key="3">
                 <Icon type="bell" />
