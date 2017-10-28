@@ -102,15 +102,16 @@ class Business extends PureComponent {
     }
 
     onCreateBusiness = (data) => {
-        console.log(data)
         this.props.aCreateBusiness(data).then((data) => {
-            console.log(data)
+            if (data.success) {
+                this.onReset()
+                this.onModalCancel()
+            }
         })
-        this.onModalCancel()
     }
 
     render() {
-        const { business, aGetBusinessPage, isFetching, total } = this.props
+        const { business, aGetBusinessPage, isFetching, total, uid } = this.props
         const { modalVisible, selectedRowKeys, item } = this.state
         const hasSelected = selectedRowKeys.length > 0
         const columns = createColumns({
@@ -130,14 +131,14 @@ class Business extends PureComponent {
         }
         const modalProps = {
             item,
+            eid: uid,
             title: '更新商机',
-            title2: '创建商机',
             type: 'business',
             onOk: this.onModalOk,
-            onCreate: this.onCreateBusiness,
             visible: modalVisible,
-            formData: createForm('business'),
             onCancel: this.onModalCancel,
+            onCreate: this.onCreateBusiness,
+            formData: createForm('business'),
         }
         const data = business.map(item => ({
             ...item,
@@ -180,6 +181,7 @@ Business.propTypes = {
     isFetching: PropTypes.bool,
     aUpdateBusiness: PropTypes.func,
     aDeleteBusiness: PropTypes.func,
+    aCreateBusiness: PropTypes.func,
     aGetBusinessPage: PropTypes.func,
     aSearchUserBusiness: PropTypes.func,
     aSearchCompanyBusiness: PropTypes.func,

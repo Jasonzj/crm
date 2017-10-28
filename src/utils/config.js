@@ -221,17 +221,24 @@ const userManageForm = [
 const businessForm = [
     {
         id: 1,
-        key: 'eName',
-        label: '所属人',
-        type: 'input',
-        disabled: true,
-        rules: [{ required: true }]
-    },
-    {
-        id: 2,
         key: 'name',
         label: '公司名字',
         type: 'input',
+        rules: [{ required: true, message: '请输入公司名字!' }]
+    },
+    {
+        id: 2,
+        key: 'type',
+        label: '公司类型',
+        type: 'select',
+        string: true,
+        selectVal: {
+            0: '经济',
+            1: '科技',
+            2: '医药',
+            3: '物流',
+            4: '航空'
+        },
         rules: [{ required: true, message: '请输入公司名字!' }]
     },
     {
@@ -260,14 +267,6 @@ const businessForm = [
                 message: '联系电话格式错误!'
             }
         ]
-    },
-    {
-        id: 6,
-        key: 'time',
-        label: '创建时间',
-        type: 'input',
-        disabled: true,
-        rules: [{ required: true }]
     },
     {
         id: 7,

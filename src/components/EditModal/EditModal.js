@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, Form, Input, InputNumber, Select, Cascader } from 'antd'
 import PropTypes from 'prop-types'
 import city from 'utils/city'
-import { isEmptyObject } from 'utils/func'
+import { isEmptyObject, getTime } from 'utils/func'
 
 const FormItem = Form.Item
 const Option = Select.Option
@@ -15,7 +15,6 @@ const formItemLayout = {
         span: 14,
     },
 }
-
 const initFunc = (data, item) => {
     if (data.string) {
         return `${item[data.key]}`
@@ -27,6 +26,7 @@ const initFunc = (data, item) => {
 }
 
 const editModal = ({
+    eid,
     onOk,
     form,
     type,
@@ -48,13 +48,13 @@ const editModal = ({
                     eid: item.eid
                 },
                 business: {
+                    eid,
                     id: item.key,
                     uid: item.uid,
-                    eid: item.eid,
-                    eName: values.eName,
+                    eName: item.eName,
                     client: {
                         ...values,
-                        type: item.type
+                        time: item.time || getTime()
                     }
                 }
             }[type]
@@ -63,6 +63,11 @@ const editModal = ({
                 const client = data.client
                 delete client.eName
                 client.address = client.address.join(' ')
+                if (isData) {
+                    delete data.id
+                    delete data.uid
+                    delete data.eName
+                }
             }
 
             isData ? onCreate(data) : onOk(data)
@@ -89,7 +94,7 @@ const editModal = ({
                         content = {
                             input: <Input disabled={isData ? false : data.disabled} />,
                             number: <InputNumber min={data.min} max={data.max} />,
-                            area: <TextArea autosize />,
+                            area: <TextArea autosize={{ minRows: 2, maxRows: 6 }} />,
                             address: <Cascader size="large" options={city} />,
                             select: (
                                 <Select>

@@ -20,7 +20,6 @@ export const actions = {
             const result = await instance.post(addBusiness, data)
             const { success, message } = result.data
             success ? Msg.info(message) : Msg.error(message)
-            console.log(result)
             dispatch(appActions.finishFetch())
             return result.data
         } catch (err) {

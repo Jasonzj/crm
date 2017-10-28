@@ -334,7 +334,7 @@ post `/api/v1/addBusiness`
 请求格式:
 ```javascript
 {
-    uid: '',        // 员工id (添加人的id)
+    eid: '',        // 员工id (添加人的id)
     client: {
         name: xxx,           // 公司名称
         type: xxx,           // 公司类型
@@ -471,7 +471,7 @@ post  `/api/v1/addVisit`
 请求格式:
 ```javascript
 {
-    uid: xx,           // 拜访员工ID
+    eid: xx,           // 拜访员工ID
     time: xx-xx,       // 拜访时间 (年月日)
     content: 'xxx',    // 拜访内容
     result: 0,         // 拜访结果 (0成功, 1待定，2失败)
@@ -623,7 +623,7 @@ post `/api/v1/addContract`
 请求格式:
 ```javascript
 {
-    uid: xx,       // 合同跟进人id(添加人)
+    eid: xx,       // 合同跟进人id(添加人)
     title: ''      // 合同标题
     name: '',      // 公司名字
     time: xx-xx,   // 合同时间
