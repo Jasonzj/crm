@@ -249,36 +249,13 @@ get  `/api/v1/business` 或 get `/api/v1/business?page=x`
                 contact: 'xxxx',     // 联系人
                 contactTel: 111,     // 联系人电话
                 contactPost: 'xxx',  // 联系人职位
-                time: xxx            // 创建时间
+                time: xxx,           // 创建时间
+                intro: `xxxxxxxxxx`  // 公司简介
+                address: 'xxx'       // 公司地址
             }
         },
         ...
     ]
-}
-```
-
-获取商机详情
-get `/api/v1/business?id=x`
-```javascript
-{
-    success: true/false,
-    message: '',
-    data: {
-        id: xxx,        // 商机ID
-        uid: '',        // 员工id
-        uName: '',      // 员工账户名
-        eName: '',      // 员工真实姓名
-        client: {
-            name: xxx,           // 公司名称
-            type: xxx,           // 公司类型
-            contact: 'xxxx',     // 联系人
-            contactTel: 111,     // 联系人电话
-            contactPost: 'xxx',  // 联系人职位
-            time: xxx,           // 创建时间
-            intro: `xxxxxxxxxx`  // 公司简介
-            address: 'xxx'       // 公司地址
-        }
-    }
 }
 ```
 
@@ -376,7 +353,6 @@ post `/api/v1/addBusiness`
 {
     success: true/false,
     message: '',
-    id: xxxxx       // 新建的商机ID
 }
 ```
 
@@ -507,7 +483,6 @@ post  `/api/v1/addVisit`
 {
     success: true/false,
     message: ''，
-    id: xxxxx       // 新建的拜访ID
 }
 ```
 
@@ -664,7 +639,6 @@ post `/api/v1/addContract`
 {
     success: true/false,
     message: '',
-    id: xxxxx       // 新建的合同ID
 }
 ```
 
