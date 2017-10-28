@@ -87,9 +87,7 @@ const editModal = ({
                         const selectVal = data.selectVal
                         let content = null
                         let selectKeys = null
-                        selectKeys = data.type === 'select'
-                            ? Object.keys(selectVal)
-                            : null
+                        selectKeys = data.type === 'select' && Object.keys(selectVal)
 
                         content = {
                             input: <Input disabled={isData ? false : data.disabled} />,
