@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Layout, Icon } from 'antd'
+import { withRouter } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import localStore from 'utils/localStore'
 import asyncComponent from '../../AsyncComponent'
@@ -11,15 +13,17 @@ const { Content, Header, Footer } = Layout
 // Container
 import UserManage from 'containers/UserManage'
 import Business from 'containers/Business'
+import Detail from 'containers/UserManage/subComponents/Detail'
+import SignIn from 'containers/SignIn'
 
 // lazyContainer
 // const Business = asyncComponent(() => import(/* webpackChunkName: "Business" */ '../../containers/Business'))
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../../containers/NotFound'))
 
 // component
-import Sidebar from './subComponents/Sidebar.jsx'
-import User from './subComponents/User.jsx'
-import Detail from 'containers/UserManage/subComponents/Detail'
+import Sidebar from './subComponents/Sidebar'
+import User from './subComponents/User'
+import Loading from 'components/Loading'
 
 // actions
 import { actions } from 'ducks/app'
@@ -27,17 +31,10 @@ import { actions } from 'ducks/app'
 // scss
 import styles from './style.scss'
 
+@withRouter
 @connect(
-    state => ({
-        isFetching: state.app.isFetching,
-        user: state.app.user,
-        signIn: state.app.signIn,
-    }),
-    dispatch => ({
-        setSignOut() {
-            dispatch(actions.setSignOut())
-        }
-    })
+    state => ({ ...state.app }),
+    dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class HomeContainer extends PureComponent {
     constructor() {
@@ -51,7 +48,7 @@ class HomeContainer extends PureComponent {
 
     componentWillMount() {
         const { signIn, history } = this.props
-        !signIn ? history.push('/sign_in') : history.push('/admin/user')
+        !signIn ? history.push('/sign_in') : history.push('/user')
     }
 
     onChangeState = state => () => {
@@ -68,11 +65,19 @@ class HomeContainer extends PureComponent {
     }
 
     render() {
-        const { match, isFetching, user } = this.props
+        const { match, isFetching, user, history: { location }, loading } = this.props
         const { collapsed, sideInline } = this.state
+
+        if ('/sign_in'.includes(location.pathname)) {
+            return [
+                <Loading key="1" spinning={loading} />,
+                <Route key="2" exact path="/sign_in" component={SignIn} />
+            ]
+        }
 
         return (
             <Layout className="ant-layout-has-sider">
+                <Loading spinning={loading} />
                 <Sidebar
                     collapsed={collapsed}
                     sideInline={sideInline}
@@ -92,9 +97,9 @@ class HomeContainer extends PureComponent {
                     </Header>
                     <Content className={styles.main}>
                         <Switch>
-                            <Route exact path={`${match.url}/user`} component={UserManage} />
-                            <Route exact path={`${match.url}/business`} component={Business} />
-                            <Route exact path={`${match.url}/user/:id`} component={Detail} />
+                            <Route exact path="/user" component={UserManage} />
+                            <Route exact path="/user/:id" component={Detail} />
+                            <Route exact path="/business" component={Business} />
                             <Route component={NotFound} />
                         </Switch>
                     </Content>

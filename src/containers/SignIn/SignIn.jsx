@@ -5,7 +5,10 @@ import { bindActionCreators } from 'redux'
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 import PropTypes from 'prop-types'
 import styles from './style'
+
+// components
 import Loading from 'components/Loading'
+import Portal from 'components/Portal'
 
 // action
 import { actions } from 'ducks/app'
@@ -17,26 +20,21 @@ const FormItem = Form.Item
         signIn: state.app.signIn,
         isFetching: state.app.isFetching
     }),
-    dispatch => ({
-        aSignIn(values) {
-            return dispatch(actions.aSignIn(values))
-        }
-    })
+    dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class SignIn extends PureComponent {
-    constructor() {
-        super()
-        this.state = { loading: true }
-    }
-
     componentWillMount() {
         const { signIn, history } = this.props
         this.jumpIndex(signIn, history)
-        setTimeout(() => this.setState({ loading: false }), 50)
+        setTimeout(() => this.props.finishLoader(), 50)
+    }
+
+    componentWillUnmount() {
+        this.props.startLoader()
     }
 
     jumpIndex(bool, history) {
-        bool && history.push('/admin/user')
+        bool && history.push('/user')
     }
 
     handleSubmit = (e) => {
@@ -55,18 +53,16 @@ class SignIn extends PureComponent {
 
     render() {
         const { isFetching, form: { getFieldDecorator } } = this.props
-        const { loading } = this.state
 
         return (
             <div className={styles.signIn}>
-                <Loading spinning={loading} />
                 <div className={styles.main}>
                     <div className={styles.title}>
-                        <Link to={'admin/sign_in'} className={styles.active}>
+                        <Link to={'/sign_in'} className={styles.active}>
                             登入
                         </Link>
                         <b>·</b>
-                        <Link to={'admin/sign_up'}>
+                        <Link to={'/sign_up'}>
                             注册
                         </Link>
                     </div>

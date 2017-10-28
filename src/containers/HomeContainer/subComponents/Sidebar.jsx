@@ -26,13 +26,13 @@ const Sidebar = ({
             defaultSelectedKeys={['1']}
         >
             <Menu.Item key="1">
-                <Link to="/admin/user">
+                <Link to="/user">
                     <Icon type="user" />
                     <span>员工管理</span>
                 </Link>
             </Menu.Item>
             <Menu.Item key="2">
-                <Link to="/admin/business">
+                <Link to="/business">
                     <Icon type="pay-circle" />
                     <span>商机</span>
                 </Link>

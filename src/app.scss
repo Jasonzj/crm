@@ -11,4 +11,17 @@
     .ant-layout {
         @extend %height;
     }
+
+    .ant-table-tbody > tr > td,
+    .ant-table-thead > tr > th {
+        height: 62px;
+        text-align: center;
+        border-right: 1px solid #f4f4f4;
+    }
+
+    .ant-table-bordered .ant-table-body > table {
+        border: 1px solid #f4f4f4;
+        border-right: 0;
+        border-bottom: 0;
+    }
 }

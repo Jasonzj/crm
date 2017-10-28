@@ -17,7 +17,6 @@ import { actions } from 'ducks/userManage'
 // scss
 import styles from '../style'
 
-const { aGetUserBusiness, agetUserDetail } = actions
 const confirm = Modal.confirm
 
 @connect(
@@ -167,6 +166,7 @@ Detail.propTypes = {
     business: PropTypes.array,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,
+    agetUserDetail: PropTypes.func,
     aDeleteBusiness: PropTypes.func,
     aUpdateBusiness: PropTypes.func,
     aGetUserBusiness: PropTypes.func,

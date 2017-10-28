@@ -16,20 +16,21 @@ import Filter from 'components/Filter'
 
 // actions
 import { actions } from 'ducks/userManage'
+import { actions  as app } from 'ducks/app'
 
 // styles
 import styles from './style'
 
 const confirm = Modal.confirm
+const finishLoader = app.finishLoader
 
 @connect(
     state => ({
         ...state.userManage,
-        uid: state.app.user.uid,
+        ...state.app,
         uState: state.app.user.state,
-        isFetching: state.app.isFetching,
     }),
-    dispatch => bindActionCreators({ ...actions }, dispatch)
+    dispatch => bindActionCreators({ ...actions, finishLoader }, dispatch)
 )
 class UserManage extends Component {
     constructor() {
@@ -44,6 +45,11 @@ class UserManage extends Component {
     componentWillMount() {
         const { userLists, aGetUserListPage } = this.props
         userLists.length === 0 && aGetUserListPage(1)
+    }
+
+    componentWillUpdate() {
+        const { loading, finishLoader } = this.props
+        loading && finishLoader()
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -146,6 +152,8 @@ class UserManage extends Component {
                     selectedLen={selectedRowKeys.length}
                 />
                 <Table
+                    simple
+                    bordered
                     columns={columns}
                     scroll={{ x: 800 }}
                     loading={isFetching}
@@ -164,12 +172,14 @@ UserManage.propTypes = {
     uid: PropTypes.number,
     total: PropTypes.number,
     uState: PropTypes.number,
+    loading: PropTypes.bool,
     history: PropTypes.object,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,
     aSearchUser: PropTypes.func,
     aDeleteUser: PropTypes.func,
     aUpdateUser: PropTypes.func,
+    finishLoader: PropTypes.func,
     aGetUserListPage: PropTypes.func,
 }
 
