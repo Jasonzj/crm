@@ -1,8 +1,0 @@
-#root {
-    overflow: hidden;
-}
-
-#root,
-.ant-layout {
-    height: 100%;
-}

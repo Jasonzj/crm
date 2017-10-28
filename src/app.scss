@@ -1,0 +1,14 @@
+:global {
+    %height {
+        height: 100%;
+    }
+
+    #root {
+        overflow: hidden;
+        @extend %height;
+    }
+    
+    .ant-layout {
+        @extend %height;
+    }
+}
