@@ -18,10 +18,9 @@ const confirm = Modal.confirm
 
 @connect(
     state => ({ 
+        ...state.app,
         ...state.business,
-        uid: state.app.user.uid,
         uState: state.app.user.state,
-        isFetching: state.app.isFetching,
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
@@ -136,11 +135,13 @@ class Business extends PureComponent {
                 <Filter
                     removeTitle={'商机'}
                     onReset={this.onReset}
+                    isFetching={isFetching}
                     hasSelected={hasSelected}
                     onSearchName={this.onSearchName}
                     onDeleteUsers={this.onDeleteUsers}
                     selectedLen={selectedRowKeys.length}
                     onSearchCompany={this.onSearchCompany}
+                    onCreate={() => console.log('1')}
                 />
                 <Table
                     columns={columns}

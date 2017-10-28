@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar } from 'antd'
+import { Avatar, Popover, Button } from 'antd'
 import { Link } from 'react-router-dom'
 import DropOption from 'components/DropOption'
 
@@ -79,21 +79,50 @@ const createBusinessColumns = handleOption => ([
         sorter: (a, b) => a.name.length - b.name.length
     },
     {
-        title: '联系人',
-        dataIndex: 'contact'
+        title: '类型',
+        dataIndex: 'type',
+        render: num => ['经济', '科技', '医药', '物流', '航空'][num],
+        filters: [
+            { text: '经济', value: 0 },
+            { text: '科技', value: 1 },
+            { text: '医药', value: 2 },
+            { text: '物流', value: 3 },
+            { text: '航空', value: 4 },
+        ],
+        onFilter: (value, record) => record.type == value
     },
     {
         title: '职位',
         dataIndex: 'contactPost'
     },
     {
+        title: '联系人',
+        dataIndex: 'contact'
+    },
+    {
         title: '联系电话',
         dataIndex: 'contactTel'
     },
     {
+        title: '地址',
+        dataIndex: 'address'
+    },
+    {
         title: '创建时间',
         dataIndex: 'time',
-        sorter: (a, b) => new Date(a.time) - new Date(b.time)
+    },
+    {
+        title: '公司简介',
+        dataIndex: 'intro',
+        render: (text, record) => (
+            <Popover
+                content={text}
+                title={record.name}
+                trigger="hover"
+            >
+                <Button>查看简介</Button>
+            </Popover>
+        )
     },
     {
         title: 'Operation',
@@ -239,6 +268,25 @@ const businessForm = [
         type: 'input',
         disabled: true,
         rules: [{ required: true }]
+    },
+    {
+        id: 7,
+        key: 'address',
+        label: '公司地址',
+        type: 'address',
+        address: true,
+        rules: [{ required: true, message: '公司地址不能为空!' }]
+    },
+    {
+        id: 8,
+        key: 'intro',
+        label: '公司简介',
+        type: 'area',
+        rules: [
+            { required: true, message: '请输入公司简介!' },
+            { min: 15, message: '简介最少15个字!' },
+            { max: 200, message: '简介最多200个字!' },
+        ]
     }
 ]
 

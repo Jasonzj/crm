@@ -1,9 +1,11 @@
 import React from 'react'
-import { Modal, Form, Input, InputNumber, Select } from 'antd'
+import { Modal, Form, Input, InputNumber, Select, Cascader } from 'antd'
 import PropTypes from 'prop-types'
+import city from 'utils/city'
 
 const FormItem = Form.Item
 const Option = Select.Option
+const TextArea = Input.TextArea
 const formItemLayout = {
     labelCol: {
         span: 6,
@@ -11,6 +13,16 @@ const formItemLayout = {
     wrapperCol: {
         span: 14,
     },
+}
+
+const initFunc = (data, item) => {
+    if (data.string) {
+        return `${item[data.key]}`
+    }
+    if (data.address) {
+        return item.address.split(' ')
+    }
+    return item[data.key]
 }
 
 const editModal = ({
@@ -44,7 +56,11 @@ const editModal = ({
                 }
             }[type]
 
-            type === 'business' && delete data.client.eName
+            if (type === 'business') {
+                const client = data.client
+                delete client.eName
+                client.address = client.address.join(' ')
+            }
 
             onOk(data)
         })
@@ -70,6 +86,8 @@ const editModal = ({
                         content = {
                             input: <Input disabled={data.disabled} />,
                             number: <InputNumber min={data.min} max={data.max} />,
+                            area: <TextArea autosize />,
+                            address: <Cascader size="large" options={city} />,
                             select: (
                                 <Select>
                                     {
@@ -93,7 +111,7 @@ const editModal = ({
                             >
                                 {
                                     getFieldDecorator(data.key, {
-                                        initialValue: data.string ? `${item[data.key]}` : item[data.key],
+                                        initialValue: initFunc(data, item),
                                         rules: data.rules
                                     })(
                                         content

@@ -8,12 +8,14 @@ const Search = Input.Search
 
 const Filter = ({
     onReset,
+    onCreate,
+    isFetching,
     removeTitle,
     selectedLen,
     hasSelected,
     onSearchName,
     onDeleteUsers,
-    onSearchCompany
+    onSearchCompany,
 }) => (
     <Row gutter={24} className={styles.filter}>
         {
@@ -65,16 +67,28 @@ const Filter = ({
                 size="large"
                 type="primary"
                 onClick={onReset}
+                loading={isFetching}
                 style={{ marginLeft: '12px' }}
             >
                     重置
             </Button>
+            {
+                onCreate &&
+                <Button
+                    size="large"
+                    onClick={onCreate}
+                    style={{ marginLeft: '12px' }}
+                >
+                    创建
+                </Button>
+            }
         </Col>
     </Row>
 )
 
 Filter.propTypes = {
     onReset: PropTypes.func,
+    isFetching: PropTypes.bool,
     hasSelected: PropTypes.bool,
     onSearchName: PropTypes.func,
     selectedLen: PropTypes.number,

@@ -146,6 +146,7 @@ class UserManage extends Component {
                 <Filter
                     removeTitle={'用户'}
                     onReset={this.onReset}
+                    isFetching={isFetching}
                     hasSelected={hasSelected}
                     onSearchName={this.onSearchName}
                     onDeleteUsers={this.onDeleteUsers}
@@ -159,7 +160,6 @@ class UserManage extends Component {
                     loading={isFetching}
                     dataSource={userLists}
                     pagination={pagination}
-                    className={styles.table}
                     rowSelection={rowSelection}
                 />
                 { modalVisible && <EditModal {...modalProps} /> }

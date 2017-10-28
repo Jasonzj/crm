@@ -24,4 +24,10 @@
         border-right: 0;
         border-bottom: 0;
     }
+
+    .ant-pagination {
+        float: none!important;
+        display: table;
+        margin: 16px auto!important;
+    }  
 }
