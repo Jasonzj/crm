@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, Form, Input, InputNumber, Select, Cascader } from 'antd'
 import PropTypes from 'prop-types'
 import city from 'utils/city'
+import { isEmptyObject } from 'utils/func'
 
 const FormItem = Form.Item
 const Option = Select.Option
@@ -30,10 +31,12 @@ const editModal = ({
     form,
     type,
     formData,
+    onCreate,
     item = {},
     ...modalProps
 }) => {
     const { getFieldDecorator, validateFields, getFieldsValue } = form
+    const isData = isEmptyObject(item)
     const handleOk = () => {
         validateFields((errors) => {
             if (errors) return
@@ -62,7 +65,7 @@ const editModal = ({
                 client.address = client.address.join(' ')
             }
 
-            onOk(data)
+            isData ? onCreate(data) : onOk(data)
         })
     }
 
@@ -84,7 +87,7 @@ const editModal = ({
                             : null
 
                         content = {
-                            input: <Input disabled={data.disabled} />,
+                            input: <Input disabled={isData ? false : data.disabled} />,
                             number: <InputNumber min={data.min} max={data.max} />,
                             area: <TextArea autosize />,
                             address: <Cascader size="large" options={city} />,
@@ -111,7 +114,7 @@ const editModal = ({
                             >
                                 {
                                     getFieldDecorator(data.key, {
-                                        initialValue: initFunc(data, item),
+                                        initialValue: isData ? '' : initFunc(data, item),
                                         rules: data.rules
                                     })(
                                         content
@@ -134,6 +137,7 @@ editModal.propTypes = {
     type: PropTypes.string,
     item: PropTypes.object,
     form: PropTypes.object,
+    onCreate: PropTypes.func,
     formData: PropTypes.array,
 }
 

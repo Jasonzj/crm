@@ -17,9 +17,10 @@ import { actions } from 'ducks/business'
 const confirm = Modal.confirm
 
 @connect(
-    state => ({ 
+    state => ({
         ...state.app,
         ...state.business,
+        uid: state.app.user.uid,
         uState: state.app.user.state,
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
@@ -36,7 +37,7 @@ class Business extends PureComponent {
 
     componentWillMount() {
         const { business, aGetBusinessPage } = this.props
-        business.length === 0 && aGetBusinessPage(1)
+        business.length === 0 && aGetBusinessPage(1)   
     }
 
     handleOption = (record, e) => {
@@ -96,9 +97,21 @@ class Business extends PureComponent {
         this.onReset()
     }
 
+    onCreate = () => {
+        this.setState({ modalVisible: true, item: {} })
+    }
+
+    onCreateBusiness = (data) => {
+        console.log(data)
+        this.props.aCreateBusiness(data).then((data) => {
+            console.log(data)
+        })
+        this.onModalCancel()
+    }
+
     render() {
         const { business, aGetBusinessPage, isFetching, total } = this.props
-        const { item, modalVisible, selectedRowKeys } = this.state
+        const { modalVisible, selectedRowKeys, item } = this.state
         const hasSelected = selectedRowKeys.length > 0
         const columns = createColumns({
             handleOption: this.handleOption,
@@ -118,8 +131,10 @@ class Business extends PureComponent {
         const modalProps = {
             item,
             title: '更新商机',
+            title2: '创建商机',
             type: 'business',
             onOk: this.onModalOk,
+            onCreate: this.onCreateBusiness,
             visible: modalVisible,
             formData: createForm('business'),
             onCancel: this.onModalCancel,
@@ -136,12 +151,12 @@ class Business extends PureComponent {
                     removeTitle={'商机'}
                     onReset={this.onReset}
                     isFetching={isFetching}
+                    onCreate={this.onCreate}
                     hasSelected={hasSelected}
                     onSearchName={this.onSearchName}
                     onDeleteUsers={this.onDeleteUsers}
                     selectedLen={selectedRowKeys.length}
                     onSearchCompany={this.onSearchCompany}
-                    onCreate={() => console.log('1')}
                 />
                 <Table
                     columns={columns}
