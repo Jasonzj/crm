@@ -23,6 +23,7 @@ const confirm = Modal.confirm
     state => ({
         ...state.userManage,
         uid: state.app.user.uid,
+        uState: state.app.user.state,
         isFetching: state.app.isFetching,
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
@@ -99,10 +100,12 @@ class Detail extends PureComponent {
     }
 
     render() {
-        const { business, isFetching, currentUser } = this.props
+        const { business, isFetching, currentUser, uid, uState } = this.props
         const { item, modalVisible, selectedRowKeys } = this.state
         const hasSelected = selectedRowKeys.length > 0
         const columns = createColumns({
+            uid,
+            uState,
             handleOption: this.handleOption,
             type: 'userDetail'
         })
@@ -162,6 +165,7 @@ class Detail extends PureComponent {
 
 Detail.propTypes = {
     uid: PropTypes.any,
+    uState: PropTypes.bool,
     match: PropTypes.object,
     business: PropTypes.array,
     userLists: PropTypes.array,

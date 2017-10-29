@@ -16,6 +16,7 @@ import UserManage from 'containers/UserManage'
 import Business from 'containers/Business'
 import Detail from 'containers/UserManage/subComponents/Detail'
 import SignIn from 'containers/SignIn'
+import Visit from 'containers/Visit'
 
 // lazyContainer
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../../containers/NotFound'))
@@ -112,6 +113,7 @@ class HomeContainer extends PureComponent {
                             <Route exact path="/user" component={UserManage} />
                             <Route exact path="/user/:id" component={Detail} />
                             <Route exact path="/business" component={Business} />
+                            <Route exact path="/visit" component={Visit} />
                             <Route component={NotFound} />
                         </Switch>
                     </Content>

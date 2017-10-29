@@ -38,8 +38,10 @@ const Sidebar = ({
                 </Link>
             </Menu.Item>
             <Menu.Item key="3">
-                <Icon type="bell" />
-                <span>拜访</span>
+                <Link to="/visit">
+                    <Icon type="bell" />
+                    <span>拜访</span>
+                </Link>
             </Menu.Item>
             <Menu.Item key="4">
                 <Icon type="solution" />

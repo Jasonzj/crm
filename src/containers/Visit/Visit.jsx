@@ -12,20 +12,20 @@ import EditModal from 'components/EditModal'
 import Filter from 'components/Filter'
 
 // actions
-import { actions } from 'ducks/business'
+import { actions } from 'ducks/visit'
 
 const confirm = Modal.confirm
 
 @connect(
     state => ({
-        ...state.business,
+        ...state.app,
+        ...state.visit,
         uid: state.app.user.uid,
         uState: state.app.user.state,
-        isFetching: state.app.isFetching,
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
-class Business extends PureComponent {
+class Visit extends PureComponent {
     constructor() {
         super()
         this.state = {
@@ -37,12 +37,12 @@ class Business extends PureComponent {
     }
 
     componentWillMount() {
-        const { business, aGetBusinessPage } = this.props
-        business.length === 0 && aGetBusinessPage(1)
+        const { visits, aGetVisitPage } = this.props
+        visits.length === 0 && aGetVisitPage(1)
     }
 
     handleOption = (record, e) => {
-        const { uid, aDeleteBusiness } = this.props
+        const { uid, aDeleteVisit } = this.props
         const { onReset } = this
 
         if (e.key === '1') {
@@ -55,7 +55,7 @@ class Business extends PureComponent {
                 title: '你确定要删除这个商机?',
                 onOk() {
                     const data = { uid, deleteId: [record.uid] }
-                    aDeleteBusiness(data).then((result) => {
+                    aDeleteVisit(data).then((result) => {
                         result.data.success && onReset()
                     })
                 }
@@ -64,12 +64,12 @@ class Business extends PureComponent {
     }
 
     onReset = () => {
-        this.props.aGetBusinessPage(1)
+        this.props.aGetVisitPage(1)
         this.setState({ selectedRowKeys: [], page: 1 })
     }
 
     onModalOk = (data) => {
-        this.props.aUpdateBusiness(data)
+        this.props.aUpdateVisit(data)
         this.onModalCancel()
     }
 
@@ -78,11 +78,11 @@ class Business extends PureComponent {
     }
 
     onSearchName = (name) => {
-        this.props.aSearchUserBusiness(name)
+        this.props.aSearchUserVisit(name)
     }
 
     onSearchCompany = (name) => {
-        this.props.aSearchCompanyBusiness(name)
+        this.props.aSearchCompanyVisit(name)
     }
 
     onSelectChange = (selectedRowKeys) => {
@@ -91,15 +91,15 @@ class Business extends PureComponent {
 
     onDeleteUsers = () => {
         const { selectedRowKeys } = this.state
-        const { uid, aDeleteBusiness } = this.props
+        const { uid, aDeleteVisit } = this.props
         const data = { uid, deleteId: selectedRowKeys }
         this.setState({ selectedRowKeys: [] })
-        aDeleteBusiness(data)
+        aDeleteVisit(data)
         this.onReset()
     }
 
     onPageChnage = (page) => {
-        this.props.aGetBusinessPage(page)
+        this.props.aGetVisitPage(page)
         this.setState({ page })
     }
 
@@ -108,7 +108,7 @@ class Business extends PureComponent {
     }
 
     onCreateBusiness = (data) => {
-        this.props.aCreateBusiness(data).then((data) => {
+        this.props.aCreateVisit(data).then((data) => {
             if (data.success) {
                 this.onReset()
                 this.onModalCancel()
@@ -117,14 +117,14 @@ class Business extends PureComponent {
     }
 
     render() {
-        const { business, isFetching, total, uid, uState } = this.props
+        const { visits, isFetching, total, uid, uState } = this.props
         const { modalVisible, selectedRowKeys, item, page } = this.state
         const hasSelected = selectedRowKeys.length > 0
         const columns = createColumns({
             uid,
             uState,
             handleOption: this.handleOption,
-            type: 'business'
+            type: 'visit'
         })
         const rowSelection = {
             selectedRowKeys,
@@ -139,24 +139,19 @@ class Business extends PureComponent {
         const modalProps = {
             item,
             eid: uid,
-            type: 'business',
+            type: 'visit',
             onOk: this.onModalOk,
-            title: '创建/更新商机',
+            title: '创建/更新拜访',
             visible: modalVisible,
             onCancel: this.onModalCancel,
             onCreate: this.onCreateBusiness,
-            formData: createForm('business'),
+            formData: createForm('visit'),
         }
-        const data = business.map(item => ({
-            ...item,
-            ...item.client,
-            client: null
-        }))
 
         return (
             <div>
                 <Filter
-                    removeTitle={'商机'}
+                    removeTitle={'拜访'}
                     onReset={this.onReset}
                     isFetching={isFetching}
                     onCreate={this.onCreate}
@@ -168,8 +163,8 @@ class Business extends PureComponent {
                 />
                 <Table
                     columns={columns}
-                    dataSource={data}
-                    scroll={{ x: 1100 }}
+                    dataSource={visits}
+                    scroll={{ x: 800 }}
                     loading={isFetching}
                     pagination={pagination}
                     rowSelection={rowSelection}
@@ -180,18 +175,18 @@ class Business extends PureComponent {
     }
 }
 
-Business.propTypes = {
+Visit.propTypes = {
     uid: PropTypes.number,
     total: PropTypes.number,
+    visits: PropTypes.array,
     uState: PropTypes.number,
-    business: PropTypes.array,
     isFetching: PropTypes.bool,
-    aUpdateBusiness: PropTypes.func,
-    aDeleteBusiness: PropTypes.func,
-    aCreateBusiness: PropTypes.func,
-    aGetBusinessPage: PropTypes.func,
-    aSearchUserBusiness: PropTypes.func,
-    aSearchCompanyBusiness: PropTypes.func,
+    aUpdateVisit: PropTypes.func,
+    aDeleteVisit: PropTypes.func,
+    aCreateVisit: PropTypes.func,
+    aGetVisitPage: PropTypes.func,
+    aSearchUserVisit: PropTypes.func,
+    aSearchCompanyVisit: PropTypes.func,
 }
 
-export default Business
+export default Visit

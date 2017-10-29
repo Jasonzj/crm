@@ -5,11 +5,13 @@ import thunk from 'redux-thunk'
 import app from './app'
 import userManage from './userManage'
 import business from './business'
+import visit from './visit'
 
 const rootReducer = combineReducers({
     app,
     userManage,
-    business
+    business,
+    visit
 })
 
 

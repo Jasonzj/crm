@@ -27,8 +27,9 @@ const finishLoader = app.finishLoader
 @connect(
     state => ({
         ...state.userManage,
-        ...state.app,
+        uid: state.app.user.uid,
         uState: state.app.user.state,
+        isFetching: state.app.isFetching,
     }),
     dispatch => bindActionCreators({ ...actions, finishLoader }, dispatch)
 )
@@ -116,10 +117,11 @@ class UserManage extends Component {
     }
 
     render() {
-        const { userLists, isFetching, total, uState } = this.props
+        const { userLists, isFetching, total, uState, uid } = this.props
         const { item, modalVisible, selectedRowKeys, page } = this.state
         const hasSelected = selectedRowKeys.length > 0
         const columnsConfig = {
+            uid,
             uState,
             type: 'userManage',
             handleOption: this.handleOption

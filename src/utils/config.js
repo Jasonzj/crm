@@ -4,69 +4,77 @@ import { Link } from 'react-router-dom'
 import DropOption from 'components/DropOption'
 
 // table
-const createUserManageColums = (
-    uState,
-    handleOption
-) => {
-    const data = [
-        {
-            title: '头像',
-            dataIndex: 'avatar',
-            render: url => <Avatar size="small" src={url} />
-        },
-        {
-            title: '姓名',
-            dataIndex: 'name',
-            render: (text, record) => <Link to={`user/${record.uid}`}>{text}</Link>,
-            sorter: (a, b) => a.name.length - b.name.length
-        },
-        {
-            title: '用户名',
-            dataIndex: 'user'
-        },
-        {
-            title: '年龄',
-            dataIndex: 'age',
-            sorter: (a, b) => a.age - b.age,
-        },
-        {
-            title: '性别',
-            dataIndex: 'sex',
-            render: num => ['男', '女'][num],
-            filters: [
-                { text: '男', value: 0 },
-                { text: '女', value: 1 },
-            ],
-            onFilter: (value, record) => record.sex == value
-        },
-        {
-            title: '权限',
-            dataIndex: 'state',
-            render: num => ['管理员', '普通'][num]
-        },
-        {
-            title: '手机号码',
-            dataIndex: 'tel'
-        }
-    ]
-
+const filterDisabled = (record, uid, uState) => {
     if (uState === 0) {
-        data.push({
-            title: 'Operation',
-            width: 100,
-            render: (text, record) => (
-                <DropOption
-                    onMenuClick={e => handleOption(record, e)}
-                    menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
-                />
-            )
-        })
+        return false
+    } else if (record.uid === uid) {
+        return false
     }
-
-    return data
+    return true
 }
 
-const createBusinessColumns = handleOption => ([
+const createUserManageColums = ({
+    uid,
+    uState,
+    handleOption
+}) => ([
+    {
+        title: '头像',
+        dataIndex: 'avatar',
+        render: url => <Avatar size="small" src={url} />
+    },
+    {
+        title: '姓名',
+        dataIndex: 'name',
+        render: (text, record) => <Link to={`user/${record.uid}`}>{text}</Link>,
+        sorter: (a, b) => a.name.length - b.name.length
+    },
+    {
+        title: '用户名',
+        dataIndex: 'user'
+    },
+    {
+        title: '年龄',
+        dataIndex: 'age',
+        sorter: (a, b) => a.age - b.age,
+    },
+    {
+        title: '性别',
+        dataIndex: 'sex',
+        render: num => ['男', '女'][num],
+        filters: [
+            { text: '男', value: 0 },
+            { text: '女', value: 1 },
+        ],
+        onFilter: (value, record) => record.sex == value
+    },
+    {
+        title: '权限',
+        dataIndex: 'state',
+        render: num => ['管理员', '普通'][num]
+    },
+    {
+        title: '手机号码',
+        dataIndex: 'tel'
+    },
+    {
+        title: '操作',
+        width: 100,
+        render: (text, record) => (
+            <DropOption
+                onMenuClick={e => handleOption(record, e)}
+                menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
+                dropdownProps={{ disabled: filterDisabled(record, uid, uState) }}
+            />
+        )
+    }
+])
+
+const createBusinessColumns = ({
+    uid,
+    uState,
+    handleOption
+}) => ([
     {
         title: '所属人',
         dataIndex: 'eName',
@@ -125,12 +133,77 @@ const createBusinessColumns = handleOption => ([
         )
     },
     {
-        title: 'Operation',
+        title: '操作',
         width: 100,
         render: (text, record) => (
             <DropOption
                 onMenuClick={e => handleOption(record, e)}
                 menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
+                dropdownProps={{ disabled: filterDisabled(record, uid, uState) }}
+            />
+        )
+    }
+])
+
+const createVisitColumns = ({
+    uid,
+    uState,
+    handleOption
+}) => ([
+    {
+        title: '所属人',
+        dataIndex: 'eName',
+        render: (text, record) => <Link to={`user/${record.uid}`}>{text}</Link>,
+        sorter: (a, b) => a.eName.length - b.eName.length
+    },
+    {
+        title: '公司名字',
+        dataIndex: 'name',
+        sorter: (a, b) => a.name.length - b.name.length
+    },
+    {
+        title: '创建时间',
+        dataIndex: 'time',
+    },
+    {
+        title: '结果',
+        dataIndex: 'result',
+        render: num => ['失败', '成功'][num],
+    },
+    {
+        title: '备注',
+        dataIndex: 'note',
+        render: (text, record) => (
+            <Popover
+                content={text}
+                title={record.name}
+                trigger="hover"
+            >
+                <Button>备注</Button>
+            </Popover>
+        )
+    },
+    {
+        title: '内容',
+        dataIndex: 'content',
+        render: (text, record) => (
+            <Popover
+                content={text}
+                title={record.name}
+                trigger="hover"
+            >
+                <Button>内容</Button>
+            </Popover>
+        )
+    },
+    {
+        title: '操作',
+        width: 100,
+        render: (text, record) => (
+            <DropOption
+                onMenuClick={e => handleOption(record, e)}
+                menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
+                dropdownProps={{ disabled: filterDisabled(record, uid, uState) }}
             />
         )
     }
@@ -138,17 +211,19 @@ const createBusinessColumns = handleOption => ([
 
 export const createColumns = ({
     type,
-    uState,
-    handleOption
+    ...arg
 }) => {
     switch (type) {
+        case 'visit':
+            return createVisitColumns(arg)
+
         case 'userDetail':
         case 'business':
-            return createBusinessColumns(handleOption)
+            return createBusinessColumns(arg)
 
         case 'userManage':
         default:
-            return createUserManageColums(uState, handleOption)
+            return createUserManageColums(arg)
     }
 }
 
@@ -301,8 +376,59 @@ const businessForm = [
     }
 ]
 
+const visitForm = [
+    {
+        id: 1,
+        key: 'name',
+        label: '公司名字',
+        type: 'input',
+        rules: [
+            { required: true, message: '请输入公司名字!' },
+            { min: 4, message: '公司名字至少4个字符!' },
+            { max: 20, message: '公司名字最多不能超过20个字符!' }
+        ]
+    },
+    {
+        id: 2,
+        key: 'result',
+        label: '结果',
+        type: 'select',
+        string: true,
+        selectVal: {
+            0: '失败',
+            1: '成功',
+        },
+        rules: [{ required: true, message: '请选择结果!' }]
+    },
+    {
+        id: 3,
+        key: 'note',
+        label: '备注',
+        type: 'area',
+        rules: [
+            { required: true, message: '请输入备注!' },
+            { min: 15, message: '简介最少15个字!' },
+            { max: 200, message: '简介最多200个字!' },
+        ]
+    },
+    {
+        id: 4,
+        key: 'content',
+        label: '内容',
+        type: 'area',
+        rules: [
+            { required: true, message: '请输入备注!' },
+            { min: 15, message: '简介最少15个字!' },
+            { max: 200, message: '简介最多200个字!' },
+        ]
+    }
+]
+
 export const createForm = (type) => {
     switch (type) {
+        case 'visit':
+            return visitForm
+
         case 'userDetail':
         case 'business':
             return businessForm

@@ -472,6 +472,7 @@ post  `/api/v1/addVisit`
 ```javascript
 {
     eid: xx,           // 拜访员工ID
+    name: '',          // 拜访公司名字
     time: xx-xx,       // 拜访时间 (年月日)
     content: 'xxx',    // 拜访内容
     result: 0,         // 拜访结果 (0成功, 1待定，2失败)

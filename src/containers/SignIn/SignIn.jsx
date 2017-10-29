@@ -125,6 +125,8 @@ SignIn.propTypes = {
     aSignIn: PropTypes.func,
     history: PropTypes.object,
     isFetching: PropTypes.bool,
+    startLoader: PropTypes.func,
+    finishLoader: PropTypes.func,
 }
 
 export default Index

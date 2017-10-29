@@ -43,9 +43,9 @@ const editModal = ({
             const values = getFieldsValue()
             const data = {
                 userManage: {
+                    eid,
                     ...values,
                     uid: item.key,
-                    eid: item.eid
                 },
                 business: {
                     eid,
@@ -56,13 +56,22 @@ const editModal = ({
                         ...values,
                         time: item.time || getTime()
                     }
+                },
+                visit: {
+                    eid,
+                    ...values,
+                    id: item.key,
+                    uid: item.uid,
+                    time: item.time || getTime(),
                 }
             }[type]
 
-            if (type === 'business') {
+            if (type === 'business' || type === 'visit') {
                 const client = data.client
-                delete client.eName
-                client.address = client.address.join(' ')
+                if (client) {
+                    delete client.eName
+                    client.address = client.address.join(' ')
+                }
                 if (isData) {
                     delete data.id
                     delete data.uid
