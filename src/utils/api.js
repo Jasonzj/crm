@@ -13,3 +13,9 @@ export const getBusinessPage = page => `${api}/business?page=${page}`
 export const deleteBusiness = `${api}/deleteBusiness`
 export const editBusiness = `${api}/editBusiness`
 export const addBusiness = `${api}/addBusiness`
+export const getVisitPage = page => `${api}/visit?page=${page}`
+export const getUserVisit = name => `${api}/searchVisit?eName=${name}`
+export const getCompanyVisit = name => `${api}/searchVisit?companyName=${name}`
+export const addVisit = `${api}/addVisit`
+export const editorVisit = `${api}/edotVisit`
+export const deleteVisit = `${api}/deleteVisit`
