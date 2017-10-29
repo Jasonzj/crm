@@ -17,12 +17,11 @@ import Detail from 'containers/UserManage/subComponents/Detail'
 import SignIn from 'containers/SignIn'
 
 // lazyContainer
-// const Business = asyncComponent(() => import(/* webpackChunkName: "Business" */ '../../containers/Business'))
 const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../../containers/NotFound'))
 
 // component
-import Sidebar from './subComponents/Sidebar'
 import User from './subComponents/User'
+import Sidebar from './subComponents/Sidebar'
 import Loading from 'components/Loading'
 
 // actions

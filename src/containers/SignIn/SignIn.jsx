@@ -6,10 +6,6 @@ import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 import PropTypes from 'prop-types'
 import styles from './style'
 
-// components
-import Loading from 'components/Loading'
-import Portal from 'components/Portal'
-
 // action
 import { actions } from 'ducks/app'
 
