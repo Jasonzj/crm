@@ -166,6 +166,7 @@ Detail.propTypes = {
     business: PropTypes.array,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,
+    currentUser: PropTypes.object,
     agetUserDetail: PropTypes.func,
     aDeleteBusiness: PropTypes.func,
     aUpdateBusiness: PropTypes.func,

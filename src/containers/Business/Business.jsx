@@ -31,7 +31,8 @@ class Business extends PureComponent {
         this.state = {
             selectedRowKeys: [],
             modalVisible: false,
-            item: {}
+            item: {},
+            page: 1
         }
     }
 
@@ -64,7 +65,7 @@ class Business extends PureComponent {
 
     onReset = () => {
         this.props.aGetBusinessPage(1)
-        this.setState({ selectedRowKeys: [] })
+        this.setState({ selectedRowKeys: [], page: 1 })
     }
 
     onModalOk = (data) => {
@@ -97,6 +98,11 @@ class Business extends PureComponent {
         this.onReset()
     }
 
+    onPageChnage = (page) => {
+        this.props.aGetBusinessPage(page)
+        this.setState({ page })
+    }
+
     onCreate = () => {
         this.setState({ modalVisible: true, item: {} })
     }
@@ -112,7 +118,7 @@ class Business extends PureComponent {
 
     render() {
         const { business, aGetBusinessPage, isFetching, total, uid } = this.props
-        const { modalVisible, selectedRowKeys, item } = this.state
+        const { modalVisible, selectedRowKeys, item, page } = this.state
         const hasSelected = selectedRowKeys.length > 0
         const columns = createColumns({
             handleOption: this.handleOption,
@@ -124,10 +130,9 @@ class Business extends PureComponent {
         }
         const pagination = {
             total,
+            current: page,
             showQuickJumper: true,
-            onChange(page) {
-                aGetBusinessPage(page)
-            }
+            onChange: this.onPageChnage
         }
         const modalProps = {
             item,

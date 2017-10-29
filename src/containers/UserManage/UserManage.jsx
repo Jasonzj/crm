@@ -38,7 +38,8 @@ class UserManage extends Component {
         this.state = {
             selectedRowKeys: [],
             modalVisible: false,
-            item: {}
+            item: {},
+            page: 1,
         }
     }
 
@@ -80,7 +81,7 @@ class UserManage extends Component {
 
     onReset = () => {
         this.props.aGetUserListPage(1)
-        this.setState({ selectedRowKeys: [] })
+        this.setState({ selectedRowKeys: [], page: 1 })
     }
 
     onModalOk = (data) => {
@@ -100,6 +101,11 @@ class UserManage extends Component {
         this.setState({ selectedRowKeys })
     }
 
+    onPageChnage = (page) => {
+        this.props.aGetUserListPage(page)
+        this.setState({ page })
+    }
+
     onDeleteUsers = () => {
         const { selectedRowKeys } = this.state
         const { uid, aDeleteUser } = this.props
@@ -110,10 +116,9 @@ class UserManage extends Component {
     }
 
     render() {
-        const { userLists, isFetching, total, aGetUserListPage, uState } = this.props
-        const { item, modalVisible, selectedRowKeys } = this.state
+        const { userLists, isFetching, total, uState } = this.props
+        const { item, modalVisible, selectedRowKeys, page } = this.state
         const hasSelected = selectedRowKeys.length > 0
-
         const columnsConfig = {
             uState,
             type: 'userManage',
@@ -121,10 +126,9 @@ class UserManage extends Component {
         }
         const pagination = {
             total,
+            current: page,
             showQuickJumper: true,
-            onChange(page) {
-                aGetUserListPage(page)
-            }
+            onChange: this.onPageChnage
         }
         const modalProps = {
             item,
