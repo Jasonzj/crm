@@ -56,14 +56,15 @@ const Filter = ({
                 title={`你确定删除这些${removeTitle}吗?`}
             >
                 <Button
+                    icon="minus-circle-o"
                     size="large"
-                    type="primary"
                     disabled={!hasSelected}
                 >
                     删除
                 </Button>
             </Popconfirm>
             <Button
+                icon="sync"
                 size="large"
                 type="primary"
                 onClick={onReset}
@@ -75,6 +76,7 @@ const Filter = ({
             {
                 onCreate &&
                 <Button
+                    icon="plus-circle-o"
                     size="large"
                     onClick={onCreate}
                     style={{ marginLeft: '12px' }}

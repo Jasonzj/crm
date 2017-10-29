@@ -22,7 +22,6 @@ import { actions  as app } from 'ducks/app'
 import styles from './style'
 
 const confirm = Modal.confirm
-const finishLoader = app.finishLoader
 
 @connect(
     state => ({
@@ -31,7 +30,7 @@ const finishLoader = app.finishLoader
         uState: state.app.user.state,
         isFetching: state.app.isFetching,
     }),
-    dispatch => bindActionCreators({ ...actions, finishLoader }, dispatch)
+    dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class UserManage extends Component {
     constructor() {
@@ -47,11 +46,6 @@ class UserManage extends Component {
     componentWillMount() {
         const { userLists, aGetUserListPage } = this.props
         userLists.length === 0 && aGetUserListPage(1)
-    }
-
-    componentWillUpdate() {
-        const { loading, finishLoader } = this.props
-        loading && finishLoader()
     }
 
     shouldComponentUpdate(nextProps, nextState) {

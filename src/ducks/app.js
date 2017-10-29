@@ -68,7 +68,7 @@ export default (state = initialState, action) => {
                 signIn: data.success,
                 user: data.data
             }
-            
+
         case types.SET_SIGN_OUT:
             return { ...state, signIn: false }
 

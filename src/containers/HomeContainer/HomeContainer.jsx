@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Layout, Icon } from 'antd'
+import { Layout, Icon, Breadcrumb } from 'antd'
 import { withRouter } from 'react-router'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import NProgress from 'nprogress'
 import PropTypes from 'prop-types'
@@ -33,6 +33,28 @@ import { actions } from 'ducks/app'
 import styles from './style.scss'
 
 let lastHref
+const breadcrumbNameMap = {
+    '/user': {
+        name: 'Users',
+        icon: 'user'
+    },
+    '/user/*': {
+        name: 'User Detail',
+        icon: 'solution'
+    },
+    '/business': {
+        name: 'Business',
+        icon: 'pay-circle'
+    },
+    '/visit': {
+        name: 'Visit',
+        icon: 'eye'
+    },
+    '/sign_in': {
+        name: 'sign_in',
+        icon: 'eye'
+    },
+}
 
 @withRouter
 @connect(
@@ -71,6 +93,34 @@ class HomeContainer extends PureComponent {
         const { match, isFetching, user, history: { location }, loading } = this.props
         const { collapsed, sideInline } = this.state
         const href = window.location.href
+        const pathSnippets = location.pathname
+            .split('/')
+            .filter(i => i)
+            .map(item => (parseInt(item) ? '*' : item))
+
+        const extraBreadcrumbItems = pathSnippets.map((_, index) => {
+            const url = `/${pathSnippets.slice(0, index + 1).join('/')}`
+            const config = breadcrumbNameMap[url]
+            let content = null
+            if (config) {
+                content = (
+                    <span>
+                        {config.icon && <Icon type={config.icon} style={{ marginRight: 4 }} />}
+                        {config.name}
+                    </span>
+                )
+            }
+
+            return (
+                <Breadcrumb.Item key={url}>
+                    {
+                        url.includes('*')
+                            ? content
+                            : <Link to={url}>{content}</Link>
+                    }
+                </Breadcrumb.Item>
+            )
+        })
 
         if (lastHref !== href) {
             NProgress.start()
@@ -108,6 +158,9 @@ class HomeContainer extends PureComponent {
                             onSignOut={this.onSignOut}
                         />
                     </Header>
+                    <Breadcrumb className={styles.crumb}>
+                        {extraBreadcrumbItems}
+                    </Breadcrumb>
                     <Content className={styles.main}>
                         <Switch>
                             <Route exact path="/user" component={UserManage} />

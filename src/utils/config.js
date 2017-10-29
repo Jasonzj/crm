@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Popover, Button } from 'antd'
+import { Avatar, Popover, Button, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import DropOption from 'components/DropOption'
 
@@ -168,7 +168,17 @@ const createVisitColumns = ({
     {
         title: '结果',
         dataIndex: 'result',
-        render: num => ['失败', '成功'][num],
+        render: (num) => {
+            const text = ['失败', '成功'][num]
+            const icon = [
+                <Icon type="close-circle" />,
+                <Icon type="check-circle" />,
+            ][num]
+            return [
+                icon,
+                text
+            ]
+        }
     },
     {
         title: '备注',

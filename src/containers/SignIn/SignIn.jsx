@@ -25,10 +25,6 @@ class SignIn extends PureComponent {
         setTimeout(() => this.props.finishLoader(), 50)
     }
 
-    componentWillUnmount() {
-        this.props.startLoader()
-    }
-
     jumpIndex(bool, history) {
         bool && history.push('/user')
     }
@@ -125,7 +121,6 @@ SignIn.propTypes = {
     aSignIn: PropTypes.func,
     history: PropTypes.object,
     isFetching: PropTypes.bool,
-    startLoader: PropTypes.func,
     finishLoader: PropTypes.func,
 }
 
