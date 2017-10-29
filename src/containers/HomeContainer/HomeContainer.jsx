@@ -4,6 +4,7 @@ import { Layout, Icon } from 'antd'
 import { withRouter } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
+import NProgress from 'nprogress'
 import PropTypes from 'prop-types'
 import localStore from 'utils/localStore'
 import asyncComponent from '../../AsyncComponent'
@@ -29,6 +30,8 @@ import { actions } from 'ducks/app'
 
 // scss
 import styles from './style.scss'
+
+let lastHref
 
 @withRouter
 @connect(
@@ -66,6 +69,16 @@ class HomeContainer extends PureComponent {
     render() {
         const { match, isFetching, user, history: { location }, loading } = this.props
         const { collapsed, sideInline } = this.state
+        const href = window.location.href
+
+        if (lastHref !== href) {
+            NProgress.start()
+            NProgress.set(0.4)
+            if (!isFetching) {
+                setTimeout(() => NProgress.done(), 300)
+                lastHref = href
+            }
+        }
 
         if ('/sign_in'.includes(location.pathname)) {
             return [
@@ -113,6 +126,7 @@ HomeContainer.propTypes = {
     user: PropTypes.object,
     signIn: PropTypes.bool,
     match: PropTypes.object,
+    loading: PropTypes.bool,
     history: PropTypes.object,
     setSignOut: PropTypes.func,
     isFetching: PropTypes.bool,

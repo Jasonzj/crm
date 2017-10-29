@@ -37,7 +37,7 @@ class Business extends PureComponent {
 
     componentWillMount() {
         const { business, aGetBusinessPage } = this.props
-        business.length === 0 && aGetBusinessPage(1)   
+        business.length === 0 && aGetBusinessPage(1)
     }
 
     handleOption = (record, e) => {
