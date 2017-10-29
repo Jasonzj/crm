@@ -224,7 +224,11 @@ const businessForm = [
         key: 'name',
         label: '公司名字',
         type: 'input',
-        rules: [{ required: true, message: '请输入公司名字!' }]
+        rules: [
+            { required: true, message: '请输入公司名字!' },
+            { min: 4, message: '公司名字至少4个字符!' },
+            { max: 20, message: '公司名字最多不能超过20个字符!' }
+        ]
     },
     {
         id: 2,
@@ -239,28 +243,36 @@ const businessForm = [
             3: '物流',
             4: '航空'
         },
-        rules: [{ required: true, message: '请输入公司名字!' }]
+        rules: [{ required: true, message: '请选择公司类型!' }]
     },
     {
         id: 3,
         key: 'contact',
         label: '联系人',
         type: 'input',
-        reles: [{ required: true, message: '请输入联系人!' }]
+        rules: [
+            { required: true, message: '请输入联系人!' },
+            { min: 2, message: '联系人名字至少2个字符!' },
+            { max: 20, message: '联系人名字最多不能超过20个字符!' }
+        ]
     },
     {
         id: 4,
         key: 'contactPost',
         label: '职位',
         type: 'input',
-        reles: [{ required: true, message: '请输入职位!' }]
+        rules: [
+            { required: true, message: '请输入职位!' },
+            { min: 2, message: '职位名字至少2个字符!' },
+            { max: 10, message: '职位最多不能超过10个字符!' }
+        ]
     },
     {
         id: 5,
         key: 'contactTel',
         label: '联系电话',
         type: 'input',
-        reles: [
+        rules: [
             { required: true, message: '联系电话不能为空!' },
             {
                 pattern: /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,

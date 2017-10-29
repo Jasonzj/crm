@@ -88,6 +88,7 @@ const Filter = ({
 
 Filter.propTypes = {
     onReset: PropTypes.func,
+    onCreate: PropTypes.func,
     isFetching: PropTypes.bool,
     hasSelected: PropTypes.bool,
     onSearchName: PropTypes.func,

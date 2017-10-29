@@ -132,9 +132,9 @@ class Business extends PureComponent {
         const modalProps = {
             item,
             eid: uid,
-            title: '更新商机',
             type: 'business',
             onOk: this.onModalOk,
+            title: '创建/更新商机',
             visible: modalVisible,
             onCancel: this.onModalCancel,
             onCreate: this.onCreateBusiness,
@@ -162,7 +162,7 @@ class Business extends PureComponent {
                 <Table
                     columns={columns}
                     dataSource={data}
-                    scroll={{ x: 800 }}
+                    scroll={{ x: 1100 }}
                     loading={isFetching}
                     pagination={pagination}
                     rowSelection={rowSelection}

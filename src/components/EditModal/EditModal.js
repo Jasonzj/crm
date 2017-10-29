@@ -99,7 +99,7 @@ const editModal = ({
                                     {
                                         selectKeys &&
                                         selectKeys.map(key => (
-                                            <Option value={key}>
+                                            <Option key={key} value={key}>
                                                 {selectVal[key]}
                                             </Option>
                                         ))
