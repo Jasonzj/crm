@@ -136,6 +136,7 @@ const editModal = ({
 const Index = Form.create()(editModal)
 
 editModal.propTypes = {
+    eid: PropTypes.any,
     onOk: PropTypes.func,
     type: PropTypes.string,
     item: PropTypes.object,
