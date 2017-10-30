@@ -402,7 +402,8 @@ get  `/api/v1/visit` 或 get `/api/v1/visit?page=x`
             eName: xx,     // 拜访员工真实姓名
             time: xx-xx,   // 拜访时间
             result: '',    // 拜访结果
-            note: ''       // 拜访备注
+            note: '',      // 拜访备注
+            content: ''    // 拜访内容
         },
         ...
     ]
