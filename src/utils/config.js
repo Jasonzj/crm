@@ -178,7 +178,12 @@ const createVisitColumns = ({
                 icon,
                 text
             ]
-        }
+        },
+        filters: [
+            { text: '失败', value: 0 },
+            { text: '成功', value: 1 },
+        ],
+        onFilter: (value, record) => record.result == value
     },
     {
         title: '备注',

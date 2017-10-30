@@ -14,6 +14,8 @@ import Filter from 'components/Filter'
 // actions
 import { actions } from 'ducks/visit'
 
+import styles from './style'
+
 const confirm = Modal.confirm
 
 @connect(
