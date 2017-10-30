@@ -35,4 +35,13 @@
     .anticon.anticon-close-circle {
         margin-right: 10px;
     }
+
+    .ant-breadcrumb > span:last-child {
+        color: #999;
+        font-weight: normal;
+        a {
+            color: #999;
+            cursor: default;
+        }
+    }
 }

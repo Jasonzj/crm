@@ -21,7 +21,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('获取拜访列表失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -49,7 +49,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('搜索拜访失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -63,7 +63,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('获取拜访失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -77,7 +77,7 @@ export const actions = {
             return result
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('删除拜访失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -91,7 +91,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('修改拜访失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },

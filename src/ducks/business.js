@@ -24,7 +24,7 @@ export const actions = {
             return result.data
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('创建失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -37,7 +37,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('获取商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -51,7 +51,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('修改商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -66,7 +66,7 @@ export const actions = {
             return result
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('删除商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -80,7 +80,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('搜索商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -94,7 +94,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('搜索商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },

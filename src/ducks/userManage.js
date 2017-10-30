@@ -42,7 +42,7 @@ export const actions = {
             return result.data.data
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('获取用户详情失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -55,7 +55,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('获取用户列表失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -69,7 +69,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('搜索用户失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -83,7 +83,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('修改用户资料失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -98,7 +98,7 @@ export const actions = {
             return result
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('删除用户失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -110,7 +110,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('修改用户商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -124,7 +124,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('删除商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -138,7 +138,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('修改商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     }

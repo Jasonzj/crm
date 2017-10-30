@@ -33,7 +33,7 @@ export const actions = {
             return result
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('登入失败！请重试')
             dispatch(actions.finishFetch())
         }
     }
