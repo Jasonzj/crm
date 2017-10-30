@@ -118,6 +118,7 @@ const createBusinessColumns = ({
     {
         title: '创建时间',
         dataIndex: 'time',
+        sorter: (a, b) => new Date(a.time) - new Date(b.time)
     },
     {
         title: '公司简介',
@@ -164,6 +165,7 @@ const createVisitColumns = ({
     {
         title: '创建时间',
         dataIndex: 'time',
+        sorter: (a, b) => new Date(a.time) - new Date(b.time)
     },
     {
         title: '结果',
