@@ -9,6 +9,7 @@ import styles from '../style'
 const { Sider } = Layout
 
 const Sidebar = ({
+    menuKeys,
     collapsed,
     sideInline,
     changeTheme
@@ -21,9 +22,10 @@ const Sidebar = ({
             CRM
         </div>
         <Menu
-            theme={sideInline ? 'inline' : 'dark'}
             mode="inline"
+            selectedKeys={menuKeys}
             defaultSelectedKeys={['1']}
+            theme={sideInline ? 'inline' : 'dark'}
         >
             <Menu.Item key="1">
                 <Link to="/user">
@@ -60,6 +62,7 @@ const Sidebar = ({
 
 Sidebar.propTypes = {
     collapsed: PropTypes.bool,
+    menuKeys: PropTypes.array,
     sideInline: PropTypes.bool,
     changeTheme: PropTypes.func,
 }

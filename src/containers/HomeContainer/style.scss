@@ -130,6 +130,15 @@
 
 // Nprogress
 :global {
+    .ant-breadcrumb > span:last-child {
+        color: #999;
+        font-weight: normal;
+        a {
+            color: #999;
+            cursor: default;
+        }
+    }
+
     #nprogress {
         pointer-events: none;
 
