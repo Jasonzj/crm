@@ -115,6 +115,7 @@ const handle = (state, action) => {
             if (state.id !== data.id) {
                 return state
             }
+            
             return {
                 ...state,
                 ...data

@@ -10,6 +10,10 @@ import {
     getUserListUid,
     getUserListPage,
     getUserBusiness,
+    getUserVisit,
+    getCompanyVisit,
+    editorVisit,
+    deleteVisit
 } from 'utils/api'
 
 // Actions
@@ -21,6 +25,9 @@ export const types = {
     DELETE_USER:     'userManage/DELETE_USER',
     UPDATE_BUSINESS: 'userManage/UPDATE_BUSINESS',
     DELETE_BUSINESS: 'userManage/DELETE_BUSINESS',
+    SET_VISITS:      'userManage/SET_VISITS',
+    UPDATE_VISIT:    'userManage/UPDATE_VISIT',
+    DELETE_VISIT:    'userManage/DELETE_VISIT',
 }
 
 // Action Creators
@@ -28,8 +35,11 @@ export const actions = {
     deleteUser: data => ({ type: types.DELETE_USER, data }),
     updateUser: data => ({ type: types.UPDATE_USER, data }),
     getUserDetail: data => ({ type: types.SET_USER, data }),
+    updateVisit: data => ({ type: types.UPDATE_VISIT, data }),
+    deleteVisit: data => ({ type: types.DELETE_VISIT, data }),
     deleteBusiness: data => ({ type: types.DELETE_BUSINESS, data }),
     updateBusiness: data => ({ type: types.UPDATE_BUSINESS, data }),
+    setVisit: ({ data, total }) => ({ type: types.SET_VISITS, data, total }),
     setBusiness: ({ data, total }) => ({ type: types.SET_BUSSINESS, data, total }),
     setUserLists: ({ data, total }) => ({ type: types.SET_USERLISTS, data, total }),
     agetUserDetail: id => async (dispatch) => {
@@ -110,7 +120,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
-            Msg.error('修改用户商机失败！请重试')
+            Msg.error('获取用户商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
@@ -141,14 +151,56 @@ export const actions = {
             Msg.error('修改商机失败！请重试')
             dispatch(appActions.finishFetch())
         }
-    }
+    },
+    aGetUserVisit: name => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.get(getUserVisit(name))
+            dispatch(actions.setVisit(result.data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            Msg.error('获取用户拜访失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
+    },
+    aUpdateVisit: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(editorVisit, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.updateVisit(data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            Msg.error('修改拜访失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
+    },
+    aDeleteVisit: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(deleteVisit, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.deleteVisit(data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            Msg.error('删除商机失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
+    },
 }
 
 const initialState = {
     total: null,
     bTotal: null,
+    vTotal: null,
     userLists: [],
     business: [],
+    visit: [],
     currentUser: {}
 }
 
@@ -172,6 +224,24 @@ const handle = (state, action) => {
             }
 
         case types.DELETE_USER:
+            return !data.deleteId.includes(state.uid)
+
+        case types.SET_VISITS: return {
+            ...state,
+            key: state.id
+        }
+
+        case types.UPDATE_VISIT:
+            if (state.id !== data.id) {
+                return state
+            }
+
+            return {
+                ...state,
+                ...data
+            }
+
+        case types.DELETE_VISIT:
             return !data.deleteId.includes(state.uid)
 
         case types.SET_BUSSINESS:
@@ -218,6 +288,25 @@ export default (state = initialState, action) => {
                 ...state,
                 bTotal: action.total,
                 business: action.data.map(item => handle(item, action))
+            }
+
+        case types.SET_VISITS:
+            return {
+                ...state,
+                vTotal: action.total,
+                visits: action.data.map(item => handle(item, action))
+            }
+
+        case types.DELETE_VISIT:
+            return {
+                ...state,
+                visits: state.visits.filter(item => handle(item, action))
+            }
+
+        case types.UPDATE_VISIT:
+            return {
+                ...state,
+                visits: state.visits.map(item => handle(item, action))
             }
 
         case types.SET_USER:

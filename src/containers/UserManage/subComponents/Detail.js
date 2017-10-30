@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Table, Modal, message } from 'antd'
+import { Table, Modal, message, Tabs, Icon } from 'antd'
 import { bindActionCreators } from 'redux'
 
 // utils
@@ -18,6 +18,19 @@ import { actions } from 'ducks/userManage'
 import styles from '../style'
 
 const confirm = Modal.confirm
+const TabPane = Tabs.TabPane
+const modalConfigs = {
+    1: {
+        title: '更新商机',
+        data: 'userDetail',
+        type: 'business'
+    },
+    2: {
+        title: '更新拜访',
+        data: 'visit',
+        type: 'visit',
+    }
+}
 
 @connect(
     state => ({
@@ -34,16 +47,18 @@ class Detail extends PureComponent {
         this.state = {
             selectedRowKeys: [],
             modalVisible: false,
+            tabKey: 1,
             item: {}
         }
     }
     componentWillMount() {
-        const { match, userLists, business, aGetUserBusiness, agetUserDetail } = this.props
+        const { match, userLists, business, aGetUserBusiness, aGetUserVisit, agetUserDetail } = this.props
         const uid = match.params.id
         const data = userLists.filter(item => item.uid === uid)[0]
         const init = (name) => {
             this.userName = name
             aGetUserBusiness(name)
+            aGetUserVisit(name)
         }
 
         if (data) {
@@ -55,11 +70,19 @@ class Detail extends PureComponent {
     }
 
     onReset = () => {
-        this.props.aGetUserBusiness(this.userName)
+        const { aGetUserBusiness, aGetUserVisit } = this.props
+        const { tabKey } = this.state
+        tabKey == 1
+            ? aGetUserBusiness(this.userName)
+            : aGetUserVisit(this.userName)
     }
 
     onModalOk = (data) => {
-        this.props.aUpdateBusiness(data)
+        const { aUpdateBusiness, aUpdateVisit } = this.props
+        const { tabKey } = this.state
+        tabKey == 1
+            ? aUpdateBusiness(data)
+            : aUpdateVisit(data)
         this.onModalCancel()
     }
 
@@ -72,15 +95,18 @@ class Detail extends PureComponent {
     }
 
     onDeleteBusiness = () => {
-        const { selectedRowKeys } = this.state
-        const { uid, aDeleteBusiness } = this.props
+        const { selectedRowKeys, tabKey } = this.state
+        const { uid, aDeleteBusiness, aDeleteVisit } = this.props
         const data = { uid, deleteId: selectedRowKeys }
         this.setState({ selectedRowKeys: [] })
-        aDeleteBusiness(data)
+        tabKey == 1
+            ? aDeleteBusiness(data)
+            : aDeleteVisit(data)
     }
 
     handleOption = (record, e) => {
-        const { uid, aDeleteBusiness } = this.props
+        const { uid, aDeleteBusiness, aDeleteVisit } = this.props
+        const { tabKey } = this.state
         const { onReset } = this
 
         if (e.key === '1') {
@@ -93,21 +119,28 @@ class Detail extends PureComponent {
                 title: '你确定要删除这个用户?',
                 onOk() {
                     const data = { uid, deleteId: [record.uid] }
-                    aDeleteBusiness(data)
+                    tabKey == 1
+                        ? aDeleteBusiness(data)
+                        : aDeleteVisit(data)
                 }
             })
         }
     }
 
+    onTabChange = (tabKey) => {
+        this.setState({ tabKey })
+    }
+
     render() {
-        const { business, isFetching, currentUser, uid, uState } = this.props
-        const { item, modalVisible, selectedRowKeys } = this.state
+        const { visits, business, isFetching, currentUser, uid, uState } = this.props
+        const { item, modalVisible, selectedRowKeys, tabKey } = this.state
         const hasSelected = selectedRowKeys.length > 0
+        const modalConfig = modalConfigs[tabKey]
         const columns = createColumns({
             uid,
             uState,
             handleOption: this.handleOption,
-            type: 'userDetail'
+            type: modalConfig.type
         })
         const rowSelection = {
             selectedRowKeys,
@@ -115,19 +148,19 @@ class Detail extends PureComponent {
         }
         const modalProps = {
             item,
-            title: '更新商机',
-            type: 'business',
             onOk: this.onModalOk,
             visible: modalVisible,
-            formData: createForm('userDetail'),
+            type: modalConfig.type,
+            title: modalConfig.title,
             onCancel: this.onModalCancel,
+            formData: createForm(modalConfig.data),
         }
+
         const data = business.map(item => ({
             ...item,
             ...item.client,
             client: null
         }))
-
         const detail = this.data || currentUser
         const keys = Object.keys(detail)
 
@@ -141,7 +174,6 @@ class Detail extends PureComponent {
                         </div>
                     ))
                 }
-                <h1 className={styles.businessTitle}>员工商机</h1>
                 <Filter
                     removeTitle={'商机'}
                     onReset={this.onReset}
@@ -149,14 +181,28 @@ class Detail extends PureComponent {
                     onDeleteUsers={this.onDeleteBusiness}
                     selectedLen={selectedRowKeys.length}
                 />
-                <Table
-                    columns={columns}
-                    dataSource={data}
-                    pagination={false}
-                    scroll={{ x: 800 }}
-                    loading={isFetching}
-                    rowSelection={rowSelection}
-                />
+                <Tabs defaultActiveKey="1" onChange={this.onTabChange}>
+                    <TabPane tab={<span><Icon type="pay-circle" />商机</span>} key="1">
+                        <Table
+                            columns={columns}
+                            dataSource={data}
+                            pagination={false}
+                            scroll={{ x: 800 }}
+                            loading={isFetching}
+                            rowSelection={rowSelection}
+                        />
+                    </TabPane>
+                    <TabPane tab={<span><Icon type="eye" />拜访</span>} key="2">
+                        <Table
+                            columns={columns}
+                            dataSource={visits}
+                            pagination={false}
+                            scroll={{ x: 800 }}
+                            loading={isFetching}
+                            rowSelection={rowSelection}
+                        />
+                    </TabPane>
+                </Tabs>
                 { modalVisible && <EditModal {...modalProps} /> }
             </div>
         )
@@ -167,6 +213,7 @@ Detail.propTypes = {
     uid: PropTypes.any,
     uState: PropTypes.bool,
     match: PropTypes.object,
+    visits: PropTypes.array,
     business: PropTypes.array,
     userLists: PropTypes.array,
     isFetching: PropTypes.bool,
