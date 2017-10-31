@@ -1,16 +1,18 @@
 const pkg = require('./package.json')
 const path = require('path')
 const base = require('./webpack.base')
+const WebpackMonitor = require('webpack-monitor')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const webpack = require('webpack')
 
 const config = base.config
 
 config.entry = {
     app: base.APP_PATH,
-    vendor: Object.keys(pkg.dependencies).filter(key => key !== 'babel-runtime')
+    vendor: Object.keys(pkg.dependencies).filter(key => key !== 'babel-runtime' && key !== 'antd')
 }
 
 config.output.filename = 'js/[name]-[chunkhash:8].js'
@@ -80,7 +82,16 @@ const plugins = [
     }),
 
     // 排序输出
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+
+    // 分析模块
+    new WebpackMonitor({
+        capture: true,
+        target: '../monitor/myStatsStore.json',
+        launch: true,
+        port: 4000,
+    }),
+    new BundleAnalyzerPlugin()
 ]
 
 config.plugins = config.plugins.concat(plugins)
