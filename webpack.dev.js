@@ -1,46 +1,27 @@
 const webpack = require('webpack')
 const base = require('./webpack.base')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // config
 const config = base.config
 
-config.module.rules[1] = {
-    test: /\.scss$/,
-    use: [
-        {
-            loader: 'style-loader'
-        },
-        {
-            loader: 'css-loader',
-            options: {
-                module: true,
-                sourceMap: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
-        },
-        {
-            loader: 'sass-loader'
-        }
-    ],
-    exclude: base.NODE_MODULES_PATH,
-    include: base.SRC_PATH
-}
+config.entry = [
+    `webpack-dev-server/client?http://${base.DEFAULT_HOST}:${base.DEFAULT_PORT}`,
+    'webpack/hot/only-dev-server',
+    'react-hot-loader/patch',
+    base.APP_PATH
+]
 
-config.module.rules[2] = {
-    test: /\.css$/,
-    use: [
-        {
-            loader: 'style-loader'
-        },
-        {
-            loader: 'css-loader'
-        }
-    ]
+config.output = {
+    path: base.BUILD_PATH,
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[name].js'
 }
 
 config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('css/style.css'),
     new HtmlWebpackPlugin({
         filename: 'index.html',
         template: 'index.html'

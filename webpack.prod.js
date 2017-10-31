@@ -15,10 +15,13 @@ config.entry = {
     vendor: Object.keys(pkg.dependencies).filter(key => key !== 'babel-runtime' && key !== 'antd')
 }
 
-config.output.filename = 'js/[name]-[chunkhash:8].js'
-config.output.chunkFilename = 'js/[name]-[chunkhash:8].js'
+config.output = {
+    path: base.BUILD_PATH,
+    filename: 'js/[name]-[chunkhash:8].js',
+    chunkFilename: 'js/[name]-[chunkhash:8].js'
+}
 
-const plugins = [
+config.plugins.push(
     // 插入头
     new webpack.BannerPlugin('Copyright by jason925645402@gamil.com'),
 
@@ -92,8 +95,6 @@ const plugins = [
         port: 4000,
     }),
     new BundleAnalyzerPlugin()
-]
-
-config.plugins = config.plugins.concat(plugins)
+)
 
 module.exports = config

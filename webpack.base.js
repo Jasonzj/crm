@@ -34,20 +34,10 @@ exports.DEFAULT_HOST = DEFAULT_HOST
 exports.NODE_MODULES_PATH = NODE_MODULES_PATH
 exports.APP_PATH = APP_PATH
 exports.SRC_PATH = SRC_PATH
+exports.BUILD_PATH = BUILD_PATH
 
 // config
 exports.config = {
-    entry: [
-        `webpack-dev-server/client?http://${DEFAULT_HOST}:${DEFAULT_PORT}`,
-        'webpack/hot/only-dev-server',
-        'react-hot-loader/patch',
-        APP_PATH
-    ],
-    output: {
-        path: BUILD_PATH,
-        filename: 'js/[name].js',
-        chunkFilename: 'js/[name].js'
-    },
     resolve: {
         extensions: ['.js', '.jsx', '.scss', '.css'],
         modules: [
