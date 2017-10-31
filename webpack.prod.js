@@ -6,7 +6,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
+
+const postCssLoader = {
+    loader: 'postcss-loader',
+    options: {
+        plugins: loader => [
+            autoprefixer({ browsers: ['last 5 versions'] })
+        ]
+    }
+}
 
 const config = base.config
 
@@ -20,6 +30,32 @@ config.output = {
     filename: 'js/[name]-[chunkhash:8].js',
     chunkFilename: 'js/[name]-[chunkhash:8].js'
 }
+
+config.module.rules.push(
+    {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+                base.cssModule,
+                postCssLoader,
+                'sass-loader'
+            ]
+        }),
+        exclude: base.NODE_MODULES_PATH,
+        include: base.SRC_PATH
+    },
+    {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+                'css-loader',
+                postCssLoader
+            ]
+        })
+    }
+)
 
 config.plugins.push(
     // 插入头

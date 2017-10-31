@@ -1,7 +1,6 @@
 const webpack = require('webpack')
 const base = require('./webpack.base')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // config
 const config = base.config
@@ -19,9 +18,21 @@ config.output = {
     chunkFilename: 'js/[name].js'
 }
 
+config.module.rules.push(
+    {
+        test: /\.scss$/,
+        use: ['style-loader', base.cssModule, 'sass-loader'],
+        exclude: base.NODE_MODULES_PATH,
+        include: base.SRC_PATH
+    },
+    {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+    }
+)
+
 config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('css/style.css'),
     new HtmlWebpackPlugin({
         filename: 'index.html',
         template: 'index.html'

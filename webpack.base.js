@@ -1,7 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const autoprefixer = require('autoprefixer')
 
 const isDev = process.env.NODE_ENV === 'dev'
 console.log(`当前运行环境：${isDev ? 'development' : 'production'}`)
@@ -35,6 +33,14 @@ exports.NODE_MODULES_PATH = NODE_MODULES_PATH
 exports.APP_PATH = APP_PATH
 exports.SRC_PATH = SRC_PATH
 exports.BUILD_PATH = BUILD_PATH
+exports.cssModule = {
+    loader: 'css-loader',
+    options: {
+        module: true,
+        sourceMap: true,
+        localIdentName: '[name]__[local]___[hash:base64:5]'
+    }
+},
 
 // config
 exports.config = {
@@ -64,50 +70,6 @@ exports.config = {
                 loader: 'babel-loader?cacheDirectory',
                 exclude: NODE_MODULES_PATH,
                 include: SRC_PATH
-            },
-            {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                module: true,
-                                sourceMap: true,
-                                localIdentName: '[name]__[local]___[hash:base64:5]'
-                            }
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: loader => [
-                                    autoprefixer({ browsers: ['last 5 versions'] })
-                                ]
-                            }
-                        },
-                        'sass-loader'
-                    ]
-                }),
-                exclude: NODE_MODULES_PATH,
-                include: SRC_PATH
-            },
-            {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: loader => [
-                                    autoprefixer({ browsers: ['last 5 versions'] })
-                                ]
-                            }
-                        }
-                    ]
-                })
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
