@@ -16,7 +16,6 @@ import Filter from 'components/Filter'
 
 // actions
 import { actions } from 'ducks/userManage'
-import { actions  as app } from 'ducks/app'
 
 // styles
 import styles from './style'
