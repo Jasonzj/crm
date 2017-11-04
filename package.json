@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "NODE_ENV=dev node server.js",
     "build": "rm -rf ./build && NODE_ENV=production webpack --config webpack.prod.js --colors",
+    "dll": "webpack --config webpack.dll.js",
     "test": "jest"
   },
   "author": "Jason",
@@ -54,7 +55,6 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dashboard": "^1.0.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-monitor": "^1.0.13"
   },

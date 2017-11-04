@@ -1,10 +1,6 @@
 const webpack = require('webpack')
 const base = require('./webpack.base')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const Dashboard = require('webpack-dashboard')
-const DashboardPlugin = require('webpack-dashboard/plugin')
-
-const dashboard = new Dashboard()
 
 // config
 const config = base.config
@@ -43,8 +39,7 @@ config.plugins.push(
     }),
     new webpack.SourceMapDevToolPlugin({
         filename: '[file].map'
-    }),
-    new DashboardPlugin(dashboard.setData)
+    })
 )
 
 module.exports = base
