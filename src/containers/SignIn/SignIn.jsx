@@ -6,6 +6,8 @@ import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 import PropTypes from 'prop-types'
 import styles from './style'
 
+import Loading from 'components/Loading'
+
 // action
 import { actions } from 'ducks/app'
 
@@ -19,10 +21,17 @@ const FormItem = Form.Item
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class SignIn extends PureComponent {
+    constructor() {
+        super()
+        this.state = {
+            loading: true,
+        }
+    }
+
     componentWillMount() {
         const { signIn, history } = this.props
         this.jumpIndex(signIn, history)
-        setTimeout(() => this.props.finishLoader(), 50)
+        setTimeout(() => this.setState({ loading: false }), 50)
     }
 
     jumpIndex(bool, history) {
@@ -48,6 +57,7 @@ class SignIn extends PureComponent {
 
         return (
             <div className={styles.signIn}>
+                <Loading spinning={this.state.loading} />
                 <div className={styles.main}>
                     <div className={styles.title}>
                         <Link to={'/sign_in'} className={styles.active}>

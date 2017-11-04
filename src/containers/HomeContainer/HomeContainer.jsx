@@ -25,7 +25,6 @@ const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ 
 import User from './subComponents/User'
 import Bread from './subComponents/Bread'
 import Sidebar from './subComponents/Sidebar'
-import Loading from 'components/Loading'
 
 // actions
 import { actions } from 'ducks/app'
@@ -74,7 +73,7 @@ class HomeContainer extends PureComponent {
     }
 
     render() {
-        const { match, isFetching, user, history: { location }, loading } = this.props
+        const { match, isFetching, user, history: { location } } = this.props
         const { collapsed, sideInline } = this.state
         const href = window.location.href
         const menuKeys = [`${menuConfig[location.pathname]}`]
@@ -89,15 +88,12 @@ class HomeContainer extends PureComponent {
         }
 
         if ('/sign_in'.includes(location.pathname)) {
-            return [
-                <Loading key="1" spinning={loading} />,
-                <Route key="2" exact path="/sign_in" component={SignIn} />
-            ]
+            return <Route exact path="/sign_in" component={SignIn} />
+
         }
 
         return (
             <Layout className="ant-layout-has-sider">
-                <Loading spinning={loading} />
                 <Sidebar
                     menuKeys={menuKeys}
                     collapsed={collapsed}
@@ -137,7 +133,6 @@ HomeContainer.propTypes = {
     user: PropTypes.object,
     signIn: PropTypes.bool,
     match: PropTypes.object,
-    loading: PropTypes.bool,
     history: PropTypes.object,
     setSignOut: PropTypes.func,
     isFetching: PropTypes.bool,

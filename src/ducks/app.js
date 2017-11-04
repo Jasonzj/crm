@@ -19,8 +19,6 @@ export const actions = {
     setSignOut: () => ({ type: types.SET_SIGN_OUT }),
     startFetch: () => ({ type: types.START_FETCH }),
     finishFetch: () => ({ type: types.FINISH_FETCH }),
-    startLoader: () => ({ type: types.START_LOADER }),
-    finishLoader: () => ({ type: types.FINISH_LOADER }),
     setError: error => ({ type: types.SET_ERROR, data: error }),
     aSignIn: values => async (dispatch) => {
         try {
@@ -41,7 +39,6 @@ export const actions = {
 
 const initialState = {
     isFetching: false,
-    loading: true,
     signIn: false,
     user: {}
 }
@@ -55,12 +52,6 @@ export default (state = initialState, action) => {
 
         case types.FINISH_FETCH:
             return { ...state, isFetching: false }
-
-        case types.START_LOADER:
-            return { ...state, loading: true }
-
-        case types.FINISH_LOADER:
-            return { ...state, loading: false }
 
         case types.SET_SIGN_IN:
             return {
