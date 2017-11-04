@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
+import { Form, Icon, Input, Button, message } from 'antd'
 import PropTypes from 'prop-types'
 import styles from './style'
 
@@ -12,6 +12,7 @@ import Loading from 'components/Loading'
 import { actions } from 'ducks/app'
 
 const FormItem = Form.Item
+const iconSize = { fontSize: 13 }
 
 @connect(
     state => ({
@@ -45,7 +46,7 @@ class SignIn extends PureComponent {
         form.validateFields((err, values) => {
             if (!err) {
                 aSignIn(values).then((data) => {
-                    const { success, message } = data.data
+                    const { success } = data.data
                     success && this.jumpIndex(success, history)
                 })
             }
@@ -81,7 +82,7 @@ class SignIn extends PureComponent {
                                     <Input
                                         size="large"
                                         placeholder="账号"
-                                        prefix={<Icon type="user" style={{ fontSize: 13 }} />}
+                                        prefix={<Icon type="user" style={iconSize} />}
                                     />
                                 )
                             }
@@ -100,7 +101,7 @@ class SignIn extends PureComponent {
                                         type="password"
                                         placeholder="密码"
                                         prefix={
-                                            <Icon type="lock" style={{ fontSize: 13 }} />
+                                            <Icon type="lock" style={iconSize} />
                                         }
                                     />
                                 )
@@ -131,7 +132,6 @@ SignIn.propTypes = {
     aSignIn: PropTypes.func,
     history: PropTypes.object,
     isFetching: PropTypes.bool,
-    finishLoader: PropTypes.func,
 }
 
 export default Index

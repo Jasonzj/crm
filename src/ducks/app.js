@@ -1,5 +1,5 @@
 import instance from 'utils/instance'
-import { signIn } from 'utils/api'
+import { signIn, signUp } from 'utils/api'
 import { message as Msg } from 'antd'
 
 // Action
@@ -16,6 +16,7 @@ export const types = {
 // Action Creators
 export const actions = {
     setSignIn: data => ({ type: types.SET_SIGN_IN, data }),
+    setSignUp: data => ({ type: types.SET_SIGN_IN, data }),
     setSignOut: () => ({ type: types.SET_SIGN_OUT }),
     startFetch: () => ({ type: types.START_FETCH }),
     finishFetch: () => ({ type: types.FINISH_FETCH }),
@@ -32,6 +33,21 @@ export const actions = {
         } catch (err) {
             console.error(err)
             Msg.error('登入失败！请重试')
+            dispatch(actions.finishFetch())
+        }
+    },
+    aSignUp: values => async (dispatch) => {
+        try {
+            dispatch(actions.startFetch())
+            const result = await instance.post(signUp, values)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.setSignIn(result.data))
+            dispatch(actions.finishFetch())
+            return dispatch(actions.aSignIn({ user: 'admin', pass: 'admin' }))
+        } catch (err) {
+            console.error(err)
+            Msg.error('注册失败！请重试')
             dispatch(actions.finishFetch())
         }
     }
