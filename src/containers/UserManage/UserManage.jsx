@@ -8,7 +8,7 @@ import classnames from 'classnames'
 
 // utils
 import shallowCompare from 'utils/shallowCompare'
-import { createColumns, createForm } from 'utils/config'
+import { createColumns, createForm } from 'utils/formConfig'
 
 // component
 import EditModal from 'components/EditModal'

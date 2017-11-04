@@ -16,6 +16,7 @@ import UserManage from 'containers/UserManage'
 import Business from 'containers/Business'
 import Detail from 'containers/UserManage/subComponents/Detail'
 import SignIn from 'containers/SignIn'
+import SignUp from 'containers/SignUp'
 import Visit from 'containers/Visit'
 
 // lazyContainer
@@ -29,10 +30,14 @@ import Sidebar from './subComponents/Sidebar'
 // actions
 import { actions } from 'ducks/app'
 
+// utils
+import config from 'utils/config'
+
 // scss
 import styles from './style.scss'
 
 let lastHref
+const { name, footerText, openPages } = config
 const menuConfig = {
     '/user': 1,
     '/business': 2,
@@ -75,11 +80,11 @@ class HomeContainer extends PureComponent {
     render() {
         const { match, isFetching, user, history: { location } } = this.props
         const { collapsed, sideInline } = this.state
-        const href = window.location.href
-        const menuKeys = [`${menuConfig[location.pathname]}`]
+        const pathname = location.pathname                      // 当前pathName
+        const href = window.location.href                       // 当前Href
+        const menuKeys = [`${menuConfig[pathname]}`]            // 侧边栏当前Key
 
         if (lastHref !== href) {
-            NProgress.start()
             NProgress.set(0.4)
             if (!isFetching) {
                 setTimeout(() => NProgress.done(), 300)
@@ -87,14 +92,17 @@ class HomeContainer extends PureComponent {
             }
         }
 
-        if ('/sign_in'.includes(location.pathname)) {
-            return <Route exact path="/sign_in" component={SignIn} />
-
+        if (openPages && openPages.includes(pathname)) {
+            return {
+                '/sign_in': <Route exact path="/sign_in" component={SignIn} />,
+                '/sign_up': <Route exact path="/sign_up" component={SignUp} />
+            }[pathname]
         }
 
         return (
             <Layout className="ant-layout-has-sider">
                 <Sidebar
+                    name={name}
                     menuKeys={menuKeys}
                     collapsed={collapsed}
                     sideInline={sideInline}
@@ -122,7 +130,7 @@ class HomeContainer extends PureComponent {
                             <Route component={NotFound} />
                         </Switch>
                     </Content>
-                    <Footer className={styles.footer}>CRM Admin  © 2017 Jason</Footer>
+                    <Footer className={styles.footer}>{footerText}</Footer>
                 </Layout>
             </Layout>
         )

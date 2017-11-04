@@ -567,7 +567,7 @@
             "id": 96
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 14247,
             "id": 97
           },
@@ -4898,7 +4898,7 @@
             "id": 96
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 14247,
             "id": 97
           },
@@ -8815,7 +8815,7 @@
             "id": 60
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 61
           },
@@ -14605,7 +14605,7 @@
             "id": 31
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 61
           },
@@ -14945,7 +14945,7 @@
             "id": 57
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 105
           },
@@ -26692,7 +26692,7 @@
             "id": 57
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 105
           },
@@ -32061,7 +32061,7 @@
             "id": 104
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 105
           },
@@ -33282,7 +33282,7 @@
             "id": 60
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 61
           },
@@ -41214,7 +41214,7 @@
             "id": 52
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 12532,
             "id": 101
           },
@@ -41526,7 +41526,7 @@
       "./node_modules/antd/lib/message/style/index.css\nModule parse failed: /Users/apple/Desktop/crm/node_modules/antd/lib/message/style/index.css Unexpected token (4:0)\nYou may need an appropriate loader to handle this file type.\n| /* stylelint-disable declaration-bang-space-before */\n| /* stylelint-disable declaration-bang-space-before */\n| .ant-message {\n|   font-size: 12px;\n|   position: fixed;\n @ ./node_modules/antd/lib/message/style/css.js 5:0-22\n @ ./src/ducks/app.js\n @ ./src/ducks/index.js\n @ ./src/App.jsx\n @ ./src/entry.js",
       "./node_modules/antd/lib/modal/style/index.css\nModule parse failed: /Users/apple/Desktop/crm/node_modules/antd/lib/modal/style/index.css Unexpected token (4:0)\nYou may need an appropriate loader to handle this file type.\n| /* stylelint-disable declaration-bang-space-before */\n| /* stylelint-disable declaration-bang-space-before */\n| .ant-modal {\n|   position: relative;\n|   width: auto;\n @ ./node_modules/antd/lib/modal/style/css.js 5:0-22\n @ ./src/containers/UserManage/subComponents/Detail.js\n @ ./src/containers/HomeContainer/HomeContainer.jsx\n @ ./src/containers/HomeContainer/index.js\n @ ./src/router/Router.jsx\n @ ./src/router/index.js\n @ ./src/App.jsx\n @ ./src/entry.js",
       "./node_modules/antd/lib/pagination/style/index.css\nModule parse failed: /Users/apple/Desktop/crm/node_modules/antd/lib/pagination/style/index.css Unexpected token (4:0)\nYou may need an appropriate loader to handle this file type.\n| /* stylelint-disable declaration-bang-space-before */\n| /* stylelint-disable declaration-bang-space-before */\n| .ant-pagination {\n|   font-size: 12px;\n| }\n @ ./node_modules/antd/lib/pagination/style/css.js 5:0-22\n @ ./node_modules/antd/lib/table/style/css.js\n @ ./src/containers/UserManage/subComponents/Detail.js\n @ ./src/containers/HomeContainer/HomeContainer.jsx\n @ ./src/containers/HomeContainer/index.js\n @ ./src/router/Router.jsx\n @ ./src/router/index.js\n @ ./src/App.jsx\n @ ./src/entry.js",
-      "./node_modules/antd/lib/popover/style/index.css\nModule parse failed: /Users/apple/Desktop/crm/node_modules/antd/lib/popover/style/index.css Unexpected token (4:0)\nYou may need an appropriate loader to handle this file type.\n| /* stylelint-disable declaration-bang-space-before */\n| /* stylelint-disable declaration-bang-space-before */\n| .ant-popover {\n|   position: absolute;\n|   top: 0;\n @ ./node_modules/antd/lib/popover/style/css.js 5:0-22\n @ ./src/utils/config.js\n @ ./src/containers/UserManage/subComponents/Detail.js\n @ ./src/containers/HomeContainer/HomeContainer.jsx\n @ ./src/containers/HomeContainer/index.js\n @ ./src/router/Router.jsx\n @ ./src/router/index.js\n @ ./src/App.jsx\n @ ./src/entry.js",
+      "./node_modules/antd/lib/popover/style/index.css\nModule parse failed: /Users/apple/Desktop/crm/node_modules/antd/lib/popover/style/index.css Unexpected token (4:0)\nYou may need an appropriate loader to handle this file type.\n| /* stylelint-disable declaration-bang-space-before */\n| /* stylelint-disable declaration-bang-space-before */\n| .ant-popover {\n|   position: absolute;\n|   top: 0;\n @ ./node_modules/antd/lib/popover/style/css.js 5:0-22\n @ ./src/utils/formConfig.js\n @ ./src/containers/UserManage/subComponents/Detail.js\n @ ./src/containers/HomeContainer/HomeContainer.jsx\n @ ./src/containers/HomeContainer/index.js\n @ ./src/router/Router.jsx\n @ ./src/router/index.js\n @ ./src/App.jsx\n @ ./src/entry.js",
       "./node_modules/antd/lib/radio/style/index.css\nModule parse failed: /Users/apple/Desktop/crm/node_modules/antd/lib/radio/style/index.css Unexpected token (4:0)\nYou may need an appropriate loader to handle this file type.\n| /* stylelint-disable declaration-bang-space-before */\n| /* stylelint-disable declaration-bang-space-before */\n| .ant-radio-group {\n|   display: inline-block;\n|   font-size: 12px;\n @ ./node_modules/antd/lib/radio/style/css.js 5:0-22\n @ ./node_modules/antd/lib/table/style/css.js\n @ ./src/containers/UserManage/subComponents/Detail.js\n @ ./src/containers/HomeContainer/HomeContainer.jsx\n @ ./src/containers/HomeContainer/index.js\n @ ./src/router/Router.jsx\n @ ./src/router/index.js\n @ ./src/App.jsx\n @ ./src/entry.js",
       "./node_modules/antd/lib/select/style/index.css\nModule parse failed: /Users/apple/Desktop/crm/node_modules/antd/lib/select/style/index.css Unexpected token (4:0)\nYou may need an appropriate loader to handle this file type.\n| /* stylelint-disable declaration-bang-space-before */\n| /* stylelint-disable declaration-bang-space-before */\n| .ant-select {\n|   box-sizing: border-box;\n|   display: inline-block;\n @ ./node_modules/antd/lib/select/style/css.js 5:0-22\n @ ./node_modules/antd/lib/pagination/style/css.js\n @ ./node_modules/antd/lib/table/style/css.js\n @ ./src/containers/UserManage/subComponents/Detail.js\n @ ./src/containers/HomeContainer/HomeContainer.jsx\n @ ./src/containers/HomeContainer/index.js\n @ ./src/router/Router.jsx\n @ ./src/router/index.js\n @ ./src/App.jsx\n @ ./src/entry.js",
       "./node_modules/antd/lib/spin/style/index.css\nModule parse failed: /Users/apple/Desktop/crm/node_modules/antd/lib/spin/style/index.css Unexpected token (4:0)\nYou may need an appropriate loader to handle this file type.\n| /* stylelint-disable declaration-bang-space-before */\n| /* stylelint-disable declaration-bang-space-before */\n| .ant-spin {\n|   color: #108ee9;\n|   vertical-align: middle;\n @ ./node_modules/antd/lib/spin/style/css.js 5:0-22\n @ ./node_modules/antd/lib/table/style/css.js\n @ ./src/containers/UserManage/subComponents/Detail.js\n @ ./src/containers/HomeContainer/HomeContainer.jsx\n @ ./src/containers/HomeContainer/index.js\n @ ./src/router/Router.jsx\n @ ./src/router/index.js\n @ ./src/App.jsx\n @ ./src/entry.js",
@@ -41835,7 +41835,7 @@
             "id": 60
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 61
           },
@@ -45004,7 +45004,7 @@
             "id": 60
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 61
           },
@@ -48173,7 +48173,7 @@
             "id": 60
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 61
           },
@@ -51342,7 +51342,7 @@
             "id": 60
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 61
           },
@@ -54511,7 +54511,7 @@
             "id": 60
           },
           {
-            "name": "./src/utils/config.js",
+            "name": "./src/utils/formConfig.js",
             "size": 13057,
             "id": 61
           },

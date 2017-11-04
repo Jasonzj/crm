@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 
 // utils
-import { createColumns, createForm } from 'utils/config'
+import { createColumns, createForm } from 'utils/formConfig'
 
 // component
 import EditModal from 'components/EditModal'

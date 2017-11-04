@@ -5,7 +5,7 @@ import { Table, Modal, message, Tabs, Icon } from 'antd'
 import { bindActionCreators } from 'redux'
 
 // utils
-import { createPagination, createColumns, createForm } from 'utils/config'
+import { createPagination, createColumns, createForm } from 'utils/formConfig'
 
 // component
 import EditModal from 'components/EditModal'

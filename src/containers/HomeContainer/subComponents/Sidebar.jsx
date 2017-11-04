@@ -9,6 +9,7 @@ import styles from '../style'
 const { Sider } = Layout
 
 const Sidebar = ({
+    name,
     menuKeys,
     collapsed,
     sideInline,
@@ -19,7 +20,7 @@ const Sidebar = ({
         collapsed={collapsed}
     >
         <div className={collapsed ? styles.logoSmall : styles.logoBig}>
-            CRM
+            {name}
         </div>
         <Menu
             mode="inline"
@@ -61,6 +62,7 @@ const Sidebar = ({
 )
 
 Sidebar.propTypes = {
+    name: PropTypes.string,
     collapsed: PropTypes.bool,
     menuKeys: PropTypes.array,
     sideInline: PropTypes.bool,
