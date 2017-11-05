@@ -73,12 +73,17 @@ const createUserManageColums = ({
 const createBusinessColumns = ({
     uid,
     uState,
+    nameDisabled,
     handleOption
 }) => ([
     {
         title: '所属人',
         dataIndex: 'eName',
-        render: (text, record) => <Link to={`user/${record.uid}`}>{text}</Link>,
+        render: (text, record) => (
+            !nameDisabled
+                ? <Link to={`user/${record.uid}`}>{text}</Link>
+                : <span>{text}</span>
+        ),
         sorter: (a, b) => a.eName.length - b.eName.length
     },
     {
@@ -149,12 +154,17 @@ const createBusinessColumns = ({
 const createVisitColumns = ({
     uid,
     uState,
+    nameDisabled,
     handleOption
 }) => ([
     {
         title: '所属人',
         dataIndex: 'eName',
-        render: (text, record) => <Link to={`user/${record.uid}`}>{text}</Link>,
+        render: (text, record) => (
+            !nameDisabled
+                ? <Link to={`user/${record.uid}`}>{text}</Link>
+                : <span>{text}</span>
+        ),
         sorter: (a, b) => a.eName.length - b.eName.length
     },
     {

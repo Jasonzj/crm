@@ -139,8 +139,9 @@ class Detail extends PureComponent {
         const columns = createColumns({
             uid,
             uState,
+            type: modalConfig.type,
+            nameDisabled: true,
             handleOption: this.handleOption,
-            type: modalConfig.type
         })
         const rowSelection = {
             selectedRowKeys,
