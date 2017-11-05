@@ -123,8 +123,8 @@ class Business extends PureComponent {
         const columns = createColumns({
             uid,
             uState,
+            type: 'business',
             handleOption: this.handleOption,
-            type: 'business'
         })
         const rowSelection = {
             selectedRowKeys,

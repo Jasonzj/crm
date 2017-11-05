@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
@@ -31,7 +31,7 @@ const confirm = Modal.confirm
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
-class UserManage extends Component {
+class UserManage extends PureComponent {
     constructor() {
         super()
         this.state = {
@@ -45,10 +45,6 @@ class UserManage extends Component {
     componentWillMount() {
         const { userLists, aGetUserListPage } = this.props
         userLists.length === 0 && aGetUserListPage(1)
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(nextProps, this.props) || shallowCompare(nextState, this.state)
     }
 
     handleOption = (record, e) => {

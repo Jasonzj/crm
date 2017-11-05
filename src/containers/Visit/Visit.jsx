@@ -125,8 +125,8 @@ class Visit extends PureComponent {
         const columns = createColumns({
             uid,
             uState,
+            type: 'visit',
             handleOption: this.handleOption,
-            type: 'visit'
         })
         const rowSelection = {
             selectedRowKeys,

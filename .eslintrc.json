@@ -77,6 +77,6 @@
         "react/jsx-closing-bracket-location": 2,
         "jsx-a11y/no-static-element-interactions": 0,
         "jsx-a11y/no-noninteractive-element-interactions": 0,
-        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
+        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }]
     }
 }
