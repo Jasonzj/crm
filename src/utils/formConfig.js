@@ -183,8 +183,8 @@ const createVisitColumns = ({
         render: (num) => {
             const text = ['失败', '成功'][num]
             const icon = [
-                <Icon type="close-circle" />,
-                <Icon type="check-circle" />,
+                <Icon key="1" type="close-circle" />,
+                <Icon key="2" type="check-circle" />,
             ][num]
             return [
                 icon,
