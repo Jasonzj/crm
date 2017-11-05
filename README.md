@@ -671,7 +671,7 @@ post `/api/v1/editContract`
 }
 ```
 
-### POST/删除拜访
+### POST/删除合同
 post `/api/v1/deleteContract`
 
 请求格式:
