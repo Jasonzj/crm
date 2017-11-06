@@ -179,6 +179,7 @@ class Detail extends PureComponent {
                     removeTitle={'商机'}
                     onReset={this.onReset}
                     hasSelected={hasSelected}
+                    isFetching={isFetching}
                     onDeleteUsers={this.onDeleteBusiness}
                     selectedLen={selectedRowKeys.length}
                 />
