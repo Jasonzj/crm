@@ -78,7 +78,7 @@ export const actions = {
             dispatch(appActions.finishFetch())
         }
     },
-    agetContractDetail: id => async (dispatch) => {
+    aGetContractDetail: id => async (dispatch) => {
         try {
             dispatch(appActions.startFetch())
             const result = await instance.get(getContractDetail(id))
@@ -122,6 +122,12 @@ export default (state = initialState, action) => {
                 ...state,
                 total: action.total,
                 contracts: action.data.map(item => handle(item, action))
+            }
+
+        case types.SET_DETAIL:
+            return {
+                ...state,
+                currentContract: action.data.data
             }
 
         default:

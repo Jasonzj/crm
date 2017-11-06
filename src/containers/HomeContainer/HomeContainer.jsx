@@ -14,7 +14,8 @@ const { Content, Header, Footer } = Layout
 // Container
 import UserManage from 'containers/UserManage'
 import Business from 'containers/Business'
-import Detail from 'containers/UserManage/subComponents/Detail'
+import UserDetail from 'containers/UserManage/subComponents/Detail'
+import ContractDetail from 'containers/Contract/subComponents/Detail'
 import SignIn from 'containers/SignIn'
 import SignUp from 'containers/SignUp'
 import Visit from 'containers/Visit'
@@ -126,10 +127,11 @@ class HomeContainer extends PureComponent {
                     <Content className={styles.main}>
                         <Switch>
                             <Route exact path="/user" component={UserManage} />
-                            <Route exact path="/user/:id" component={Detail} />
+                            <Route exact path="/user/:id" component={UserDetail} />
                             <Route exact path="/business" component={Business} />
                             <Route exact path="/visit" component={Visit} />
                             <Route exact path="/contract" component={Contract} />
+                            <Route exact path="/contract/:id" component={ContractDetail} />
                             <Route component={NotFound} />
                         </Switch>
                     </Content>
