@@ -25,6 +25,10 @@ const breadcrumbNameMap = {
     '/contract': {
         name: 'Contract',
         icon: 'solution',
+    },
+    '/contract/*': {
+        name: 'Contract Detail',
+        icon: 'solution'
     }
 }
 

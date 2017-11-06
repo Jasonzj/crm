@@ -2,12 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
-import { Steps, Icon } from 'antd'
+import { Steps, Icon, Card } from 'antd'
+import DescriptionList from 'components/DescriptionList'
+
+// style
+import styles from '../style'
 
 // actions
 import { actions } from 'ducks/contract'
 
 const Step = Steps.Step
+const { Description } = DescriptionList
 
 @connect(
     state => ({
@@ -30,11 +35,19 @@ class Detail extends Component {
     }
 
     render() {
-        const { currentContract } = this.props
-        const { state } = currentContract
-        const setpError = state === 2 && 'error'
+        const { currentContract, isFetching } = this.props
+        const { state, title, name, uName, eName, time } = currentContract
+        const setpError = state === 2 ? 'error' : ''
         return (
-            <div>
+            <Card title="Card title" loading={isFetching}>
+                <h1 className={styles.title}>{title}</h1>
+                <DescriptionList size="large" title="合同信息" style={{ marginBottom: 32 }}>
+                    <Description term="公司名字">{name}</Description>
+                    <Description term="状态">{['签订', '进行', '成功', '失败'][state]}</Description>
+                    <Description term="跟进人">{eName}</Description>
+                    <Description term="跟进人用户名">{uName}</Description>
+                    <Description term="创建时间">{time}</Description>
+                </DescriptionList>
                 <Steps
                     current={state}
                     status={setpError}
@@ -47,7 +60,7 @@ class Detail extends Component {
                             : <Step title="成功" icon={<Icon type="smile-o" />} />
                     }
                 </Steps>
-            </div>
+            </Card>
         )
     }
 }
