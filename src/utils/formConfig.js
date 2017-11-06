@@ -248,6 +248,11 @@ const createContractColumns = ({
         sorter: (a, b) => a.eName.length - b.eName.length
     },
     {
+        title: '查看详情',
+        dataIndex: 'id',
+        render: (text, record) => <Link to={`contract/${record.id}`}>查看详情</Link>,
+    },
+    {
         title: '公司名字',
         dataIndex: 'name',
         sorter: (a, b) => a.name.length - b.name.length
