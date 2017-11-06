@@ -31,15 +31,20 @@ class Detail extends Component {
 
     render() {
         const { currentContract } = this.props
+        const { state } = currentContract
+        const setpError = state === 2 && 'error'
         return (
             <div>
-                <Steps current={currentContract.state}>
-                    <Step status="finish" title="签订" icon={<Icon type="edit" />} />
-                    <Step status="finish" title="进行" icon={<Icon type="sync" />} />
+                <Steps
+                    current={state}
+                    status={setpError}
+                >
+                    <Step title="签订" icon={<Icon type="edit" />} />
+                    <Step title="进行" icon={<Icon type="sync" />} />
                     {
-                        currentContract.state === 2
-                            ? <Step status="process" title="失败" icon={<Icon type="frown-o" />} />
-                            : <Step status="wait" title="成功" icon={<Icon type="smile-o" />} />
+                        state === 2
+                            ? <Step status={setpError} title="失败" icon={<Icon type="frown-o" />} />
+                            : <Step title="成功" icon={<Icon type="smile-o" />} />
                     }
                 </Steps>
             </div>
