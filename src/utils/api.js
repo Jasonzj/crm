@@ -20,3 +20,10 @@ export const getCompanyVisit = name => `${api}/searchVisit?companyName=${name}`
 export const addVisit = `${api}/addVisit`
 export const editorVisit = `${api}/editVisit`
 export const deleteVisit = `${api}/deleteVisit`
+export const getContractPage = page => `${api}/contract?page=${page}`
+export const getContractDetail = id => `${api}/contract?id=${id}`
+export const getUserContract = name => `{api}/searchContract?eName=${name}`
+export const getCompanyContract = name => `${api}/searchContract?companyName=${name}`
+export const addContract = `${api}/addContract`
+export const editContract = `${api}/editContract`
+export const deleteContract = `${api}/deleteContract`
