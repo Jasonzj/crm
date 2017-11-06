@@ -1,7 +1,14 @@
 import instance from 'utils/instance'
 import { actions as appActions } from './app'
 import { message as Msg } from 'antd'
-import { getVisitPage, getUserVisit, getCompanyVisit, deleteVisit, editorVisit, addVisit } from 'utils/api'
+import {
+    addVisit,
+    deleteVisit,
+    editorVisit,
+    getVisitPage,
+    getUserVisit,
+    getCompanyVisit,
+} from 'utils/api'
 
 export const types = {
     SET_VISITS:   'visit/SET_VISITS',

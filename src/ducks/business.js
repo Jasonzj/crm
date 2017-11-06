@@ -1,7 +1,14 @@
 import instance from 'utils/instance'
-import { deleteBusiness, editBusiness, getBusinessPage, getUserBusiness, getCompanyBusiness, addBusiness } from 'utils/api'
 import { actions as appActions } from './app'
 import { message as Msg } from 'antd'
+import {
+    addBusiness,
+    editBusiness,
+    deleteBusiness,
+    getBusinessPage,
+    getUserBusiness,
+    getCompanyBusiness,
+} from 'utils/api'
 
 export const types = {
     SET_BUSINESS:    'business/SET_BUSINESS',

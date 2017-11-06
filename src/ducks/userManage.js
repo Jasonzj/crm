@@ -3,17 +3,17 @@ import { actions as appActions } from './app'
 import { message as Msg } from 'antd'
 import {
     editorUser,
-    deleteUser,
     searchUser,
-    editBusiness,
-    deleteBusiness,
-    getUserListUid,
-    getUserListPage,
-    getUserBusiness,
-    getUserVisit,
-    getCompanyVisit,
+    deleteUser,
     editorVisit,
-    deleteVisit
+    deleteVisit,
+    getUserVisit,
+    editBusiness,
+    getUserListUid,
+    deleteBusiness,
+    getUserBusiness,
+    getCompanyVisit,
+    getUserListPage,
 } from 'utils/api'
 
 // Actions
