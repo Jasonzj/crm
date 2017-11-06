@@ -20,10 +20,10 @@ const confirm = Modal.confirm
 
 @connect(
     state => ({
-        ...state.app,
         ...state.visit,
         uid: state.app.user.uid,
         uState: state.app.user.state,
+        isFetching: state.app.isFetching,
     }),
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
