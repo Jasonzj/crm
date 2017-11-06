@@ -47,8 +47,10 @@ const Sidebar = ({
                 </Link>
             </Menu.Item>
             <Menu.Item key="4">
-                <Icon type="solution" />
-                <span>合同</span>
+                <Link to="/contract">
+                    <Icon type="solution" />
+                    <span>合同</span>
+                </Link>
             </Menu.Item>
         </Menu>
         {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Breadcrumb, Icon } from 'antd'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import styles from '../style'
 
@@ -19,8 +20,12 @@ const breadcrumbNameMap = {
     },
     '/sign_in': {
         name: 'sign_in',
-        icon: 'eye'
+        icon: 'bell'
     },
+    '/contract': {
+        name: 'Contract',
+        icon: 'solution',
+    }
 }
 
 const Bread = ({
@@ -69,6 +74,10 @@ const Bread = ({
             {breadcrumbItems}
         </Breadcrumb>
     )
+}
+
+Bread.propTypes = {
+    location: PropTypes.object
 }
 
 export default Bread

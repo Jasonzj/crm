@@ -111,7 +111,7 @@ class UserManage extends PureComponent {
         const columnsConfig = {
             uid,
             uState,
-            type: 'contract',
+            type: 'userManage',
             handleOption: this.handleOption
         }
         const pagination = {

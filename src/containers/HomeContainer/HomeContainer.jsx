@@ -43,6 +43,7 @@ const menuConfig = {
     '/user': 1,
     '/business': 2,
     '/visit': 3,
+    '/contract': 4,
 }
 
 @withRouter

@@ -42,7 +42,7 @@ class Contract extends PureComponent {
     }
 
     handleOption = (record, e) => {
-        const { uid, aDeleteUser } = this.props
+        const { uid, aDeleteContract } = this.props
         const { onReset } = this
 
         if (e.key === '1') {
@@ -55,7 +55,7 @@ class Contract extends PureComponent {
                 title: '你确定要删除这个用户?',
                 onOk() {
                     const data = { uid, deleteId: [record.uid] }
-                    aDeleteUser(data).then((result) => {
+                    aDeleteContract(data).then((result) => {
                         result.data.success && onReset()
                     })
                 }
@@ -64,7 +64,7 @@ class Contract extends PureComponent {
     }
 
     onReset = () => {
-        this.props.aGetUserListPage(1)
+        this.props.aGetContractPage(1)
         this.setState({ selectedRowKeys: [], page: 1 })
     }
 
@@ -78,7 +78,11 @@ class Contract extends PureComponent {
     }
 
     onSearchName = (name) => {
-        this.props.aSearchUser(name)
+        this.props.aSearchUserContract(name)
+    }
+
+    onSearchCompany = (name) => {
+        this.props.aSearchCompanyContract(name)
     }
 
     onSelectChange = (selectedRowKeys) => {
@@ -86,17 +90,21 @@ class Contract extends PureComponent {
     }
 
     onPageChnage = (page) => {
-        this.props.aGetUserListPage(page)
+        this.props.aGetContractPage(page)
         this.setState({ page })
     }
 
     onDeleteUsers = () => {
         const { selectedRowKeys } = this.state
-        const { uid, aDeleteUser } = this.props
+        const { uid, aDeleteContract } = this.props
         const data = { uid, deleteId: selectedRowKeys }
         this.setState({ selectedRowKeys: [] })
-        aDeleteUser(data)
+        aDeleteContract(data)
         this.onReset()
+    }
+
+    onCreate = () => {
+        console.log('create')
     }
 
     render() {
@@ -106,7 +114,7 @@ class Contract extends PureComponent {
         const columnsConfig = {
             uid,
             uState,
-            type: 'userManage',
+            type: 'contract',
             handleOption: this.handleOption
         }
         const pagination = {
@@ -117,12 +125,12 @@ class Contract extends PureComponent {
         }
         const modalProps = {
             item,
-            type: 'userManage',
+            type: 'contract',
             title: '更新员工信息',
             onOk: this.onModalOk,
             visible: modalVisible,
             onCancel: this.onModalCancel,
-            formData: createForm('userManage'),
+            formData: createForm('contract'),
         }
         const rowSelection = {
             selectedRowKeys,
@@ -133,13 +141,15 @@ class Contract extends PureComponent {
         return (
             <div>
                 <Filter
-                    removeTitle={'用户'}
+                    removeTitle={'拜访'}
                     onReset={this.onReset}
                     isFetching={isFetching}
+                    onCreate={this.onCreate}
                     hasSelected={hasSelected}
                     onSearchName={this.onSearchName}
                     onDeleteUsers={this.onDeleteUsers}
                     selectedLen={selectedRowKeys.length}
+                    onSearchCompany={this.onSearchCompany}
                 />
                 <Table
                     simple
@@ -163,4 +173,8 @@ Contract.propTypes = {
     contracts: PropTypes.array,
     isFetching: PropTypes.bool,
     aGetContractPage: PropTypes.func,
+    aSearchUserContract: PropTypes.func,
+    aSearchCompanyContract: PropTypes.func,
 }
+
+export default Contract

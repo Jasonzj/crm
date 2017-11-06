@@ -19,7 +19,6 @@ export const types = {
 }
 
 export const actions = {
-    deleteContract: data => ({ type: types.DELETE_CONTRACT, data }),
     updateContract: data => ({ type: types.UPDATE_CONTRACT, data }),
     setContract: ({ data, total }) => ({ type: types.SET_CONTRACT, data, total }),
     aGetContractPage: page => async (dispatch) => {
@@ -32,6 +31,48 @@ export const actions = {
         } catch (err) {
             console.error(err)
             Msg.error('获取合同失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
+    },
+    aSearchUserContract: name => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.get(getUserContract(name))
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.setContract(result.data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            Msg.error('搜索合同失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
+    },
+    aSearchCompanyContract: name => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.get(getCompanyContract(name))
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.setContract(result.data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            Msg.error('获取合同失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
+    },
+    aDeleteContract: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(deleteContract, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(appActions.finishFetch())
+            return result
+        } catch (err) {
+            console.error(err)
+            Msg.error('删除合同失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },
