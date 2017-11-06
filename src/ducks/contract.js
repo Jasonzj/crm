@@ -12,6 +12,7 @@ import {
 } from 'utils/api'
 
 export const types = {
+    SET_DETAIL:     'contract/SET_DETAIL',
     SET_CONTRACT:    'contract/SET_CONTRACT',
     DELETE_CONTRACT: 'contract/DELETE_CONTRACT',
     UPDATE_CONTRACT: 'contract/UPDATE_CONTRACT',
@@ -19,6 +20,7 @@ export const types = {
 }
 
 export const actions = {
+    setDetail: data => ({ type: types.SET_DETAIL, data }),
     updateContract: data => ({ type: types.UPDATE_CONTRACT, data }),
     setContract: ({ data, total }) => ({ type: types.SET_CONTRACT, data, total }),
     aGetContractPage: page => async (dispatch) => {
@@ -76,11 +78,26 @@ export const actions = {
             dispatch(appActions.finishFetch())
         }
     },
+    agetContractDetail: id => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.get(getContractDetail(id))
+            !result.data.success && Msg.error('Not Data!')
+            dispatch(actions.setDetail(result.data))
+            dispatch(appActions.finishFetch())
+            return result.data.data
+        } catch (err) {
+            console.error(err)
+            Msg.error('获取合同详情失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
+    },
 }
 
 const initialState = {
     total: null,
-    contracts: []
+    contracts: [],
+    currentContract: {}
 }
 
 const handle = (state, action) => {

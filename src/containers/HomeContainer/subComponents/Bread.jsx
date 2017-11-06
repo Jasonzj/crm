@@ -16,7 +16,7 @@ const breadcrumbNameMap = {
     },
     '/visit': {
         name: 'Visit',
-        icon: 'eye'
+        icon: 'bell'
     },
     '/sign_in': {
         name: 'sign_in',
