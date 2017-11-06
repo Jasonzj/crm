@@ -3,15 +3,17 @@ import thunk from 'redux-thunk'
 
 // reducer
 import app from './app'
-import userManage from './userManage'
-import business from './business'
 import visit from './visit'
+import contract from './contract'
+import business from './business'
+import userManage from './userManage'
 
 const rootReducer = combineReducers({
     app,
-    userManage,
+    visit,
+    contract,
     business,
-    visit
+    userManage,
 })
 
 
