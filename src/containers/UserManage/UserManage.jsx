@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 // utils
-import shallowCompare from 'utils/shallowCompare'
 import { createColumns, createForm } from 'utils/formConfig'
 
 // component
@@ -112,7 +111,7 @@ class UserManage extends PureComponent {
         const columnsConfig = {
             uid,
             uState,
-            type: 'userManage',
+            type: 'contract',
             handleOption: this.handleOption
         }
         const pagination = {

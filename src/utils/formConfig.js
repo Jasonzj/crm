@@ -236,11 +236,72 @@ const createVisitColumns = ({
     }
 ])
 
+const createContractColumns = ({
+    uid,
+    uState,
+    handleOption
+}) => ([
+    {
+        title: '跟进人',
+        dataIndex: 'eName',
+        render: (text, record) => <Link to={`user/${record.uid}`}>{text}</Link>,
+        sorter: (a, b) => a.eName.length - b.eName.length
+    },
+    {
+        title: '公司名字',
+        dataIndex: 'name',
+        sorter: (a, b) => a.name.length - b.name.length
+    },
+    {
+        title: '创建时间',
+        dataIndex: 'time',
+        sorter: (a, b) => new Date(a.time) - new Date(b.time)
+    },
+    {
+        title: '状态',
+        dataIndex: 'state',
+        render: (num) => {
+            const text = ['签订', '进行', '成功', '失败'][num]
+            const icon = [
+                <Icon key="1" type="close-circle" />,
+                <Icon key="2" type="check-circle" />,
+                <Icon key="3" type="check-circle" />,
+                <Icon key="4" type="check-circle" />,
+            ][num]
+            return [
+                icon,
+                text
+            ]
+        },
+        filters: [
+            { text: '签订', value: 0 },
+            { text: '进行', value: 1 },
+            { text: '成功', value: 2 },
+            { text: '失败', value: 3 },
+        ],
+        onFilter: (value, record) => record.result == value
+    },
+    {
+        title: '操作',
+        width: 100,
+        render: (text, record) => (
+            <DropOption
+                onMenuClick={e => handleOption(record, e)}
+                menuOptions={[{ key: '1', name: '更新' }, { key: '2', name: '删除' }]}
+                dropdownProps={{ disabled: filterDisabled(record, uid, uState) }}
+            />
+        )
+    }
+])
+
 export const createColumns = ({
     type,
     ...arg
 }) => {
     switch (type) {
+        case 'contract':
+            return createContractColumns(arg)
+
         case 'visit':
             return createVisitColumns(arg)
 
