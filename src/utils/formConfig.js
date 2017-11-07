@@ -288,7 +288,7 @@ const createContractColumns = ({
             { text: '成功', value: 2 },
             { text: '失败', value: 3 },
         ],
-        onFilter: (value, record) => record.result == value
+        onFilter: (value, record) => record.state == value
     },
     {
         title: '备注',

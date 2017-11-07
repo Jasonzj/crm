@@ -31,13 +31,14 @@ class Detail extends Component {
     }
 
     componentWillMount() {
-        const { match, aGetContractDetail } = this.props
-        aGetContractDetail(match.params.id)
+        const { match, aGetContractDetail, contracts } = this.props
+        // aGetContractDetail(match.params.id)
+        this.data = contracts.filter(item => item.id === match.params.id)[0]
     }
 
     render() {
         const { currentContract, isFetching } = this.props
-        const { state, title, name, uName, eName, time, note, content, result, uid } = currentContract
+        const { state, title, name, uName, eName, time, note, content, result, uid } = this.data
         const setpError = state === 2 ? 'error' : ''
         return ([
             <Card

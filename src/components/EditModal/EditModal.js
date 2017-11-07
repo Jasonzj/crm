@@ -63,12 +63,14 @@ const editModal = ({
                     id: item.key,
                     uid: item.uid,
                     time: item.time || getTime(),
+                    result: parseInt(values.result),
                 },
                 contract: {
                     eid,
                     ...values,
                     id: item.key,
                     uid: item.uid,
+                    state: parseInt(values.state),
                     time: item.time || getTime(),
                 }
             }[type]
