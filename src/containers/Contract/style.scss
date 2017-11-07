@@ -15,14 +15,8 @@
         .anticon.anticon-edit {
             @extend %success;
         }
-        .anticon.anticon-sync {
+        .anticon.anticon-clock-circle {
             @extend %success;
-        }
-        .anticon.anticon-smile-o {
-            @extend %success;
-        }
-        .anticon.anticon-frown-o {
-            @extend %error;
         }
     }
 }
