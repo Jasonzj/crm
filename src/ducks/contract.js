@@ -105,6 +105,20 @@ export const actions = {
             Msg.error('修改合同失败！请重试')
             dispatch(appActions.finishFetch())
         }
+    },
+    aCreateContract: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(addContract, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(appActions.finishFetch())
+            return result.data
+        } catch (err) {
+            console.error(err)
+            Msg.error('创建失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
     }
 }
 

@@ -42,7 +42,7 @@ export const actions = {
             return result.data
         } catch (err) {
             console.error(err)
-            Msg.error(err)
+            Msg.error('创建失败！请重试')
             dispatch(appActions.finishFetch())
         }
     },

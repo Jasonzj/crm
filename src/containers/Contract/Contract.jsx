@@ -107,7 +107,17 @@ class Contract extends PureComponent {
     }
 
     onCreate = () => {
-        console.log('create')
+        this.setState({ modalVisible: true, item: {} })
+    }
+
+    onCreateContract = (data) => {
+        console.log(data)
+        this.props.aCreateContract(data).then((data) => {
+            if (data.success) {
+                this.onReset()
+                this.onModalCancel()
+            }
+        })
     }
 
     render() {
@@ -130,10 +140,11 @@ class Contract extends PureComponent {
             item,
             eid: uid,
             type: 'contract',
-            title: '更新合同信息',
+            title: '创建/更新合同信息',
             onOk: this.onModalOk,
             visible: modalVisible,
             onCancel: this.onModalCancel,
+            onCreate: this.onCreateContract,
             formData: createForm('contract'),
         }
         const rowSelection = {
