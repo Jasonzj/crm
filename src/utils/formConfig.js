@@ -258,6 +258,10 @@ const createContractColumns = ({
         sorter: (a, b) => a.name.length - b.name.length
     },
     {
+        title: '标题',
+        dataIndex: 'title'
+    },
+    {
         title: '创建时间',
         dataIndex: 'time',
         sorter: (a, b) => new Date(a.time) - new Date(b.time)
@@ -285,6 +289,32 @@ const createContractColumns = ({
             { text: '失败', value: 3 },
         ],
         onFilter: (value, record) => record.result == value
+    },
+    {
+        title: '备注',
+        dataIndex: 'note',
+        render: (text, record) => (
+            <Popover
+                content={text}
+                title={record.title}
+                trigger="hover"
+            >
+                <Button>备注</Button>
+            </Popover>
+        )
+    },
+    {
+        title: '内容',
+        dataIndex: 'content',
+        render: (text, record) => (
+            <Popover
+                content={text}
+                title={record.title}
+                trigger="hover"
+            >
+                <Button>内容</Button>
+            </Popover>
+        )
     },
     {
         title: '操作',
@@ -510,7 +540,68 @@ const visitForm = [
         label: '内容',
         type: 'area',
         rules: [
+            { required: true, message: '请输入内容!' },
+            { min: 15, message: '简介最少15个字!' },
+            { max: 200, message: '简介最多200个字!' },
+        ]
+    }
+]
+
+const contractForm = [
+    {
+        id: 1,
+        key: 'name',
+        label: '公司名字',
+        type: 'input',
+        rules: [
+            { required: true, message: '请输入公司名字!' },
+            { min: 4, message: '公司名字至少4个字符!' },
+            { max: 20, message: '公司名字最多不能超过20个字符!' }
+        ]
+    },
+    {
+        id: 2,
+        key: 'title',
+        label: '标题',
+        type: 'input',
+        rules: [
+            { required: true, message: '请输入合同标题!' },
+            { min: 4, message: '公司名字至少4个字符!' },
+            { max: 20, message: '公司名字最多不能超过20个字符!' }
+        ]
+    },
+    {
+        id: 3,
+        key: 'state',
+        label: '状态',
+        type: 'select',
+        string: true,
+        selectVal: {
+            0: '签订',
+            1: '进行',
+            2: '成功',
+            3: '失败',
+        },
+        rules: [{ required: true, message: '请选择状态!' }]
+    },
+    {
+        id: 4,
+        key: 'note',
+        label: '备注',
+        type: 'area',
+        rules: [
             { required: true, message: '请输入备注!' },
+            { min: 15, message: '简介最少15个字!' },
+            { max: 200, message: '简介最多200个字!' },
+        ]
+    },
+    {
+        id: 5,
+        key: 'content',
+        label: '内容',
+        type: 'area',
+        rules: [
+            { required: true, message: '请输入内容!' },
             { min: 15, message: '简介最少15个字!' },
             { max: 200, message: '简介最多200个字!' },
         ]
@@ -519,6 +610,9 @@ const visitForm = [
 
 export const createForm = (type) => {
     switch (type) {
+        case 'contract':
+            return contractForm
+
         case 'visit':
             return visitForm
 

@@ -63,6 +63,13 @@ const editModal = ({
                     id: item.key,
                     uid: item.uid,
                     time: item.time || getTime(),
+                },
+                contract: {
+                    eid,
+                    ...values,
+                    id: item.key,
+                    uid: item.uid,
+                    time: item.time || getTime(),
                 }
             }[type]
 

@@ -84,14 +84,6 @@ class Detail extends Component {
             </Card>,
             <Card
                 key="4"
-                title="合同结果"
-                loading={isFetching}
-                className={styles.box}
-            >
-                {result}
-            </Card>,
-            <Card
-                key="5"
                 title="合同内容"
                 loading={isFetching}
                 className={styles.box}

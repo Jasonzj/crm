@@ -22,7 +22,6 @@ export const types = {
     SET_USERLISTS:   'userManage/SET_USERLISTS',
     SET_BUSSINESS:   'userManage/SET_BUSSINESS',
     UPDATE_USER:     'userManage/UPDATE_USER',
-    DELETE_USER:     'userManage/DELETE_USER',
     UPDATE_BUSINESS: 'userManage/UPDATE_BUSINESS',
     DELETE_BUSINESS: 'userManage/DELETE_BUSINESS',
     SET_VISITS:      'userManage/SET_VISITS',
@@ -32,7 +31,6 @@ export const types = {
 
 // Action Creators
 export const actions = {
-    deleteUser: data => ({ type: types.DELETE_USER, data }),
     updateUser: data => ({ type: types.UPDATE_USER, data }),
     getUserDetail: data => ({ type: types.SET_USER, data }),
     updateVisit: data => ({ type: types.UPDATE_VISIT, data }),
@@ -130,7 +128,6 @@ export const actions = {
             const result = await instance.post(deleteBusiness, data)
             const { success, message } = result.data
             success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.deleteBusiness(data))
             dispatch(appActions.finishFetch())
         } catch (err) {
             console.error(err)
@@ -222,9 +219,6 @@ const handle = (state, action) => {
                 ...state,
                 key: state.uid
             }
-
-        case types.DELETE_USER:
-            return !data.deleteId.includes(state.uid)
 
         case types.SET_VISITS: return {
             ...state,
@@ -326,12 +320,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 userLists: state.userLists.map(item => handle(item, action))
-            }
-
-        case types.DELETE_USER:
-            return {
-                ...state,
-                userLists: state.userLists.filter(item => handle(item, action))
             }
 
         default:

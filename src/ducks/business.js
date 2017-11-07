@@ -12,13 +12,11 @@ import {
 
 export const types = {
     SET_BUSINESS:    'business/SET_BUSINESS',
-    DELETE_BUSINESS: 'business/DELETE_BUSINESS',
     UPDATE_BUSINESS: 'business/UPDATE_BUSINESS',
     CREATE_BUSINESS: 'business/CREATE_BUSINESS',
 }
 
 export const actions = {
-    deleteBusiness: data => ({ type: types.DELETE_BUSINESS, data }),
     updateBusiness: data => ({ type: types.UPDATE_BUSINESS, data }),
     setBusiness: ({ data, total }) => ({ type: types.SET_BUSINESS, data, total }),
     aCreateBusiness: data => async (dispatch) => {
@@ -68,7 +66,6 @@ export const actions = {
             const result = await instance.post(deleteBusiness, data)
             const { success, message } = result.data
             success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.deleteBusiness(data))
             dispatch(appActions.finishFetch())
             return result
         } catch (err) {
@@ -131,9 +128,6 @@ const handle = (state, action) => {
                 ...data
             }
 
-        case types.DELETE_BUSINESS:
-            return !data.deleteId.includes(state.uid)
-
         default:
             return state
     }
@@ -153,12 +147,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 business: state.business.map(item => handle(item, action))
-            }
-
-        case types.DELETE_BUSINESS:
-            return {
-                ...state,
-                business: state.business.filter(item => handle(item, action))
             }
 
         default:

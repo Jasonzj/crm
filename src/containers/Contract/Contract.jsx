@@ -72,7 +72,7 @@ class Contract extends PureComponent {
     }
 
     onModalOk = (data) => {
-        this.props.aUpdateUser(data)
+        this.props.aUpdateContract(data)
         this.onModalCancel()
     }
 
@@ -128,8 +128,9 @@ class Contract extends PureComponent {
         }
         const modalProps = {
             item,
+            eid: uid,
             type: 'contract',
-            title: '更新员工信息',
+            title: '更新合同信息',
             onOk: this.onModalOk,
             visible: modalVisible,
             onCancel: this.onModalCancel,

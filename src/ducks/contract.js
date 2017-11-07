@@ -92,6 +92,20 @@ export const actions = {
             dispatch(appActions.finishFetch())
         }
     },
+    aUpdateContract: data => async (dispatch) => {
+        try {
+            dispatch(appActions.startFetch())
+            const result = await instance.post(editContract, data)
+            const { success, message } = result.data
+            success ? Msg.info(message) : Msg.error(message)
+            dispatch(actions.updateContract(data))
+            dispatch(appActions.finishFetch())
+        } catch (err) {
+            console.error(err)
+            Msg.error('修改合同失败！请重试')
+            dispatch(appActions.finishFetch())
+        }
+    }
 }
 
 const initialState = {
@@ -107,6 +121,16 @@ const handle = (state, action) => {
             return {
                 ...state,
                 key: state.id
+            }
+
+        case types.UPDATE_CONTRACT:
+            if (state.id !== data.id) {
+                return state
+            }
+
+            return {
+                ...state,
+                ...data
             }
 
         default:
@@ -128,6 +152,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 currentContract: action.data.data
+            }
+
+        case types.UPDATE_CONTRACT:
+            return {
+                ...state,
+                contracts: state.contracts.map(item => handle(item, action))
             }
 
         default:
