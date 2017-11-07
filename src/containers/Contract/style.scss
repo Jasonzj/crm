@@ -1,11 +1,48 @@
-:global {
-    .ant-row {
-        margin-bottom: 20px;
+%success {
+    font-size: 14px;
+    margin-right: 10px;
+    color: seagreen;
+}
+
+%error {
+    font-size: 14px;
+    margin-right: 10px;
+    color: red;
+}
+
+.contract {
+    :global {
+        .anticon.anticon-edit {
+            @extend %success;
+        }
+        .anticon.anticon-sync {
+            @extend %success;
+        }
+        .anticon.anticon-smile-o {
+            @extend %success;
+        }
+        .anticon.anticon-frown-o {
+            @extend %error;
+        }
     }
 }
 
-.title {
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
+.box {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.65);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-radius: 2px;
+    position: relative;
+    transition: all .3s;
+    margin-bottom: 20px;
+    
+    :global {
+        .ant-card-head-title {
+            font-size: 16px;
+        }
+    }
 }

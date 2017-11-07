@@ -268,10 +268,10 @@ const createContractColumns = ({
         render: (num) => {
             const text = ['签订', '进行', '成功', '失败'][num]
             const icon = [
-                <Icon key="1" type="close-circle" />,
-                <Icon key="2" type="check-circle" />,
-                <Icon key="3" type="check-circle" />,
-                <Icon key="4" type="check-circle" />,
+                <Icon key="1" type="edit" />,
+                <Icon key="2" type="sync" />,
+                <Icon key="3" type="smile-o" />,
+                <Icon key="4" type="frown-o" />,
             ][num]
             return [
                 icon,

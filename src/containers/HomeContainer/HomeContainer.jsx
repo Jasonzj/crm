@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import NProgress from 'nprogress'
 import PropTypes from 'prop-types'
 import localStore from 'utils/localStore'
+import classNames from 'classnames'
 import asyncComponent from '../../AsyncComponent'
 
 const { Content, Header, Footer } = Layout
@@ -86,6 +87,8 @@ class HomeContainer extends PureComponent {
         const pathname = location.pathname                      // 当前pathName
         const href = window.location.href                       // 当前Href
         const menuKeys = [`${menuConfig[pathname]}`]            // 侧边栏当前Key
+        const pathArr = pathname.split('/')
+        const isContractDetail = pathArr.includes('contract') && !isNaN(pathArr[2])
 
         if (lastHref !== href) {
             NProgress.set(0.4)
@@ -124,7 +127,11 @@ class HomeContainer extends PureComponent {
                         />
                     </Header>
                     <Bread location={location} />
-                    <Content className={styles.main}>
+                    <Content
+                        className={classNames(styles.main, {
+                            [styles.noBackground]: isContractDetail
+                        })}
+                    >
                         <Switch>
                             <Route exact path="/user" component={UserManage} />
                             <Route exact path="/user/:id" component={UserDetail} />

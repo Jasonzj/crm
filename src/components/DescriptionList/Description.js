@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { Col } from 'antd'
-import styles from './index'
+import styles from './index.scss'
 import responsive from './responsive'
 
 const Description = ({ term, column, className, children, ...restProps }) => {

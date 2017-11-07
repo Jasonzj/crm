@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { Steps, Icon, Card } from 'antd'
 import DescriptionList from 'components/DescriptionList'
 
@@ -36,18 +37,30 @@ class Detail extends Component {
 
     render() {
         const { currentContract, isFetching } = this.props
-        const { state, title, name, uName, eName, time } = currentContract
+        const { state, title, name, uName, eName, time, note, content, result, uid } = currentContract
         const setpError = state === 2 ? 'error' : ''
-        return (
-            <Card title="Card title" loading={isFetching}>
-                <h1 className={styles.title}>{title}</h1>
-                <DescriptionList size="large" title="合同信息" style={{ marginBottom: 32 }}>
+        return ([
+            <Card
+                key="1"
+                title={title}
+                loading={isFetching}
+                className={styles.box}
+            >
+                <DescriptionList size="large">
                     <Description term="公司名字">{name}</Description>
                     <Description term="状态">{['签订', '进行', '成功', '失败'][state]}</Description>
-                    <Description term="跟进人">{eName}</Description>
-                    <Description term="跟进人用户名">{uName}</Description>
+                    <Description term="跟进人">
+                        <Link to={`/user/${uid}`}>{eName}</Link>
+                    </Description>
                     <Description term="创建时间">{time}</Description>
                 </DescriptionList>
+            </Card>,
+            <Card
+                key="2"
+                title="流程信息"
+                loading={isFetching}
+                className={styles.box}
+            >
                 <Steps
                     current={state}
                     status={setpError}
@@ -60,15 +73,40 @@ class Detail extends Component {
                             : <Step title="成功" icon={<Icon type="smile-o" />} />
                     }
                 </Steps>
+            </Card>,
+            <Card
+                key="3"
+                title="合同备注"
+                loading={isFetching}
+                className={styles.box}
+            >
+                {note}
+            </Card>,
+            <Card
+                key="4"
+                title="合同结果"
+                loading={isFetching}
+                className={styles.box}
+            >
+                {result}
+            </Card>,
+            <Card
+                key="5"
+                title="合同内容"
+                loading={isFetching}
+                className={styles.box}
+            >
+                {content}
             </Card>
-        )
+        ])
     }
 }
 
 Detail.propTypes = {
     match: PropTypes.object,
-    aGetContractDetail: PropTypes.func,
+    isFetching: PropTypes.bool,
     currentContract: PropTypes.object,
+    aGetContractDetail: PropTypes.func,
 }
 
 export default Detail

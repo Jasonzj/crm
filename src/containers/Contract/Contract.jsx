@@ -4,6 +4,9 @@ import { bindActionCreators } from 'redux'
 import { Table, Modal } from 'antd'
 import PropTypes from 'prop-types'
 
+// style
+import styles from './style'
+
 // utils
 import { createColumns, createForm } from 'utils/formConfig'
 
@@ -139,7 +142,7 @@ class Contract extends PureComponent {
         const columns = createColumns(columnsConfig)
 
         return (
-            <div>
+            <div className={styles.contract}>
                 <Filter
                     removeTitle={'拜访'}
                     onReset={this.onReset}

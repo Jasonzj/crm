@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { Row } from 'antd'
-import styles from './index'
+import styles from './index.scss'
 
 export default ({
     size,
