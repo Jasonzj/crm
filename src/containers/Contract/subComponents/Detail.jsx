@@ -32,14 +32,13 @@ class Detail extends Component {
 
     componentWillMount() {
         const { match, aGetContractDetail, contracts } = this.props
-        // aGetContractDetail(match.params.id)
         this.data = contracts.filter(item => item.id === match.params.id)[0]
     }
 
     render() {
         const { currentContract, isFetching } = this.props
         const { state, title, name, uName, eName, time, note, content, result, uid } = this.data
-        const setpError = state === 2 ? 'error' : ''
+        const setpError = state === 3 ? 'error' : ''
         return ([
             <Card
                 key="1"
@@ -64,12 +63,11 @@ class Detail extends Component {
             >
                 <Steps
                     current={state}
-                    status={setpError}
                 >
                     <Step title="签订" icon={<Icon type="edit" />} />
                     <Step title="进行" icon={<Icon type="sync" />} />
                     {
-                        state === 2
+                        state === 3
                             ? <Step status={setpError} title="失败" icon={<Icon type="frown-o" />} />
                             : <Step title="成功" icon={<Icon type="smile-o" />} />
                     }
