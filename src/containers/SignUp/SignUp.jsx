@@ -11,6 +11,9 @@ import Result from 'components/Result'
 // action
 import { actions } from 'ducks/app'
 
+// utils
+import config from 'utils/config'
+
 // style
 import styles from './style'
 
@@ -19,7 +22,7 @@ const Option = Select.Option
 const iconSize = { fontSize: 13 }
 const footer = (
     <div className={styles.actions}>
-        <Button size="large"><Link to="/user">返回首页</Link></Button>
+        <Button size="large"><Link to={config.homePage}>返回首页</Link></Button>
     </div>
 )
 

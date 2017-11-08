@@ -41,12 +41,13 @@ import config from 'utils/config'
 import styles from './style.scss'
 
 let lastHref
-const { name, footerText, openPages, noBackgroundPages } = config
+const { name, footerText, openPages, noBackgroundPages, homePage } = config
 const menuConfig = {
-    '/user': 1,
-    '/business': 2,
-    '/visit': 3,
-    '/contract': 4,
+    '/dashboard': 1,
+    '/user': 2,
+    '/business': 3,
+    '/visit': 4,
+    '/contract': 5,
 }
 
 @withRouter
@@ -66,7 +67,7 @@ class HomeContainer extends PureComponent {
 
     componentWillMount() {
         const { signIn, history } = this.props
-        !signIn ? history.push('/sign_in') : history.push('/user')
+        !signIn ? history.push('/sign_in') : history.push(config.homePage)
     }
 
     onChangeState = state => () => {

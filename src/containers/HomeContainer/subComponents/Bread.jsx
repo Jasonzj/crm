@@ -6,6 +6,10 @@ import PropTypes from 'prop-types'
 import styles from '../style'
 
 const breadcrumbNameMap = {
+    '/user': {
+        name: 'User',
+        icon: 'user'
+    },
     '/user/*': {
         name: 'User Detail',
         icon: 'solution'
@@ -65,10 +69,10 @@ const Bread = ({
     })
 
     const breadcrumbItems = [(
-        <Breadcrumb.Item key="user">
-            <Link to="/user">
-                <Icon type="user" style={{ marginRight: 4 }} />
-                User
+        <Breadcrumb.Item key="dashboard">
+            <Link to="/dashboard">
+                <Icon type="compass" style={{ marginRight: 4 }} />
+                Dashboard
             </Link>
         </Breadcrumb.Item>
     )].concat(extraBreadcrumbItems)

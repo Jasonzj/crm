@@ -28,31 +28,31 @@ const Sidebar = ({
             defaultSelectedKeys={['1']}
             theme={sideInline ? 'inline' : 'dark'}
         >
-            <Menu.Item key="5">
+            <Menu.Item key="1">
                 <Link to="/dashboard">
                     <Icon type="compass" />
                     <span>仪盘表</span>
                 </Link>
             </Menu.Item>
-            <Menu.Item key="1">
+            <Menu.Item key="2">
                 <Link to="/user">
                     <Icon type="user" />
                     <span>员工管理</span>
                 </Link>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="3">
                 <Link to="/business">
                     <Icon type="pay-circle" />
                     <span>商机</span>
                 </Link>
             </Menu.Item>
-            <Menu.Item key="3">
+            <Menu.Item key="4">
                 <Link to="/visit">
                     <Icon type="bell" />
                     <span>拜访</span>
                 </Link>
             </Menu.Item>
-            <Menu.Item key="4">
+            <Menu.Item key="5">
                 <Link to="/contract">
                     <Icon type="solution" />
                     <span>合同</span>

@@ -6,6 +6,10 @@ import { Form, Icon, Input, Button, message } from 'antd'
 import PropTypes from 'prop-types'
 import styles from './style'
 
+// utils
+import config from 'utils/config'
+
+// component
 import Loading from 'components/Loading'
 
 // action
@@ -36,7 +40,7 @@ class SignIn extends PureComponent {
     }
 
     jumpIndex(bool, history) {
-        bool && history.push('/user')
+        bool && history.push(config.homePage)
     }
 
     handleSubmit = (e) => {
