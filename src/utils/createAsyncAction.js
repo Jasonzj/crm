@@ -11,7 +11,7 @@ export default ({
 }) => arg => async (dispatch) => {
     try {
         dispatch(appActions.startFetch())
-        const url = method === 'get' ? api(arg) : api
+        const url = typeof api === 'function' ? api(arg) : api
         const data = method === 'post' ? arg : null
         const result = await instance[method](url, data)
         const { success, message } = result.data

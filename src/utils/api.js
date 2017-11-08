@@ -27,3 +27,4 @@ export const getCompanyContract = name => `${api}/searchContract?companyName=${n
 export const addContract = `${api}/addContract`
 export const editContract = `${api}/editContract`
 export const deleteContract = `${api}/deleteContract`
+export const getDashBoardData = `${api}/dashboard`

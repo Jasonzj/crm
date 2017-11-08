@@ -1,14 +1,30 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import NumberCard from 'components/NumberCard'
 import { Row, Col } from 'antd'
 
+// actions
+import { actions } from 'ducks/dashboard'
+
+@connect(
+    state => ({ ...state.dashboard }),
+    dispatch => bindActionCreators({ ...actions }, dispatch)
+)
 class DashBoard extends PureComponent {
     constructor() {
         super()
         this.state = {}
     }
 
+    componentWillMount() {
+        this.props.aSetData()
+    }
+
     render() {
+        const { numbers } = this.props
+        const { users, business, visits, contracts } = numbers
+
         return (
             <div>
                 <Row gutter={24}>
@@ -17,7 +33,7 @@ class DashBoard extends PureComponent {
                             icon="user"
                             color="rgb(143, 201, 251)"
                             title="用户总数"
-                            number={2222}
+                            number={users}
                         />
                     </Col>
                     <Col lg={6} md={12}>
@@ -25,7 +41,7 @@ class DashBoard extends PureComponent {
                             icon="pay-circle-o"
                             color="rgb(100, 234, 145)"
                             title="商机总数"
-                            number={2222}
+                            number={business}
                         />
                     </Col>
                     <Col lg={6} md={12}>
@@ -33,7 +49,7 @@ class DashBoard extends PureComponent {
                             icon="bell"
                             color="rgb(216, 151, 235)"
                             title="拜访总数"
-                            number={2222}
+                            number={visits}
                         />
                     </Col>
                     <Col lg={6} md={12}>
@@ -41,7 +57,7 @@ class DashBoard extends PureComponent {
                             icon="solution"
                             color="rgb(246, 152, 153)"
                             title="合同总数"
-                            number={2222}
+                            number={contracts}
                         />
                     </Col>
                 </Row>

@@ -7,12 +7,14 @@ import visit from './visit'
 import contract from './contract'
 import business from './business'
 import userManage from './userManage'
+import dashboard from './dashboard'
 
 const rootReducer = combineReducers({
     app,
     visit,
     contract,
     business,
+    dashboard,
     userManage,
 })
 
