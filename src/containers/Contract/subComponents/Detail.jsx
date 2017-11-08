@@ -96,6 +96,7 @@ class Detail extends Component {
 Detail.propTypes = {
     match: PropTypes.object,
     isFetching: PropTypes.bool,
+    contracts: PropTypes.array,
     currentContract: PropTypes.object,
     aGetContractDetail: PropTypes.func,
 }
