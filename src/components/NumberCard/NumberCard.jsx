@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Icon } from 'antd'
 import PropTypes from 'prop-types'
+import CountUp from 'react-countup'
 import styles from './style'
 
 const NumberCard = ({
@@ -13,7 +14,16 @@ const NumberCard = ({
         <Icon className={styles.iconWarp} type={icon} style={{ color }} />
         <div className={styles.content}>
             <p className={styles.title}>{title || 'NO Title'}</p>
-            <p className={styles.number}>{number}</p>
+            <p className={styles.number}>
+                <CountUp
+                    start={0}
+                    end={number}
+                    duration={2.75}
+                    useEasing
+                    useGrouping
+                    separator=","
+                />
+            </p>
         </div>
     </Card>
 )

@@ -15,32 +15,32 @@ class DashBoard extends PureComponent {
                     <Col lg={6} md={12}>
                         <NumberCard
                             icon="user"
-                            color="color: #1abc9c"
+                            color="rgb(143, 201, 251)"
                             title="用户总数"
                             number={2222}
                         />
                     </Col>
                     <Col lg={6} md={12}>
                         <NumberCard
-                            icon="user"
-                            color="color: #1abc9c"
-                            title="用户总数"
+                            icon="pay-circle-o"
+                            color="rgb(100, 234, 145)"
+                            title="商机总数"
                             number={2222}
                         />
                     </Col>
                     <Col lg={6} md={12}>
                         <NumberCard
-                            icon="user"
-                            color="color: #1abc9c"
-                            title="用户总数"
+                            icon="bell"
+                            color="rgb(216, 151, 235)"
+                            title="拜访总数"
                             number={2222}
                         />
                     </Col>
                     <Col lg={6} md={12}>
                         <NumberCard
-                            icon="user"
-                            color="color: #1abc9c"
-                            title="用户总数"
+                            icon="solution"
+                            color="rgb(246, 152, 153)"
+                            title="合同总数"
                             number={2222}
                         />
                     </Col>
