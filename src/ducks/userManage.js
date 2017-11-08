@@ -1,6 +1,4 @@
-import instance from 'utils/instance'
-import { actions as appActions } from './app'
-import { message as Msg } from 'antd'
+import createAsyncAction from 'utils/createAsyncAction'
 import {
     editorUser,
     searchUser,
@@ -16,7 +14,7 @@ import {
     getUserListPage,
 } from 'utils/api'
 
-// Actions
+// Types
 export const types = {
     SET_USER:        'userManage/SET_USER',
     SET_USERLISTS:   'userManage/SET_USERLISTS',
@@ -29,8 +27,9 @@ export const types = {
     DELETE_VISIT:    'userManage/DELETE_VISIT',
 }
 
-// Action Creators
-export const actions = {
+
+// Action
+export const syncActions = {
     updateUser: data => ({ type: types.UPDATE_USER, data }),
     getUserDetail: data => ({ type: types.SET_USER, data }),
     updateVisit: data => ({ type: types.UPDATE_VISIT, data }),
@@ -40,155 +39,81 @@ export const actions = {
     setVisit: ({ data, total }) => ({ type: types.SET_VISITS, data, total }),
     setBusiness: ({ data, total }) => ({ type: types.SET_BUSSINESS, data, total }),
     setUserLists: ({ data, total }) => ({ type: types.SET_USERLISTS, data, total }),
-    agetUserDetail: id => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getUserListUid(id))
-            !result.data.success && Msg.error('Not Data!')
-            dispatch(actions.getUserDetail(result.data))
-            dispatch(appActions.finishFetch())
-            return result.data.data
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取用户详情失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aGetUserListPage: page => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getUserListPage(page))
-            !result.data.success && Msg.error('Not Data!')
-            dispatch(actions.setUserLists(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取用户列表失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aSearchUser: name => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(searchUser(name))
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.setUserLists(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('搜索用户失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aUpdateUser: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(editorUser, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.updateUser(data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('修改用户资料失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aDeleteUser: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(deleteUser, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.deleteUser(data))
-            dispatch(appActions.finishFetch())
-            return result
-        } catch (err) {
-            console.error(err)
-            Msg.error('删除用户失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aGetUserBusiness: name => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getUserBusiness(name))
-            dispatch(actions.setBusiness(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取用户商机失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aDeleteBusiness: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(deleteBusiness, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('删除商机失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aUpdateBusiness: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(editBusiness, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.updateBusiness(data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('修改商机失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aGetUserVisit: name => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getUserVisit(name))
-            dispatch(actions.setVisit(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取用户拜访失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aUpdateVisit: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(editorVisit, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.updateVisit(data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('修改拜访失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aDeleteVisit: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(deleteVisit, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.deleteVisit(data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('删除商机失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
+}
+
+export const actions = {
+    agetUserDetail: createAsyncAction({
+        method: 'get',
+        api: getUserListUid,
+        text: '获取用户详情失败！请重试',
+        action: syncActions.getUserDetail
+    }),
+    aGetUserListPage: createAsyncAction({
+        method: 'get',
+        api: getUserListPage,
+        text: '获取用户列表失败！请重试',
+        action: syncActions.setUserLists
+    }),
+    aSearchUser: createAsyncAction({
+        method: 'get',
+        api: searchUser,
+        text: '搜索用户失败！请重试',
+        action: syncActions.setUserLists
+    }),
+    aUpdateUser: createAsyncAction({
+        method: 'post',
+        api: editorUser,
+        text: '修改用户资料失败！请重试',
+        action: syncActions.updateUser,
+        isResult: true
+    }),
+    aDeleteUser: createAsyncAction({
+        method: 'post',
+        api: deleteUser,
+        text: '删除用户失败！请重试',
+        action: syncActions.deleteUser,
+        isResult: true
+    }),
+    aGetUserBusiness: createAsyncAction({
+        method: 'get',
+        api: getUserBusiness,
+        text: '获取用户商机失败！请重试',
+        action: syncActions.setBusiness,
+    }),
+    aDeleteBusiness: createAsyncAction({
+        method: 'post',
+        api: deleteBusiness,
+        text: '删除商机失败！请重试',
+        action: syncActions.deleteBusiness,
+        isResult: true
+    }),
+    aUpdateBusiness: createAsyncAction({
+        method: 'post',
+        api: editBusiness,
+        text: '修改商机失败！请重试',
+        action: syncActions.updateBusiness,
+        isResult: true
+    }),
+    aGetUserVisit: createAsyncAction({
+        method: 'get',
+        api: getUserVisit,
+        text: '获取用户拜访失败！请重试',
+        action: syncActions.setVisit,
+    }),
+    aUpdateVisit: createAsyncAction({
+        method: 'post',
+        api: editorVisit,
+        text: '修改拜访失败！请重试',
+        action: syncActions.updateVisit,
+        isResult: true
+    }),
+    aDeleteVisit: createAsyncAction({
+        method: 'post',
+        api: deleteVisit,
+        text: '删除商机失败！请重试',
+        action: syncActions.deleteVisit,
+        isResult: true
+    })
 }
 
 const initialState = {

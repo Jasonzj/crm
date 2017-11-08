@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Table, Modal, message, Tabs, Icon } from 'antd'
+import { Table, Modal, message, Tabs, Icon, Card } from 'antd'
 import { bindActionCreators } from 'redux'
 
 // utils
@@ -10,6 +10,7 @@ import { createPagination, createColumns, createForm } from 'utils/formConfig'
 // component
 import EditModal from 'components/EditModal'
 import Filter from 'components/Filter'
+import DescriptionList from 'components/DescriptionList'
 
 // actions
 import { actions } from 'ducks/userManage'
@@ -17,6 +18,7 @@ import { actions } from 'ducks/userManage'
 // scss
 import styles from '../style'
 
+const { Description } = DescriptionList
 const confirm = Modal.confirm
 const TabPane = Tabs.TabPane
 const modalConfigs = {
@@ -52,7 +54,7 @@ class Detail extends PureComponent {
         }
     }
     componentWillMount() {
-        const { match, userLists, business, aGetUserBusiness, aGetUserVisit, agetUserDetail } = this.props
+        const { match, userLists, business, aGetUserBusiness, aGetUserVisit, agetUserDetail, currentUser } = this.props
         const uid = match.params.id
         const data = userLists.filter(item => item.uid === uid)[0]
         const init = (name) => {
@@ -65,7 +67,7 @@ class Detail extends PureComponent {
             this.data = data
             init(data.name)
         } else {
-            agetUserDetail(uid).then(data => init(data.name))
+            agetUserDetail(uid).then(result => init(result.data.data.name))
         }
     }
 
@@ -163,18 +165,25 @@ class Detail extends PureComponent {
             client: null
         }))
         const detail = this.data || currentUser
-        const keys = Object.keys(detail)
+        const { name, user, age, sex, tel, state } = detail
 
         return (
             <div className={styles.content}>
-                {
-                    keys.map(key => (
-                        <div key={key} className={styles.item}>
-                            <div>{key}</div>
-                            <div>{String(detail[key])}</div>
-                        </div>
-                    ))
-                }
+                <Card
+                    title="用户信息"
+                    bordered={false}
+                    loading={isFetching}
+                    style={{ marginBottom: '40px' }}
+                >
+                    <DescriptionList size="large">
+                        <Description term="姓名">{name}</Description>
+                        <Description term="性别">{['男', '女'][sex]}</Description>
+                        <Description term="年龄">{age}</Description>
+                        <Description term="权限">{['管理员', '普通'][state]}</Description>
+                        <Description term="用户名">{user}</Description>
+                        <Description term="手机号码">{tel}</Description>
+                    </DescriptionList>
+                </Card>
                 <Filter
                     removeTitle={'商机'}
                     onReset={this.onReset}
