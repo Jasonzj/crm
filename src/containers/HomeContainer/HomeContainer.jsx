@@ -13,6 +13,7 @@ import asyncComponent from '../../AsyncComponent'
 const { Content, Header, Footer } = Layout
 
 // Container
+import DashBoard from 'containers/DashBoard'
 import UserManage from 'containers/UserManage'
 import Business from 'containers/Business'
 import UserDetail from 'containers/UserManage/subComponents/Detail'
@@ -40,7 +41,7 @@ import config from 'utils/config'
 import styles from './style.scss'
 
 let lastHref
-const { name, footerText, openPages } = config
+const { name, footerText, openPages, noBackgroundPages } = config
 const menuConfig = {
     '/user': 1,
     '/business': 2,
@@ -84,11 +85,10 @@ class HomeContainer extends PureComponent {
     render() {
         const { match, isFetching, user, history: { location } } = this.props
         const { collapsed, sideInline } = this.state
-        const pathname = location.pathname                      // 当前pathName
-        const href = window.location.href                       // 当前Href
-        const menuKeys = [`${menuConfig[pathname]}`]            // 侧边栏当前Key
-        const pathArr = pathname.split('/')
-        const isContractDetail = pathArr.includes('contract') && !isNaN(pathArr[2])
+        const pathname = location.pathname.replace(/[1-9][0-9]*/g, '*')   // 当前pathName(把pathname中的数字替换为*)
+        const href = window.location.href                                 // 当前Href
+        const menuKeys = [`${menuConfig[pathname]}`]                      // 侧边栏当前Key
+        const isNoBackground = noBackgroundPages.includes(pathname)       // 不需要背景的容器
 
         if (lastHref !== href) {
             NProgress.set(0.4)
@@ -129,10 +129,11 @@ class HomeContainer extends PureComponent {
                     <Bread location={location} />
                     <Content
                         className={classNames(styles.main, {
-                            [styles.noBackground]: isContractDetail
+                            [styles.noBackground]: isNoBackground
                         })}
                     >
                         <Switch>
+                            <Route exact path="/dashboard" component={DashBoard} />
                             <Route exact path="/user" component={UserManage} />
                             <Route exact path="/user/:id" component={UserDetail} />
                             <Route exact path="/business" component={Business} />

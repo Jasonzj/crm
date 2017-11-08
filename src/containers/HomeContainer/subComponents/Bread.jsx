@@ -35,10 +35,10 @@ const breadcrumbNameMap = {
 const Bread = ({
     location
 }) => {
-    const pathSnippets = location.pathname
+    const pathname = location.pathname.replace(/[1-9][0-9]*/g, '*')
+    const pathSnippets = pathname
         .split('/')
         .filter(i => i)
-        .map(item => (parseInt(item) ? '*' : item))
 
     const extraBreadcrumbItems = pathSnippets.map((_, index) => {
         const url = `/${pathSnippets.slice(0, index + 1).join('/')}`

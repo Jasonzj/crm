@@ -28,6 +28,12 @@ const Sidebar = ({
             defaultSelectedKeys={['1']}
             theme={sideInline ? 'inline' : 'dark'}
         >
+            <Menu.Item key="5">
+                <Link to="/dashboard">
+                    <Icon type="compass" />
+                    <span>仪盘表</span>
+                </Link>
+            </Menu.Item>
             <Menu.Item key="1">
                 <Link to="/user">
                     <Icon type="user" />

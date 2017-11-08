@@ -173,7 +173,7 @@ class Detail extends PureComponent {
                     title="用户信息"
                     bordered={false}
                     loading={isFetching}
-                    style={{ marginBottom: '40px' }}
+                    style={{ marginBottom: '20px' }}
                 >
                     <DescriptionList size="large">
                         <Description term="姓名">{name}</Description>
@@ -184,36 +184,42 @@ class Detail extends PureComponent {
                         <Description term="手机号码">{tel}</Description>
                     </DescriptionList>
                 </Card>
-                <Filter
-                    removeTitle={'商机'}
-                    onReset={this.onReset}
-                    hasSelected={hasSelected}
-                    isFetching={isFetching}
-                    onDeleteUsers={this.onDeleteBusiness}
-                    selectedLen={selectedRowKeys.length}
-                />
-                <Tabs defaultActiveKey="1" onChange={this.onTabChange}>
-                    <TabPane tab={<span><Icon type="pay-circle" />商机</span>} key="1">
-                        <Table
-                            columns={columns}
-                            dataSource={data}
-                            pagination={false}
-                            scroll={{ x: 800 }}
-                            loading={isFetching}
-                            rowSelection={rowSelection}
-                        />
-                    </TabPane>
-                    <TabPane tab={<span><Icon type="eye" />拜访</span>} key="2">
-                        <Table
-                            columns={columns}
-                            dataSource={visits}
-                            pagination={false}
-                            scroll={{ x: 800 }}
-                            loading={isFetching}
-                            rowSelection={rowSelection}
-                        />
-                    </TabPane>
-                </Tabs>
+                <Card
+                    title="用户关联列表"
+                    bordered={false}
+                    loading={isFetching}
+                >
+                    <Filter
+                        removeTitle={'商机'}
+                        onReset={this.onReset}
+                        hasSelected={hasSelected}
+                        isFetching={isFetching}
+                        onDeleteUsers={this.onDeleteBusiness}
+                        selectedLen={selectedRowKeys.length}
+                    />
+                    <Tabs defaultActiveKey="1" onChange={this.onTabChange}>
+                        <TabPane tab={<span><Icon type="pay-circle" />商机</span>} key="1">
+                            <Table
+                                columns={columns}
+                                dataSource={data}
+                                pagination={false}
+                                scroll={{ x: 800 }}
+                                loading={isFetching}
+                                rowSelection={rowSelection}
+                            />
+                        </TabPane>
+                        <TabPane tab={<span><Icon type="eye" />拜访</span>} key="2">
+                            <Table
+                                columns={columns}
+                                dataSource={visits}
+                                pagination={false}
+                                scroll={{ x: 800 }}
+                                loading={isFetching}
+                                rowSelection={rowSelection}
+                            />
+                        </TabPane>
+                    </Tabs>
+                </Card>
                 { modalVisible && <EditModal {...modalProps} /> }
             </div>
         )
