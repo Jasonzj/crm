@@ -553,11 +553,15 @@ get  `/api/v1/contract` 或 get  `/api/v1/contract?page=x`
     data: [             // 合同列表
         {
             id: xx,        // 合同ID
+            uid: xx,       // 合同跟进人id
             title: ''      // 合同标题
             name: '',      // 公司名字
-            uid: xx,       // 合同跟进人id
+            uName: '',     // 合同跟进人账户
             eName: '',     // 合同跟进人真实姓名
             time: xx-xx,   // 合同时间
+            content: '',   // 合同内容
+            result: '',    // 合同结果
+            note: ''，     // 合同备注
             state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
         },
         ...
@@ -607,11 +611,15 @@ get `/api/v1/searchContract?eName=xxx` (根据合同跟进人搜索)
     data: [         // 合同列表
         {
             id: xx,        // 合同ID
+            uid: xx,       // 合同跟进人id
             title: ''      // 合同标题
             name: '',      // 公司名字
-            uid: xx,       // 合同跟进人id
+            uName: '',     // 合同跟进人账户
             eName: '',     // 合同跟进人真实姓名
             time: xx-xx,   // 合同时间
+            content: '',   // 合同内容
+            result: '',    // 合同结果
+            note: ''，     // 合同备注
             state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
         },
         ...
