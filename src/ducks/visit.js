@@ -1,6 +1,4 @@
-import instance from 'utils/instance'
-import { actions as appActions } from './app'
-import { message as Msg } from 'antd'
+import createAsyncAction from 'utils/createAsyncAction'
 import {
     addVisit,
     deleteVisit,
@@ -10,98 +8,57 @@ import {
     getCompanyVisit,
 } from 'utils/api'
 
+
+// Types
 export const types = {
     SET_VISITS:   'visit/SET_VISITS',
     UPDATE_VISIT: 'visit/UPDATE_VISIT',
     CREATE_VISIT: 'visit/CREATE_VISIT',
 }
 
-export const actions = {
+
+// Actions
+export const syncActions = {
     updateVisit: data => ({ type: types.UPDATE_VISIT, data }),
     setVisits: ({ data, total }) => ({ type: types.SET_VISITS, data, total }),
-    aGetVisitPage: page => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getVisitPage(page))
-            !result.data.success && Msg.error('Not Data!')
-            dispatch(actions.setVisits(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取拜访列表失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aCreateVisit: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(addVisit, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(appActions.finishFetch())
-            return result.data
-        } catch (err) {
-            console.error(err)
-            Msg.error('创建失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aSearchUserVisit: name => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getUserVisit(name))
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.setVisits(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('搜索拜访失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aSearchCompanyVisit: name => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getCompanyVisit(name))
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.setVisits(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取拜访失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aDeleteVisit: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(deleteVisit, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(appActions.finishFetch())
-            return result
-        } catch (err) {
-            console.error(err)
-            Msg.error('删除拜访失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aUpdateVisit: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(editorVisit, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.updateVisit(data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('修改拜访失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
+}
+
+export const actions = {
+    aGetVisitPage: createAsyncAction({
+        method: 'get',
+        api: getVisitPage,
+        text: '获取拜访列表失败！请重试',
+        action: syncActions.setVisits
+    }),
+    aCreateVisit: createAsyncAction({
+        method: 'post',
+        api: addVisit,
+        text: '创建失败！请重试'
+    }),
+    aSearchUserVisit: createAsyncAction({
+        method: 'get',
+        api: getUserVisit,
+        text: '搜索拜访失败！请重试',
+        action: syncActions.setVisits
+    }),
+    aSearchCompanyVisit: createAsyncAction({
+        method: 'get',
+        api: getCompanyVisit,
+        text: '获取拜访失败！请重试',
+        action: syncActions.setVisits
+    }),
+    aDeleteVisit: createAsyncAction({
+        method: 'post',
+        api: deleteVisit,
+        text: '删除拜访失败！请重试'
+    }),
+    aUpdateVisit: createAsyncAction({
+        method: 'post',
+        api: editorVisit,
+        text: '修改拜访失败！请重试',
+        action: syncActions.updateVisit,
+        isResult: true
+    })
 }
 
 const initialState = {

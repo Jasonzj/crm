@@ -94,8 +94,9 @@ class Business extends PureComponent {
         const { uid, aDeleteBusiness } = this.props
         const data = { uid, deleteId: selectedRowKeys }
         this.setState({ selectedRowKeys: [] })
-        aDeleteBusiness(data)
-        this.onReset()
+        aDeleteBusiness(data).then((result) => {
+            result.data.success && this.onReset()
+        })
     }
 
     onPageChnage = (page) => {
@@ -108,8 +109,8 @@ class Business extends PureComponent {
     }
 
     onCreateBusiness = (data) => {
-        this.props.aCreateBusiness(data).then((data) => {
-            if (data.success) {
+        this.props.aCreateBusiness(data).then((result) => {
+            if (result.data.success) {
                 this.onReset()
                 this.onModalCancel()
             }
