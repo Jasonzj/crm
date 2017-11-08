@@ -102,8 +102,9 @@ class Contract extends PureComponent {
         const { uid, aDeleteContract } = this.props
         const data = { uid, deleteId: selectedRowKeys }
         this.setState({ selectedRowKeys: [] })
-        aDeleteContract(data)
-        this.onReset()
+        aDeleteContract(data).then((result) => {
+            result.data.success && this.onReset()
+        })
     }
 
     onCreate = () => {
@@ -111,8 +112,8 @@ class Contract extends PureComponent {
     }
 
     onCreateContract = (data) => {
-        this.props.aCreateContract(data).then((data) => {
-            if (data.success) {
+        this.props.aCreateContract(data).then((result) => {
+            if (result.data.success) {
                 this.onReset()
                 this.onModalCancel()
             }

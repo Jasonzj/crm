@@ -1,6 +1,4 @@
-import instance from 'utils/instance'
-import { actions as appActions } from './app'
-import { message as Msg } from 'antd'
+import createAsyncAction from 'utils/createAsyncAction'
 import {
     addContract,
     editContract,
@@ -11,6 +9,8 @@ import {
     getCompanyContract,
 } from 'utils/api'
 
+
+// Types
 export const types = {
     SET_DETAIL:     'contract/SET_DETAIL',
     SET_CONTRACT:    'contract/SET_CONTRACT',
@@ -19,109 +19,60 @@ export const types = {
     CREATE_CONTRACT: 'contract/CREATE_CONTRACT',
 }
 
-export const actions = {
+
+// Actions
+export const syncActions = {
     setDetail: data => ({ type: types.SET_DETAIL, data }),
     updateContract: data => ({ type: types.UPDATE_CONTRACT, data }),
     setContract: ({ data, total }) => ({ type: types.SET_CONTRACT, data, total }),
-    aGetContractPage: page => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getContractPage(page))
-            !result.data.success && Msg.error('Not Data!')
-            dispatch(actions.setContract(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取合同失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aSearchUserContract: name => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getUserContract(name))
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.setContract(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('搜索合同失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aSearchCompanyContract: name => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getCompanyContract(name))
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.setContract(result.data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取合同失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aDeleteContract: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(deleteContract, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(appActions.finishFetch())
-            return result
-        } catch (err) {
-            console.error(err)
-            Msg.error('删除合同失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aGetContractDetail: id => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.get(getContractDetail(id))
-            !result.data.success && Msg.error('Not Data!')
-            dispatch(actions.setDetail(result.data))
-            dispatch(appActions.finishFetch())
-            return result.data.data
-        } catch (err) {
-            console.error(err)
-            Msg.error('获取合同详情失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aUpdateContract: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(editContract, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(actions.updateContract(data))
-            dispatch(appActions.finishFetch())
-        } catch (err) {
-            console.error(err)
-            Msg.error('修改合同失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    },
-    aCreateContract: data => async (dispatch) => {
-        try {
-            dispatch(appActions.startFetch())
-            const result = await instance.post(addContract, data)
-            const { success, message } = result.data
-            success ? Msg.info(message) : Msg.error(message)
-            dispatch(appActions.finishFetch())
-            return result.data
-        } catch (err) {
-            console.error(err)
-            Msg.error('创建失败！请重试')
-            dispatch(appActions.finishFetch())
-        }
-    }
 }
 
+export const actions = {
+    aGetContractPage: createAsyncAction({
+        method: 'get',
+        api: getContractPage,
+        text: '获取合同失败！请重试',
+        action: syncActions.setContract
+    }),
+    aSearchUserContract: createAsyncAction({
+        method: 'get',
+        api: getUserContract,
+        text: '搜索合同失败！请重试',
+        action: syncActions.setContract
+    }),
+    aSearchCompanyContract: createAsyncAction({
+        method: 'get',
+        api: getCompanyContract,
+        text: '获取合同失败！请重试',
+        action: syncActions.setContract
+    }),
+    aDeleteContract: createAsyncAction({
+        method: 'post',
+        api: deleteContract,
+        text: '删除合同失败！请重试'
+    }),
+    aGetContractDetail: createAsyncAction({
+        method: 'get',
+        api: getContractDetail,
+        text: '获取合同详情失败！请重试',
+        action: syncActions.setDetail
+    }),
+    aUpdateContract: createAsyncAction({
+        method: 'post',
+        api: editContract,
+        text: '修改合同失败！请重试',
+        action: syncActions.updateContract,
+        isResult: true
+    }),
+    aCreateContract: createAsyncAction({
+        method: 'post',
+        api: addContract,
+        text: '创建失败！请重试',
+    })
+}
+
+
+// Reducer
 const initialState = {
     total: null,
     contracts: [],
@@ -152,7 +103,6 @@ const handle = (state, action) => {
     }
 }
 
-// Reducer
 export default (state = initialState, action) => {
     switch (action.type) {
         case types.SET_CONTRACT:
