@@ -111,7 +111,6 @@ class Contract extends PureComponent {
     }
 
     onCreateContract = (data) => {
-        console.log(data)
         this.props.aCreateContract(data).then((data) => {
             if (data.success) {
                 this.onReset()
@@ -183,10 +182,14 @@ class Contract extends PureComponent {
 }
 
 Contract.propTypes = {
+    uid: PropTypes.number,
     total: PropTypes.number,
     uState: PropTypes.number,
     contracts: PropTypes.array,
     isFetching: PropTypes.bool,
+    aCreateContract: PropTypes.func,
+    aDeleteContract: PropTypes.func,
+    aUpdateContract: PropTypes.func,
     aGetContractPage: PropTypes.func,
     aSearchUserContract: PropTypes.func,
     aSearchCompanyContract: PropTypes.func,
