@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import NumberCard from 'components/NumberCard'
 import { Row, Col } from 'antd'
+import PropTypes from 'prop-types'
 
 // actions
 import { actions } from 'ducks/dashboard'
@@ -12,11 +13,6 @@ import { actions } from 'ducks/dashboard'
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class DashBoard extends PureComponent {
-    constructor() {
-        super()
-        this.state = {}
-    }
-
     componentWillMount() {
         this.props.aSetData()
     }
@@ -64,6 +60,11 @@ class DashBoard extends PureComponent {
             </div>
         )
     }
+}
+
+DashBoard.propTypes = {
+    aSetData: PropTypes.func,
+    numbers: PropTypes.object,
 }
 
 export default DashBoard
