@@ -4,6 +4,11 @@ import { bindActionCreators } from 'redux'
 import NumberCard from 'components/NumberCard'
 import { Row, Col } from 'antd'
 import PropTypes from 'prop-types'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { Card } from 'antd'
+
+// style
+import styles from './style'
 
 // actions
 import { actions } from 'ducks/dashboard'
@@ -18,11 +23,11 @@ class DashBoard extends PureComponent {
     }
 
     render() {
-        const { numbers } = this.props
+        const { numbers, visit } = this.props
         const { users, business, visits, contracts } = numbers
 
         return (
-            <div>
+            <div className={styles.dashboard}>
                 <Row gutter={24}>
                     <Col lg={6} md={12}>
                         <NumberCard
@@ -57,12 +62,28 @@ class DashBoard extends PureComponent {
                         />
                     </Col>
                 </Row>
+                <Card
+                    title="年拜访转换表"
+                >
+                    <ResponsiveContainer minHeight={360}>
+                        <LineChart width={500} height={300} data={visit}>
+                            <XAxis dataKey="year" axisLine={{ stroke: '#e5e5e5', strokeWidth: 1 }} tickLine={false} />
+                            <YAxis axisLine={false} tickLine={false} />
+                            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                            <Tooltip />
+                            <Legend />
+                            <Line type="monotone" dataKey="success" stroke="#8884d8" strokeWidth={3} activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey="failure" stroke="#82ca9d" strokeWidth={3} activeDot={{ r: 8 }} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </Card>
             </div>
         )
     }
 }
 
 DashBoard.propTypes = {
+    visit: PropTypes.array,
     aSetData: PropTypes.func,
     numbers: PropTypes.object,
 }

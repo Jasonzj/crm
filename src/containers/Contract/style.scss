@@ -33,10 +33,4 @@
     position: relative;
     transition: all .3s;
     margin-bottom: 20px;
-    
-    :global {
-        .ant-card-head-title {
-            font-size: 16px;
-        }
-    }
 }

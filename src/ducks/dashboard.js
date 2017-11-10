@@ -21,7 +21,8 @@ export const actions = {
 }
 
 const initialState = {
-    numbers: {}
+    numbers: {},
+    visit: []
 }
 
 // Reducer
