@@ -16,7 +16,7 @@ const { Content, Header, Footer } = Layout
 import DashBoard from 'containers/DashBoard'
 import UserManage from 'containers/UserManage'
 import Business from 'containers/Business'
-import UserDetail from 'containers/UserManage/subComponents/Detail'
+import UserDetail from 'containers/UserManage/subComponents/Detail.jsx'
 import ContractDetail from 'containers/Contract/subComponents/Detail'
 import SignIn from 'containers/SignIn'
 import SignUp from 'containers/SignUp'

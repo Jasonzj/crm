@@ -22,7 +22,8 @@ export const actions = {
 
 const initialState = {
     numbers: {},
-    visit: []
+    visit: [],
+    contract: []
 }
 
 // Reducer

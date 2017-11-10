@@ -1,5 +1,16 @@
 .dashboard {
-    :global(.ant-card-body) {
-        padding-left: 0;
+    :global {
+        .ant-tabs-tabpane {
+            padding: 20px;
+        }
+        .ant-tabs-nav {
+            line-height: 40px;
+        }
+        .ant-card-body {
+            padding: 0;
+        }
+        .recharts-wrapper {
+            margin-left: -20px;
+        }
     }
 }
