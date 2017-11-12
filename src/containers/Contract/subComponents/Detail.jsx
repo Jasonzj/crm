@@ -25,11 +25,6 @@ const { Description } = DescriptionList
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class Detail extends Component {
-    constructor() {
-        super()
-        this.state = {}
-    }
-
     componentWillMount() {
         const { match, aGetContractDetail, contracts } = this.props
         this.data = contracts.filter(item => item.id === match.params.id)[0]
