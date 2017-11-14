@@ -133,7 +133,7 @@ const handle = (state, action) => {
     const data = action.data
     switch (action.type) {
         case types.UPDATE_USER:
-            if (state.uid !== data.uid) {
+            if (state.uid != data.uid) {
                 return state
             }
 
@@ -154,7 +154,7 @@ const handle = (state, action) => {
         }
 
         case types.UPDATE_VISIT:
-            if (state.id !== data.id) {
+            if (state.id != data.id) {
                 return state
             }
 
@@ -173,7 +173,7 @@ const handle = (state, action) => {
             }
 
         case types.UPDATE_BUSINESS:
-            if (state.id !== data.id) {
+            if (state.id != data.id) {
                 return state
             }
 

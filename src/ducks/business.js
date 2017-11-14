@@ -79,7 +79,7 @@ const handle = (state, action) => {
             }
 
         case types.UPDATE_BUSINESS:
-            if (state.id !== data.id) {
+            if (state.id != data.id) {
                 return state
             }
 

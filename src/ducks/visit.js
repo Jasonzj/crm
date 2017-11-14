@@ -77,10 +77,10 @@ const handle = (state, action) => {
             }
 
         case types.UPDATE_VISIT:
-            if (state.id !== data.id) {
+            if (state.id != data.id) {
                 return state
             }
-            
+
             return {
                 ...state,
                 ...data

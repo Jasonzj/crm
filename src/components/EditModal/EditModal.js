@@ -46,14 +46,16 @@ const editModal = ({
                     eid,
                     emp: {
                         ...values,
-                        uid: item.key,
+                        uid: +item.key,
+                        sex: +values.sex,
+                        state: +values.state
                     }
                 },
                 business: {
                     eid,
                     emp: {
-                        id: item.key,
-                        uid: item.uid,
+                        id: +item.key,
+                        uid: +item.uid,
                         eName: item.eName,
                         client: {
                             ...values,
@@ -65,19 +67,19 @@ const editModal = ({
                     eid,
                     emp: {
                         ...values,
-                        id: item.key,
-                        uid: item.uid,
+                        id: +item.key,
+                        uid: +item.uid,
                         time: item.time || getTime(),
-                        result: parseInt(values.result),
+                        result: +values.result,
                     }
                 },
                 contract: {
                     eid,
                     emp: {
                         ...values,
-                        id: item.key,
-                        uid: item.uid,
-                        state: parseInt(values.state),
+                        id: +item.key,
+                        uid: +item.uid,
+                        state: +values.state,
                         time: item.time || getTime(),
                     }
                 }

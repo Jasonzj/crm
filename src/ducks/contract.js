@@ -90,7 +90,7 @@ const handle = (state, action) => {
             }
 
         case types.UPDATE_CONTRACT:
-            if (state.id !== data.id) {
+            if (state.id != data.id) {
                 return state
             }
 
