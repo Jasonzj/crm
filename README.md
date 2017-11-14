@@ -179,9 +179,9 @@ post `/api/v1/editUser`
 
 请求格式:
 ```javascript
-{
+eid: xxx
+emp: {      // 修改人ID(只能用户本人或管理员修改)
     uid: xxx,  // 被修改员工的ID
-    eid: xxx,  // 修改人ID(只能用户本人或管理员修改)
     user: 'zss',
     name: '张三',
     age: 18,
@@ -302,10 +302,10 @@ post `/api/v1/editBusiness`
 
 请求格式:
 ```javascript
-{
+eid: xxx,     // 修改人的ID  (用于权限检验，只能本人或管理员)
+emp: {
     id: xxx,        // 商机ID
     uid: '',        // 员工的id
-    eid: ''，       // 修改人的ID  (用于权限检验，只能本人或管理员)
     client: {
         name: xxx,           // 公司名称
         type: xxx,           // 公司类型
@@ -494,10 +494,10 @@ post  `/api/v1/editVisit`
 
 请求格式:
 ```javascript
-{
+eid: xx,       // 修改人的id(用于权限检验，只能本人或管理员)
+emp: {
     id: xx,        // 拜访记录ID
     uid: xx,       // 拜访员工id
-    eid: xx,       // 修改人的id(用于权限检验，只能本人或管理员)
     name: '',      // 拜访公司名字
     time: xx-xx,   // 拜访时间
     result: '',    // 拜访结果
@@ -657,10 +657,10 @@ post `/api/v1/editContract`
 
 请求格式:
 ```javascript
-{
+eid: xx,       // 修改人ID (用于权限验证，只能添加人人或管理员)
+emp: {
     id: xx,        // 合同ID
     uid: xx,       // 合同跟进人id(添加人)  
-    eid: xx,       // 修改人ID (用于权限验证，只能添加人人或管理员)
     title: ''      // 合同标题
     name: '',      // 公司名字
     time: xx-xx,   // 合同时间
