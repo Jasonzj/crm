@@ -122,6 +122,7 @@ class UserManage extends PureComponent {
         }
         const modalProps = {
             item,
+            eid: uid,
             type: 'userManage',
             title: '更新员工信息',
             onOk: this.onModalOk,

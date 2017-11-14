@@ -82,6 +82,7 @@ class Detail extends PureComponent {
     onModalOk = (data) => {
         const { aUpdateBusiness, aUpdateVisit } = this.props
         const { tabKey } = this.state
+        console.log(data)
         tabKey == 1
             ? aUpdateBusiness(data)
             : aUpdateVisit(data)
@@ -151,6 +152,7 @@ class Detail extends PureComponent {
         }
         const modalProps = {
             item,
+            eid: uid,
             onOk: this.onModalOk,
             visible: modalVisible,
             type: modalConfig.type,

@@ -57,7 +57,8 @@ export const actions = {
         api: editorVisit,
         text: '修改拜访失败！请重试',
         action: syncActions.updateVisit,
-        isResult: true
+        isResult: true,
+        isEdit: true,
     })
 }
 

@@ -44,39 +44,47 @@ const editModal = ({
             const data = {
                 userManage: {
                     eid,
-                    ...values,
-                    uid: item.key,
+                    emp: {
+                        ...values,
+                        uid: item.key,
+                    }
                 },
                 business: {
                     eid,
-                    id: item.key,
-                    uid: item.uid,
-                    eName: item.eName,
-                    client: {
-                        ...values,
-                        time: item.time || getTime()
+                    emp: {
+                        id: item.key,
+                        uid: item.uid,
+                        eName: item.eName,
+                        client: {
+                            ...values,
+                            time: item.time || getTime()
+                        }
                     }
                 },
                 visit: {
                     eid,
-                    ...values,
-                    id: item.key,
-                    uid: item.uid,
-                    time: item.time || getTime(),
-                    result: parseInt(values.result),
+                    emp: {
+                        ...values,
+                        id: item.key,
+                        uid: item.uid,
+                        time: item.time || getTime(),
+                        result: parseInt(values.result),
+                    }
                 },
                 contract: {
                     eid,
-                    ...values,
-                    id: item.key,
-                    uid: item.uid,
-                    state: parseInt(values.state),
-                    time: item.time || getTime(),
+                    emp: {
+                        ...values,
+                        id: item.key,
+                        uid: item.uid,
+                        state: parseInt(values.state),
+                        time: item.time || getTime(),
+                    }
                 }
             }[type]
 
             if (type === 'business' || type === 'visit') {
-                const client = data.client
+                const client = data.emp.client
                 if (client) {
                     delete client.eName
                     client.address = client.address.join(' ')

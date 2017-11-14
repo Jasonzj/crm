@@ -40,7 +40,8 @@ export const actions = {
         api: editBusiness,
         text: '修改商机失败！请重试',
         action: syncActions.updateBusiness,
-        isResult: true
+        isResult: true,
+        isEdit: true,
     }),
     aDeleteBusiness: createAsyncAction({
         method: 'post',
