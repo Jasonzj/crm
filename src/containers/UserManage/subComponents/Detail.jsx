@@ -185,36 +185,38 @@ class Detail extends PureComponent {
                         <Description term="手机号码">{tel}</Description>
                     </DescriptionList>
                 </Card>
-                <Filter
-                    removeTitle={'商机'}
-                    onReset={this.onReset}
-                    hasSelected={hasSelected}
-                    isFetching={isFetching}
-                    onDeleteUsers={this.onDeleteBusiness}
-                    selectedLen={selectedRowKeys.length}
-                />
-                <Tabs defaultActiveKey="1" onChange={this.onTabChange}>
-                    <TabPane tab={<span><Icon type="pay-circle" />商机</span>} key="1">
-                        <Table
-                            columns={columns}
-                            dataSource={data}
-                            pagination={false}
-                            scroll={{ x: 800 }}
-                            loading={isFetching}
-                            rowSelection={rowSelection}
-                        />
-                    </TabPane>
-                    <TabPane tab={<span><Icon type="eye" />拜访</span>} key="2">
-                        <Table
-                            columns={columns}
-                            dataSource={visits}
-                            pagination={false}
-                            scroll={{ x: 800 }}
-                            loading={isFetching}
-                            rowSelection={rowSelection}
-                        />
-                    </TabPane>
-                </Tabs>
+                <div className={styles.userTable}>
+                    <Filter
+                        removeTitle={'商机'}
+                        onReset={this.onReset}
+                        hasSelected={hasSelected}
+                        isFetching={isFetching}
+                        onDeleteUsers={this.onDeleteBusiness}
+                        selectedLen={selectedRowKeys.length}
+                    />
+                    <Tabs defaultActiveKey="1" onChange={this.onTabChange}>
+                        <TabPane tab={<span><Icon type="pay-circle" />商机</span>} key="1">
+                            <Table
+                                columns={columns}
+                                dataSource={data}
+                                pagination={false}
+                                scroll={{ x: 800 }}
+                                loading={isFetching}
+                                rowSelection={rowSelection}
+                            />
+                        </TabPane>
+                        <TabPane tab={<span><Icon type="eye" />拜访</span>} key="2">
+                            <Table
+                                columns={columns}
+                                dataSource={visits}
+                                pagination={false}
+                                scroll={{ x: 800 }}
+                                loading={isFetching}
+                                rowSelection={rowSelection}
+                            />
+                        </TabPane>
+                    </Tabs>
+                </div>
                 { modalVisible && <EditModal {...modalProps} /> }
             </div>
         )
