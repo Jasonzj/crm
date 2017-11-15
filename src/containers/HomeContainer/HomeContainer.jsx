@@ -67,7 +67,8 @@ class HomeContainer extends PureComponent {
 
     componentWillMount() {
         const { signIn, history } = this.props
-        !signIn ? history.push('/sign_in') : history.push(config.homePage)
+        !signIn && history.push('/sign_in')
+        // !signIn ? history.push('/sign_in') : history.push(config.homePage)
     }
 
     onChangeState = state => () => {
