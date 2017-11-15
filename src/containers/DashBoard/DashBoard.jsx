@@ -78,7 +78,7 @@ class DashBoard extends PureComponent {
                                 </LineChart>
                             </ResponsiveContainer>
                         </TabPane>
-                        <TabPane tab={<span><Icon type="solution" />拜访转换表</span>} key="2">
+                        <TabPane tab={<span><Icon type="solution" />合同转换表</span>} key="2">
                             <ResponsiveContainer minHeight={360}>
                                 <LineChart width={500} height={300} data={contract}>
                                     <XAxis dataKey="year" axisLine={{ stroke: '#e5e5e5', strokeWidth: 1 }} tickLine={false} />
