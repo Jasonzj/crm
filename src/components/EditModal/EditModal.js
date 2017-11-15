@@ -85,16 +85,16 @@ const editModal = ({
                 }
             }[type]
 
-            if (type === 'business' || type === 'visit') {
+            if (type !== 'userManage') {
                 const client = data.emp.client
                 if (client) {
                     delete client.eName
                     client.address = client.address.join(' ')
                 }
                 if (isData) {
-                    delete data.id
-                    delete data.uid
-                    delete data.eName
+                    delete data.emp.id
+                    delete data.emp.uid
+                    delete data.emp.eName
                 }
             }
 
