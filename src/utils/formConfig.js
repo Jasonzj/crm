@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Popover, Button, Icon } from 'antd'
+import { Avatar, Popover, Button, Badge } from 'antd'
 import { Link } from 'react-router-dom'
 import DropOption from 'components/DropOption'
 
@@ -183,8 +183,8 @@ const createVisitColumns = ({
         render: (num) => {
             const text = ['失败', '成功'][num]
             const icon = [
-                <Icon key="1" type="close-circle" />,
-                <Icon key="2" type="check-circle" />,
+                <Badge key="1" status="error" />,
+                <Badge key="2" status="success" />,
             ][num]
             return [
                 icon,
@@ -272,10 +272,10 @@ const createContractColumns = ({
         render: (num) => {
             const text = ['签订', '进行', '成功', '失败'][num]
             const icon = [
-                <Icon key="1" type="edit" />,
-                <Icon key="2" type="clock-circle" />,
-                <Icon key="3" type="check-circle" />,
-                <Icon key="4" type="close-circle" />,
+                <Badge key="1" status="warning" />,
+                <Badge key="2" status="processing" />,
+                <Badge key="3" status="success" />,
+                <Badge key="4" status="error" />,
             ][num]
             return [
                 icon,
