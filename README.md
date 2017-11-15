@@ -697,3 +697,41 @@ post `/api/v1/deleteContract`
     message: ''
 }
 ```
+
+## 5.仪盘表
+get /api/v1/dashboard
+> 获取所有仪盘表信息
+
+返回:
+```javascript
+{
+    success: true/false,
+    message: '',
+    data: {
+        numbers: {              // 列表总数
+            users: 2131,        // 用户列表总数
+            business: 3219,     // 商机列表总数
+            visits: 1929,       // 拜访列表总数
+            contracts: 6712     // 合同列表总数
+        },
+        visit: [                // 拜访转换率
+            {
+                year: 2017,     // 年
+                success: 30,    // 2017年拜访成功总数
+                failure: 10,    // 2017年拜访失败总数
+            }
+            ...
+        ],
+        contract: [             // 合同转换率
+            {
+                year: 2017,     // 年
+                signed: 30,     // 2017年合同签订总数
+                proceed: 20,    // 2017年合同进行总数
+                success: 30,    // 2017年合同成功总数
+                failure: 10     // 2017年合同失败总数
+            }
+            ...
+        ]
+    }
+}
+```
