@@ -34,6 +34,8 @@ config.module.rules.push(
 
 config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
         filename: 'index.html',
         template: 'index.html'
