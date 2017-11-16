@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import DropOption from './DropOption'
 
 const setup = () => {
@@ -13,7 +13,7 @@ const setup = () => {
         dropdownProps: {},
     }
 
-    const wrapper = mount(<DropOption {...props} />)
+    const wrapper = shallow(<DropOption {...props} />)
 
     return {
         props,
