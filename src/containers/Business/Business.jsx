@@ -157,7 +157,7 @@ class Business extends PureComponent {
         return (
             <div>
                 <Filter
-                    removeTitle={'商机'}
+                    removeTitle="商机"
                     onReset={this.onReset}
                     isFetching={isFetching}
                     onCreate={this.onCreate}
