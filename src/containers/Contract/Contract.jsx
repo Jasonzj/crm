@@ -156,7 +156,7 @@ class Contract extends PureComponent {
         return (
             <div className={styles.contract}>
                 <Filter
-                    removeTitle={'拜访'}
+                    removeTitle="拜访"
                     onReset={this.onReset}
                     isFetching={isFetching}
                     onCreate={this.onCreate}
