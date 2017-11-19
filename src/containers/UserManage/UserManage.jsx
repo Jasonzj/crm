@@ -139,7 +139,7 @@ class UserManage extends PureComponent {
         return (
             <div>
                 <Filter
-                    removeTitle={'用户'}
+                    removeTitle="用户"
                     onReset={this.onReset}
                     isFetching={isFetching}
                     hasSelected={hasSelected}
