@@ -65,11 +65,11 @@ class SignIn extends PureComponent {
                 <Loading spinning={this.state.loading} />
                 <div className={styles.main}>
                     <div className={styles.title}>
-                        <Link to={'/sign_in'} className={styles.active}>
+                        <Link to="/sign_in" className={styles.active}>
                             登入
                         </Link>
                         <b>·</b>
-                        <Link to={'/sign_up'}>
+                        <Link to="/sign_up">
                             注册
                         </Link>
                     </div>
