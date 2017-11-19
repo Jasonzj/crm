@@ -27,7 +27,7 @@ const { Description } = DescriptionList
 class Detail extends Component {
     componentWillMount() {
         const { match, aGetContractDetail, contracts } = this.props
-        this.data = contracts.filter(item => item.id === match.params.id)[0]
+        this.data = contracts.filter(item => item.id == match.params.id)[0]
     }
 
     render() {
