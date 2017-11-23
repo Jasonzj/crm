@@ -179,9 +179,9 @@ post `/api/v1/editUser`
 
 请求格式:
 ```javascript
-eid: xxx
-emp: {      // 修改人ID(只能用户本人或管理员修改)
-    uid: xxx,  // 被修改员工的ID
+{
+    eid: xxx    // 修改人ID(只能用户本人或管理员修改)
+    uid: xxx,   // 被修改员工的ID
     user: 'zss',
     name: '张三',
     age: 18,
@@ -243,16 +243,14 @@ get  `/api/v1/business` 或 get `/api/v1/business?page=x`
             id: xxx,        // 商机ID
             uid: '',        // 员工id
             eName: '',      // 员工真实姓名
-            client: {       // 客户信息
-                name: xxx,           // 公司名称
-                type: xxx,           // 公司类型
-                contact: 'xxxx',     // 联系人
-                contactTel: 111,     // 联系人电话
-                contactPost: 'xxx',  // 联系人职位
-                time: xxx,           // 创建时间
-                intro: `xxxxxxxxxx`  // 公司简介
-                address: 'xxx'       // 公司地址
-            }
+            name: xxx,           // 公司名称
+            type: xxx,           // 公司类型
+            contact: 'xxxx',     // 联系人
+            contactTel: 111,     // 联系人电话
+            contactPost: 'xxx',  // 联系人职位
+            time: xxx,           // 创建时间
+            intro: `xxxxxxxxxx`  // 公司简介
+            address: 'xxx'       // 公司地址
         },
         ...
     ]
@@ -279,17 +277,15 @@ get `/api/v1/searchBusiness?companyName=xxx有限公司` (根据公司名搜索)
     total: 4,     // 商机总数
     data: [
         {
-            id: xxx,        // 商机ID
-            uid: '',        // 员工id
-            eName: '',      // 员工真实姓名
-            client: {       // 客户信息
-                name: xxx,           // 公司名称
-                type: xxx,           // 公司类型
-                contact: 'xxxx',     // 联系人
-                contactTel: 111,     // 联系人电话
-                contactPost: 'xxx',  // 联系人职位
-                time: xxx            // 创建时间
-            }
+            id: xxx,             // 商机ID
+            uid: '',             // 员工id
+            eName: '',           // 员工真实姓名
+            name: xxx,           // 公司名称
+            type: xxx,           // 公司类型
+            contact: 'xxxx',     // 联系人
+            contactTel: 111,     // 联系人电话
+            contactPost: 'xxx',  // 联系人职位
+            time: xxx            // 创建时间
         },
         ...
     ]
@@ -307,16 +303,14 @@ post `/api/v1/editBusiness`
     emp: {
         id: xxx,        // 商机ID
         uid: '',        // 员工的id
-        client: {
-            name: xxx,           // 公司名称
-            type: xxx,           // 公司类型
-            contact: 'xxxx',     // 联系人
-            contactTel: 111,     // 联系人电话
-            contactPost: 'xxx',  // 联系人职位
-            time: xxx,           // 创建时间
-            intro: `xxxxxxxxxx`  // 公司简介
-            address: 'xxx'       // 公司地址
-        }
+        name: xxx,           // 公司名称
+        type: xxx,           // 公司类型
+        contact: 'xxxx',     // 联系人
+        contactTel: 111,     // 联系人电话
+        contactPost: 'xxx',  // 联系人职位
+        time: xxx,           // 创建时间
+        intro: `xxxxxxxxxx`  // 公司简介
+        address: 'xxx'       // 公司地址
     }
 }
 ```
@@ -337,18 +331,14 @@ post `/api/v1/addBusiness`
 ```javascript
 {
     eid: '',        // 员工id (添加人的id)
-    emp: {
-        client: {
-            name: xxx,           // 公司名称
-            type: xxx,           // 公司类型
-            contact: 'xxxx',     // 联系人
-            contactTel: 111,     // 联系人电话
-            contactPost: 'xxx',  // 联系人职位
-            time: xxx,           // 创建时间
-            intro: `xxxxxxxxxx`  // 公司简介
-            address: 'xxx'       // 公司地址
-        }
-    }
+    name: xxx,           // 公司名称
+    type: xxx,           // 公司类型
+    contact: 'xxxx',     // 联系人
+    contactTel: 111,     // 联系人电话
+    contactPost: 'xxx',  // 联系人职位
+    time: xxx,           // 创建时间
+    intro: `xxxxxxxxxx`  // 公司简介
+    address: 'xxx'       // 公司地址
 }
 ```
 
@@ -477,13 +467,11 @@ post  `/api/v1/addVisit`
 ```javascript
 {
     eid: xx,           // 拜访员工ID
-    emp: {
-        name: '',          // 拜访公司名字
-        time: xx-xx,       // 拜访时间 (年月日)
-        content: 'xxx',    // 拜访内容
-        result: 0,         // 拜访结果 (0成功, 1待定，2失败)
-        note: ''           // 拜访备注
-    }
+    name: '',          // 拜访公司名字
+    time: xx-xx,       // 拜访时间 (年月日)
+    content: 'xxx',    // 拜访内容
+    result: 0,         // 拜访结果 (0成功, 1待定，2失败)
+    note: ''           // 拜访备注
 }
 ```
 返回格式:
@@ -502,15 +490,13 @@ post  `/api/v1/editVisit`
 ```javascript
 {
     eid: xx,       // 修改人的id(用于权限检验，只能本人或管理员)
-    emp: {
-        id: xx,        // 拜访记录ID
-        uid: xx,       // 拜访员工id
-        name: '',      // 拜访公司名字
-        time: xx-xx,   // 拜访时间
-        result: '',    // 拜访结果
-        note: ''       // 拜访备注
-        content: ''    // 拜访内容
-    }
+    id: xx,        // 拜访记录ID
+    uid: xx,       // 拜访员工id
+    name: '',      // 拜访公司名字
+    time: xx-xx,   // 拜访时间
+    result: '',    // 拜访结果
+    note: ''       // 拜访备注
+    content: ''    // 拜访内容
 }
 ```
 返回格式:
@@ -642,15 +628,13 @@ post `/api/v1/addContract`
 ```javascript
 {
     eid: xx,       // 合同跟进人id(添加人)
-    emp: {
-        title: ''      // 合同标题
-        name: '',      // 公司名字
-        time: xx-xx,   // 合同时间
-        content: '',   // 合同内容
-        result: '',    // 合同结果
-        note: ''，     // 合同备注
-        state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
-    }
+    title: ''      // 合同标题
+    name: '',      // 公司名字
+    time: xx-xx,   // 合同时间
+    content: '',   // 合同内容
+    result: '',    // 合同结果
+    note: ''，     // 合同备注
+    state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
 }
 ```
 
@@ -669,17 +653,15 @@ post `/api/v1/editContract`
 ```javascript
 {
     eid: xx,       // 修改人ID (用于权限验证，只能添加人人或管理员)
-    emp: {
-        id: xx,        // 合同ID
-        uid: xx,       // 合同跟进人id(添加人)  
-        title: ''      // 合同标题
-        name: '',      // 公司名字
-        time: xx-xx,   // 合同时间
-        content: '',   // 合同内容
-        result: '',    // 合同结果
-        note: ''，     // 合同备注
-        state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
-    }
+    id: xx,        // 合同ID
+    uid: xx,       // 合同跟进人id(添加人)  
+    title: ''      // 合同标题
+    name: '',      // 公司名字
+    time: xx-xx,   // 合同时间
+    content: '',   // 合同内容
+    result: '',    // 合同结果
+    note: ''，     // 合同备注
+    state: 0       // 合同状态 (0签订，1进行，2成功，3失败)
 }
 ```
 
