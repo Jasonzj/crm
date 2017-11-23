@@ -300,18 +300,16 @@ post `/api/v1/editBusiness`
 ```javascript
 {
     eid: xxx,     // 修改人的ID  (用于权限检验，只能本人或管理员)
-    emp: {
-        id: xxx,        // 商机ID
-        uid: '',        // 员工的id
-        name: xxx,           // 公司名称
-        type: xxx,           // 公司类型
-        contact: 'xxxx',     // 联系人
-        contactTel: 111,     // 联系人电话
-        contactPost: 'xxx',  // 联系人职位
-        time: xxx,           // 创建时间
-        intro: `xxxxxxxxxx`  // 公司简介
-        address: 'xxx'       // 公司地址
-    }
+    id: xxx,        // 商机ID
+    uid: '',        // 员工的id
+    name: xxx,           // 公司名称
+    type: xxx,           // 公司类型
+    contact: 'xxxx',     // 联系人
+    contactTel: 111,     // 联系人电话
+    contactPost: 'xxx',  // 联系人职位
+    time: xxx,           // 创建时间
+    intro: `xxxxxxxxxx`  // 公司简介
+    address: 'xxx'       // 公司地址
 }
 ```
 
