@@ -44,52 +44,41 @@ const editModal = ({
             const data = {
                 userManage: {
                     eid,
-                    emp: {
-                        ...values,
-                        uid: +item.key,
-                        sex: +values.sex,
-                        state: +values.state
-                    }
+                    ...values,
+                    uid: +item.key,
+                    sex: +values.sex,
+                    state: +values.state
                 },
                 business: {
                     eid,
-                    emp: {
-                        id: +item.key,
-                        uid: +item.uid,
-                        eName: item.eName,
-                        client: {
-                            ...values,
-                            time: item.time || getTime()
-                        }
-                    }
+                    ...values,
+                    id: +item.key,
+                    uid: +item.uid,
+                    eName: item.eName,
+                    time: item.time || getTime()
                 },
                 visit: {
                     eid,
-                    emp: {
-                        ...values,
-                        id: +item.key,
-                        uid: +item.uid,
-                        time: item.time || getTime(),
-                        result: +values.result,
-                    }
+                    ...values,
+                    id: +item.key,
+                    uid: +item.uid,
+                    time: item.time || getTime(),
+                    result: +values.result,
                 },
                 contract: {
                     eid,
-                    emp: {
-                        ...values,
-                        id: +item.key,
-                        uid: +item.uid,
-                        state: +values.state,
-                        time: item.time || getTime(),
-                    }
+                    ...values,
+                    id: +item.key,
+                    uid: +item.uid,
+                    state: +values.state,
+                    time: item.time || getTime(),
                 }
             }[type]
 
             if (type !== 'userManage') {
-                const client = data.emp.client
-                if (client) {
-                    delete client.eName
-                    client.address = client.address.join(' ')
+                const address = data.address
+                if (address) {
+                    data.address = data.address.join(' ')
                 }
                 if (isData) {
                     delete data.emp.id

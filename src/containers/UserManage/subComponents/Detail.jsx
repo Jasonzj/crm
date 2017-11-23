@@ -160,11 +160,6 @@ class Detail extends PureComponent {
             formData: createForm(modalConfig.data),
         }
 
-        const data = business.map(item => ({
-            ...item,
-            ...item.client,
-            client: null
-        }))
         const detail = this.data || currentUser
         const { name, user, age, sex, tel, state } = detail
 
@@ -187,7 +182,7 @@ class Detail extends PureComponent {
                 </Card>
                 <div className={styles.userTable}>
                     <Filter
-                        removeTitle={'商机'}
+                        removeTitle="商机"
                         onReset={this.onReset}
                         hasSelected={hasSelected}
                         isFetching={isFetching}
@@ -198,9 +193,9 @@ class Detail extends PureComponent {
                         <TabPane tab={<span><Icon type="pay-circle" />商机</span>} key="1">
                             <Table
                                 columns={columns}
-                                dataSource={data}
+                                dataSource={business}
                                 pagination={false}
-                                scroll={{ x: 800 }}
+                                scroll={{ x: 1000 }}
                                 loading={isFetching}
                                 rowSelection={rowSelection}
                             />
@@ -210,7 +205,7 @@ class Detail extends PureComponent {
                                 columns={columns}
                                 dataSource={visits}
                                 pagination={false}
-                                scroll={{ x: 800 }}
+                                scroll={{ x: 900 }}
                                 loading={isFetching}
                                 rowSelection={rowSelection}
                             />

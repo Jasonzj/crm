@@ -58,7 +58,6 @@ export const actions = {
         text: '修改拜访失败！请重试',
         action: syncActions.updateVisit,
         isResult: true,
-        isEdit: true,
     })
 }
 

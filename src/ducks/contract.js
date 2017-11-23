@@ -63,7 +63,6 @@ export const actions = {
         text: '修改合同失败！请重试',
         action: syncActions.updateContract,
         isResult: true,
-        isEdit: true,
     }),
     aCreateContract: createAsyncAction({
         method: 'post',

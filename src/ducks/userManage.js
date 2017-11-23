@@ -65,7 +65,6 @@ export const actions = {
         api: editorUser,
         text: '修改用户资料失败！请重试',
         action: syncActions.updateUser,
-        isEdit: true,
         isResult: true,
     }),
     aDeleteUser: createAsyncAction({
@@ -94,7 +93,6 @@ export const actions = {
         text: '修改商机失败！请重试',
         action: syncActions.updateBusiness,
         isResult: true,
-        isEdit: true,
     }),
     aGetUserVisit: createAsyncAction({
         method: 'get',
@@ -108,7 +106,6 @@ export const actions = {
         text: '修改拜访失败！请重试',
         action: syncActions.updateVisit,
         isResult: true,
-        isEdit: true,
     }),
     aDeleteVisit: createAsyncAction({
         method: 'post',
@@ -164,7 +161,7 @@ const handle = (state, action) => {
             }
 
         case types.DELETE_VISIT:
-            return !data.deleteId.includes(state.uid)
+            return !data.deleteId.includes(state.id)
 
         case types.SET_BUSSINESS:
             return {
@@ -183,7 +180,7 @@ const handle = (state, action) => {
             }
 
         case types.DELETE_BUSINESS:
-            return !data.deleteId.includes(state.uid)
+            return !data.deleteId.includes(state.id)
 
         default:
             return state

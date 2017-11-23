@@ -7,7 +7,6 @@ export default ({
     text,
     method,
     action,
-    isEdit = false,
     isResult = false,
 }) => arg => async (dispatch) => {
     try {
@@ -21,8 +20,7 @@ export default ({
             ? message && Msg.info(message)
             : message && Msg.error(message)
 
-        const payload = isEdit ? arg.emp : arg
-        const actionData = isResult ? payload : result.data
+        const actionData = isResult ? arg : result.data
         action && dispatch(action(actionData))
         dispatch(appActions.finishFetch())
         return result

@@ -148,11 +148,6 @@ class Business extends PureComponent {
             onCreate: this.onCreateBusiness,
             formData: createForm('business'),
         }
-        const data = business.map(item => ({
-            ...item,
-            ...item.client,
-            client: null
-        }))
 
         return (
             <div>
@@ -169,7 +164,7 @@ class Business extends PureComponent {
                 />
                 <Table
                     columns={columns}
-                    dataSource={data}
+                    dataSource={business}
                     scroll={{ x: 1100 }}
                     loading={isFetching}
                     pagination={pagination}
