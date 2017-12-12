@@ -1,13 +1,13 @@
 {
   "success": true,
-  "message": '',
+  "message": '获取成功',
   default: function({
     _req,
     Mock
   }) {
     if (_req.query.uid) {
       return Mock.mock({
-        "id": parseInt(_req.query.uid),
+        "uid": parseInt(_req.query.uid),
         "user|1": [
           'zhangsan',
           'lisi',
@@ -27,42 +27,13 @@
         "age|18-40": 40,
         "sex|0-1": 0,
         "tel": /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,
-        "state": 1,
-        "business|10": [{
-          id: "@id",
-          client: {
-            "name|+1": [
-              '顶峰有限公司',
-              '网易有限公司',
-              '阿里巴巴有限公司',
-              '百度有限公司',
-              '腾讯公司',
-              '饿了么公司',
-              '美团公司',
-              '大众点评',
-              '微软公司',
-              '谷歌公司'
-            ],
-            "contact|+1": [
-              '何经理',
-              '张经理',
-              '白经理',
-              '陈经理',
-              '李经理',
-              '大经理'
-            ],
-            type: 0,
-            contactTel: /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,
-            contactPost: '经理',
-            time: "@date('yyyy-MM-dd')"
-          }
-        }]
+        "state": 1
       })
     }
     return Mock.mock({
       "data|10": [{
-        "id": "@id",
-        "user|+1": [
+        "uid": "@id",
+        "user|1": [
           'zhangsan',
           'lisi',
           'sadxsx',
@@ -76,7 +47,7 @@
           'xxaaweewq',
           'sdxqqweqe'
         ],
-        "name|+1": [
+        "name|1": [
           '张三',
           '李四',
           '小红',
@@ -91,7 +62,8 @@
         "age|18-40": 40,
         "sex|0-1": 0,
         "tel": /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,
-        "state": 1
+        "state": 1,
+        "avatar": `@image('100x100', ${Mock.Random.color()}, '#757575')`
       }]
     })
   },
@@ -103,18 +75,5 @@
     }
     return this.default.data
   },
-  currentPage: function({
-    _req
-  }) {
-    if (_req.query.page) {
-      return parseInt(_req.query.page)
-    }
-  },
-  page: function({
-    _req
-  }) {
-    if (!_req.query.uid) {
-      return 10
-    }
-  }
+  "total|120-150": 50,
 }

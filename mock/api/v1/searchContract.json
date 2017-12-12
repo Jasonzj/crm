@@ -1,0 +1,84 @@
+{
+  "success": function({
+    _req
+  }) {
+    if (_req.query.eName || _req.query.companyName) {
+      return true
+    }
+    return false
+  },
+  "message": function({
+    _req
+  }) {
+    if (_req.query.eName || _req.query.companyName) {
+      return "搜索成功"
+    }
+    return "搜索失败"
+  },
+  "total|1-5": 5,
+  default: function({
+    _req,
+    Mock
+  }) {
+    if (_req.query.eName) {
+      return Mock.mock({
+        "data|5": [{
+          "id": "@id",
+          "uid": "@id",
+          "title": "xxx合同",
+          "name|+1": [
+            '顶峰有限公司',
+            '网易有限公司',
+            '阿里巴巴有限公司',
+            '百度有限公司',
+            '腾讯公司',
+            '饿了么公司',
+            '美团公司',
+            '大众点评',
+            '微软公司',
+            '谷歌公司'
+          ],
+          "eName": _req.query.eName,
+          time: "@date('yyyy-MM-dd')",
+          "state|0-3": 0,
+          "content": "xxxxxxxxxx内容",
+          "result": "xxxxxxxxxx结果",
+          "note": "xxxxxxxxxxx备注"
+        }]
+      })
+    }
+
+    if (_req.query.companyName) {
+      return Mock.mock({
+        "data|5": [{
+          "id": "@id",
+          "uid": "@id",
+          "title": "xxx合同",
+          "name": _req.query.companyName,
+          "eName|1": [
+            '张三',
+            '李四',
+            '小红',
+            '胖虎',
+            '小泽玛利亚',
+            '小夫',
+            '熊xx',
+            '武松',
+            '李白',
+            '高渐离'
+          ],
+          time: "@date('yyyy-MM-dd')",
+          "state|0-3": 0,
+          "content": "xxxxxxxxxx内容",
+          "result": "xxxxxxxxxx结果",
+          "note": "xxxxxxxxxxx备注"
+        }]
+      })
+    }
+  },
+  data: function({
+    _req
+  }) {
+    return this.default.data
+  }
+}

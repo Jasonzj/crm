@@ -1,0 +1,18 @@
+{
+  success: function({
+    _req
+  }) {
+    if (_req.body.eid) {
+      return true
+    }
+    return false
+  },
+  message: function({
+    _req
+  }) {
+    if (_req.body.eid) {
+      return '添加成功'
+    }
+    return '添加失败'
+  }
+}

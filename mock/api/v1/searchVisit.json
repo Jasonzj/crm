@@ -1,0 +1,75 @@
+{
+  "success": function({
+    _req
+  }) {
+    if (_req.query.eName || _req.query.companyName) {
+      return true
+    }
+    return false
+  },
+  "message": function({
+    _req
+  }) {
+    if (_req.query.eName || _req.query.companyName) {
+      return "搜索成功"
+    }
+    return "搜索失败"
+  },
+  "total|1-5": 5,
+  default: function({
+    _req,
+    Mock
+  }) {
+    if (_req.query.eName) {
+      return Mock.mock({
+        "data|5": [{
+          "id": "@id",
+          "uid": "@id",
+          "eName": _req.query.eName,
+          "name|+1": [
+            '顶峰有限公司',
+            '网易有限公司',
+            '阿里巴巴有限公司',
+            '百度有限公司',
+            '腾讯公司',
+            '饿了么公司',
+            '美团公司',
+            '大众点评',
+            '微软公司',
+            '谷歌公司'
+          ],
+          "result|0-1": 0,
+          time: "@date('yyyy-MM-dd')",
+          note: "备注xxxxxxxxxxxxxxxxxxxxx",
+          content: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+        }]
+      })
+    }
+
+    if (_req.query.companyName) {
+      return Mock.mock({
+        "data|5": [{
+          "id": "@id",
+          "uid": "@id",
+          "eName|1": [
+            '张三',
+            '李四',
+            '小红',
+            '胖虎',
+            '小泽玛利亚'
+          ],
+          "name": _req.query.companyName,
+          "result|0-1": 0,
+          time: "@date('yyyy-MM-dd')",
+          note: "备注xxxxxxxxxxxxxxxxxxxxx",
+          content: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+        }]
+      })
+    }
+  },
+  data: function({
+    _req
+  }) {
+    return this.default.data
+  }
+}

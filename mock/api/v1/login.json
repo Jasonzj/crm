@@ -4,7 +4,7 @@
   }) {
     var user = _req.body.user
     var pass = _req.body.pass
-    if (user === 'admin' && pass === 'admin') {
+    if (user === 'admin' && pass === 'admin' || user === 'jason' && pass === 'admin') {
       return true
     }
     return false
@@ -14,10 +14,10 @@
   }) {
     var user = _req.body.user
     var pass = _req.body.pass
-    if (user === 'admin' && pass === 'admin') {
-      return 1
+    if (user === 'admin' && pass === 'admin' || user === 'jason' && pass === 'admin') {
+      return '登入成功'
     }
-    return 0
+    return '账号密码错误'
   },
   data: function({
     _req,
@@ -25,7 +25,7 @@
   }) {
     var user = _req.body.user
     var pass = _req.body.pass
-    if (user === 'admin' && pass === 'admin') {
+    if (user === 'admin' && pass === 'admin' || user === 'jason' && pass === 'admin') {
       return Mock.mock({
         "uid": "@id",
         "user": user,
@@ -44,7 +44,13 @@
         "age|18-40": 40,
         "sex|0-1": 0,
         "tel": /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,
-        "state": 1
+        state: function({
+          _req
+        }) {
+          if (_req.body.user === 'admin') return 0
+          if (_req.body.user === 'jason') return 1
+        },
+        "avatar": `@image('100x100', ${Mock.Random.color()}, '#757575')`
       })
     }
   }

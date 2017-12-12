@@ -1,0 +1,95 @@
+{
+  "success": function({
+    _req
+  }) {
+    if (_req.query.eName || _req.query.companyName) {
+      return true
+    }
+    return false
+  },
+  "message": function({
+    _req
+  }) {
+    if (_req.query.eName || _req.query.companyName) {
+      return "搜索成功"
+    }
+    return "搜索失败"
+  },
+  "total|1-5": 5,
+  default: function({
+    _req,
+    Mock
+  }) {
+    if (_req.query.eName) {
+      return Mock.mock({
+        "data|10": [{
+          "id": "@id",
+          "uid": "@id",
+          "eName": _req.query.eName,
+            "name|+1": [
+              '顶峰有限公司',
+              '网易有限公司',
+              '阿里巴巴有限公司',
+              '百度有限公司',
+              '腾讯公司',
+              '饿了么公司',
+              '美团公司',
+              '大众点评',
+              '微软公司',
+              '谷歌公司'
+            ],
+            "contact|+1": [
+              '何经理',
+              '张经理',
+              '白经理',
+              '陈经理',
+              '李经理',
+              '大经理'
+            ],
+            type: 0,
+            "contactTel": /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,
+            contactPost: '经理',
+            time: "@date('yyyy-MM-dd')",
+            intro: "本公司xxxxxxxxxxxxxxxxxxxxxxx",
+            address: "@county(true)"
+        }]
+      })
+    }
+
+    if (_req.query.companyName) {
+      return Mock.mock({
+        "data|10": [{
+          "id": "@id",
+          "uid": "@id",
+          "eName|1": [
+            '张三',
+            '李四',
+            '小红',
+            '胖虎',
+            '小泽玛利亚'
+          ],
+            "name": _req.query.companyName,
+            "contact|+1": [
+              '何经理',
+              '张经理',
+              '白经理',
+              '陈经理',
+              '李经理',
+              '大经理'
+            ],
+            type: 0,
+            "contactTel": /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/,
+            contactPost: '经理',
+            time: "@date('yyyy-MM-dd')",
+            intro: "本公司xxxxxxxxxxxxxxxxxxxxxxx",
+            address: "@county(true)"
+        }]
+      })
+    }
+  },
+  data: function({
+    _req
+  }) {
+    return this.default.data
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "success": function ({
+  "success": function({
     _req
   }) {
     if (_req.query.eName) {
@@ -7,9 +7,17 @@
     }
     return false
   },
-  "message": '',
+  "message": function({
+    _req
+  }) {
+    if (_req.query.eName) {
+      return "搜索成功"
+    }
+    return "搜索失败"
+  },
+  "total|1-5": 5,
   "data|1-5": [{
-    "id": "@id",
+    "uid": "@id",
     "user|+1": [
       'zhangsan',
       'lisi',

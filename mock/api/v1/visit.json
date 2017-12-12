@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "message": '获取成功',
+  default: function({
+    _req,
+    Mock
+  }) {
+    if (_req.query.id) {
+      return Mock.mock({
+        "id": parseInt(_req.query.id),
+        "uid": "@id",
+        "uName|1": [
+          'zhangsan',
+          'lisi',
+          'sadxsx',
+          'dsaxasxas',
+          'zhadxngsan',
+          'zhanadgsan',
+          'sdwqeqweq',
+        ],
+        "eName|1": [
+          '张三',
+          '李四',
+          '小红',
+          '胖虎',
+          '小泽玛利亚'
+        ],
+        "result|0-1": 0,
+        time: "@date('yyyy-MM-dd')",
+        note: "备注xxxxxxxxxxxxxxxxxxxxx",
+        content: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+      })
+    }
+    return Mock.mock({
+      "data|10": [{
+        "id": "@id",
+        "uid": "@id",
+        "eName|1": [
+          '张三',
+          '李四',
+          '小红',
+          '胖虎',
+          '小泽玛利亚'
+        ],
+        "name|+1": [
+          '顶峰有限公司',
+          '网易有限公司',
+          '阿里巴巴有限公司',
+          '百度有限公司',
+          '腾讯公司',
+          '饿了么公司',
+          '美团公司',
+          '大众点评',
+          '微软公司',
+          '谷歌公司'
+        ],
+        "result|0-1": 0,
+        time: "@date('yyyy-MM-dd')",
+        note: "备注xxxxxxxxxxxxxxxxxxxxx",
+        content: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+      }]
+    })
+  },
+  data: function({
+    _req
+  }) {
+    if (_req.query.uid) {
+      return this.default
+    }
+    return this.default.data
+  },
+  "total|120-150": 50,
+}
