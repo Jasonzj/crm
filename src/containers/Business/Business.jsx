@@ -144,6 +144,7 @@ class Business extends PureComponent {
             onOk: this.onModalOk,
             title: '创建/更新商机',
             visible: modalVisible,
+            confirmLoading: isFetching,
             onCancel: this.onModalCancel,
             onCreate: this.onCreateBusiness,
             formData: createForm('business'),

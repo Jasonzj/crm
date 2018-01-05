@@ -143,6 +143,7 @@ class Contract extends PureComponent {
             title: '创建/更新合同信息',
             onOk: this.onModalOk,
             visible: modalVisible,
+            confirmLoading: isFetching,
             onCancel: this.onModalCancel,
             onCreate: this.onCreateContract,
             formData: createForm('contract'),

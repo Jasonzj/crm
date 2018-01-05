@@ -146,6 +146,7 @@ class Visit extends PureComponent {
             onOk: this.onModalOk,
             title: '创建/更新拜访',
             visible: modalVisible,
+            confirmLoading: isFetching,
             onCancel: this.onModalCancel,
             onCreate: this.onCreateBusiness,
             formData: createForm('visit'),
