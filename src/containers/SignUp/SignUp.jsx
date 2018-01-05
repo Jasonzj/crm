@@ -90,11 +90,11 @@ class SignUp extends PureComponent {
                     !resultVisible &&
                     <div className={styles.main}>
                         <div className={styles.title}>
-                            <Link to={'/sign_in'}>
+                            <Link to="/sign_in">
                                 登入
                             </Link>
                             <b>·</b>
-                            <Link to={'/sign_up'} className={styles.active}>
+                            <Link to="/sign_up" className={styles.active}>
                                 注册
                             </Link>
                         </div>

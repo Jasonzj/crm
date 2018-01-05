@@ -44,7 +44,7 @@ export const actions = {
             success ? Msg.info(message) : Msg.error(message)
             dispatch(actions.setSignIn(result.data))
             dispatch(actions.finishFetch())
-            return dispatch(actions.aSignIn({ user: 'admin', pass: 'admin' }))
+            return dispatch(actions.aSignIn({ user: values.user, pass: values.pass }))
         } catch (err) {
             console.error(err)
             Msg.error('注册失败！请重试')
