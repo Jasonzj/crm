@@ -41,6 +41,13 @@ const editModal = ({
         validateFields((errors) => {
             if (errors) return
             const values = getFieldsValue()
+            const values2 = {
+                eid,
+                ...values,
+                id: +item.key,
+                uid: +item.uid,
+                time: item.time || getTime(),
+            }
             const data = {
                 userManage: {
                     eid,
@@ -51,27 +58,18 @@ const editModal = ({
                 },
                 business: {
                     eid,
-                    ...values,
-                    id: +item.key,
-                    uid: +item.uid,
+                    ...values2,
                     eName: item.eName,
-                    time: item.time || getTime()
                 },
                 visit: {
                     eid,
-                    ...values,
-                    id: +item.key,
-                    uid: +item.uid,
-                    time: item.time || getTime(),
+                    ...values2,
                     result: +values.result,
                 },
                 contract: {
                     eid,
-                    ...values,
-                    id: +item.key,
-                    uid: +item.uid,
+                    ...values2,
                     state: +values.state,
-                    time: item.time || getTime(),
                 }
             }[type]
 
