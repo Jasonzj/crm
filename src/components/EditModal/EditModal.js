@@ -81,9 +81,9 @@ const editModal = ({
                     data.address = data.address.join(' ')
                 }
                 if (isData) {
-                    delete data.emp.id
-                    delete data.emp.uid
-                    delete data.emp.eName
+                    delete data.id
+                    delete data.uid
+                    delete data.eName
                 }
             }
 
