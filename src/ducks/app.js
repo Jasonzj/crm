@@ -53,6 +53,7 @@ export const actions = {
     }
 }
 
+// initialState
 const initialState = {
     isFetching: false,
     signIn: false,
