@@ -157,8 +157,8 @@ HomeContainer.propTypes = {
     signIn: PropTypes.bool,
     match: PropTypes.object,
     history: PropTypes.object,
-    setSignOut: PropTypes.func,
     isFetching: PropTypes.bool,
+    setSignOut: PropTypes.func,
 }
 
 export default HomeContainer
