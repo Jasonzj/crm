@@ -45,5 +45,4 @@ describe('EditModal component', () => {
     it('props item name', () => {
         expect(wrapper.props().item.name).toContain(props.item.name)
     })
-
 })
