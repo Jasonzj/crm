@@ -10,7 +10,7 @@ export const types = {
     START_FETCH:   'app/START_FETCH',
     FINISH_FETCH:  'app/FINISH_FETCH',
     START_LOADER:  'app/START_LOADER',
-    FINISH_LOADER: 'app/FINISH_LOADER',
+    FINISH_LOADER: 'app/FINISH_LOADER'
 }
 
 // Action Creators
