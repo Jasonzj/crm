@@ -2,7 +2,7 @@
 基于[react-starter-cli](https://github.com/Jasonzj/react-starter-cli)构建
 
 ## 技术桟
-React + Redux + React-Router + Antd + ES6/ES7
+React + Redux + React-Router + Antd + ES6/ES7 + Recharts
 
 ## 截图
 ![DashBoard](https://raw.githubusercontent.com/Jasonzj/crm/master/public/p1.png)
