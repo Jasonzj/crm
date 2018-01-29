@@ -34,8 +34,8 @@ const footer = (
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class SignUp extends PureComponent {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             confirmDirty: false,
             resultVisible: false

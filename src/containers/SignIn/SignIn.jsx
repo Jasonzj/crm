@@ -26,8 +26,8 @@ const iconSize = { fontSize: 13 }
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class SignIn extends PureComponent {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             loading: true,
         }

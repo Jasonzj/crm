@@ -31,8 +31,8 @@ const confirm = Modal.confirm
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class UserManage extends PureComponent {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             selectedRowKeys: [],
             modalVisible: false,

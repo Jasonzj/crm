@@ -56,8 +56,8 @@ const menuConfig = {
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class HomeContainer extends PureComponent {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         const sideInline = localStore.fetch('sideInline') || false
         this.state = {
             collapsed: false,

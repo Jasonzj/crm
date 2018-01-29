@@ -44,8 +44,8 @@ const modalConfigs = {
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class Detail extends PureComponent {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             selectedRowKeys: [],
             modalVisible: false,
