@@ -18,7 +18,7 @@ new WebpackDevServer(webpack(config), {
         modules: false,            // 增加内置的模块信息
         chunks: false              // 增加包信息
     },
-    setup(app) {                   // 访问Express App 对象，添加自定义中间件
+    before(app) {                   // 访问Express App 对象，添加自定义中间件
         // 代理服务器
         if (process.env.NODE_ENV !== 'production') {
             app.use('/api/*', proxy({
