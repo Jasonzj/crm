@@ -38,6 +38,7 @@
         "no-plusplus": 0,
         "comma-dangle": 0,
         "import/first": 0,
+        "global-require": 0,
         "no-unused-vars": 0,
         "no-multi-spaces": 0,
         "react/sort-comp": 0,
