@@ -14,17 +14,23 @@ const { Content, Header, Footer } = Layout
 
 // Container
 import DashBoard from 'containers/DashBoard'
-import UserManage from 'containers/UserManage'
-import Business from 'containers/Business'
-import UserDetail from 'containers/UserManage/subComponents/Detail.jsx'
-import ContractDetail from 'containers/Contract/subComponents/Detail'
 import SignIn from 'containers/SignIn'
 import SignUp from 'containers/SignUp'
+import UserManage from 'containers/UserManage'
+import Business from 'containers/Business'
+import UserDetail from 'containers/UserManage/subComponents/Detail'
+import ContractDetail from 'containers/Contract/subComponents/Detail'
 import Visit from 'containers/Visit'
 import Contract from 'containers/Contract'
 
 // lazyContainer
-const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../../containers/NotFound'))
+const NotFound = asyncComponent(() => import(/* webpackChunkName: "NotFound" */ '../NotFound'))
+// const Visit = asyncComponent(() => import(/* webpackChunkName: "Visit" */ '../Visit'))
+// const Business = asyncComponent(() => import(/* webpackChunkName: "Business" */ '../Business'))
+// const Contract = asyncComponent(() => import(/* webpackChunkName: "Contract" */ '../Contract'))
+// const UserManage = asyncComponent(() => import(/* webpackChunkName: "UserManage" */ '../UserManage'))
+// const UserDetail = asyncComponent(() => import(/* webpackChunkName: "UserDetail" */ '../UserManage/subComponents/Detail'))
+// const ContractDetail = asyncComponent(() => import(/* webpackChunkName: "ContractDetail" */ '../Contract/subComponents/Detail'))
 
 // component
 import User from './subComponents/User'
