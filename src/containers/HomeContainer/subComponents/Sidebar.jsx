@@ -16,8 +16,8 @@ const Sidebar = ({
     changeTheme
 }) => (
     <Sider
-        className={sideInline ? styles.inline : ''}
         collapsed={collapsed}
+        className={sideInline ? styles.inline : ''}
     >
         <div className={collapsed ? styles.logoSmall : styles.logoBig}>
             {name}

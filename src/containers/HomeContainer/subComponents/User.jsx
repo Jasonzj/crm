@@ -14,7 +14,6 @@ const User = ({
 }) => {
     const menu = (
         <Menu
-            mode="horizontal"
             className={styles.user}
             onClick={onSignOut}
         >
