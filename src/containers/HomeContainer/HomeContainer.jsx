@@ -62,13 +62,18 @@ const menuConfig = {
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class HomeContainer extends PureComponent {
-    constructor(props) {
-        super(props)
-        const sideInline = localStore.fetch('sideInline') || false
-        this.state = {
-            collapsed: false,
-            sideInline
-        }
+    static propTypes = {
+        user: PropTypes.object,
+        signIn: PropTypes.bool,
+        match: PropTypes.object,
+        history: PropTypes.object,
+        isFetching: PropTypes.bool,
+        setSignOut: PropTypes.func,
+    }
+
+    state = {
+        collapsed: false,
+        sideInline: localStore.fetch('sideInline') || false
     }
 
     componentWillMount() {
@@ -156,15 +161,6 @@ class HomeContainer extends PureComponent {
             </Layout>
         )
     }
-}
-
-HomeContainer.propTypes = {
-    user: PropTypes.object,
-    signIn: PropTypes.bool,
-    match: PropTypes.object,
-    history: PropTypes.object,
-    isFetching: PropTypes.bool,
-    setSignOut: PropTypes.func,
 }
 
 export default HomeContainer
