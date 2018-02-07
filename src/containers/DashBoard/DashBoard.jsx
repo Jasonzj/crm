@@ -19,6 +19,13 @@ const TabPane = Tabs.TabPane
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class DashBoard extends PureComponent {
+    static propTypes = {
+        visit: PropTypes.array,
+        aSetData: PropTypes.func,
+        numbers: PropTypes.object,
+        contract: PropTypes.array,
+    }
+
     componentWillMount() {
         this.props.aSetData()
     }
@@ -98,13 +105,6 @@ class DashBoard extends PureComponent {
             </div>
         )
     }
-}
-
-DashBoard.propTypes = {
-    visit: PropTypes.array,
-    aSetData: PropTypes.func,
-    numbers: PropTypes.object,
-    contract: PropTypes.array,
 }
 
 export default DashBoard
