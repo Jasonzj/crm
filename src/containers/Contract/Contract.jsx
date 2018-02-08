@@ -29,14 +29,25 @@ const confirm = Modal.confirm
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class Contract extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            selectedRowKeys: [],
-            modalVisible: false,
-            item: {},
-            page: 1
-        }
+    static propTypes = {
+        uid: PropTypes.number,
+        total: PropTypes.number,
+        uState: PropTypes.number,
+        contracts: PropTypes.array,
+        isFetching: PropTypes.bool,
+        aCreateContract: PropTypes.func,
+        aDeleteContract: PropTypes.func,
+        aUpdateContract: PropTypes.func,
+        aGetContractPage: PropTypes.func,
+        aSearchUserContract: PropTypes.func,
+        aSearchCompanyContract: PropTypes.func,
+    }
+
+    state = {
+        selectedRowKeys: [],
+        modalVisible: false,
+        item: {},
+        page: 1
     }
 
     componentWillMount() {
@@ -181,20 +192,6 @@ class Contract extends PureComponent {
             </div>
         )
     }
-}
-
-Contract.propTypes = {
-    uid: PropTypes.number,
-    total: PropTypes.number,
-    uState: PropTypes.number,
-    contracts: PropTypes.array,
-    isFetching: PropTypes.bool,
-    aCreateContract: PropTypes.func,
-    aDeleteContract: PropTypes.func,
-    aUpdateContract: PropTypes.func,
-    aGetContractPage: PropTypes.func,
-    aSearchUserContract: PropTypes.func,
-    aSearchCompanyContract: PropTypes.func,
 }
 
 export default Contract

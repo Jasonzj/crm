@@ -25,6 +25,14 @@ const { Description } = DescriptionList
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class Detail extends Component {
+    static propTypes = {
+        match: PropTypes.object,
+        isFetching: PropTypes.bool,
+        contracts: PropTypes.array,
+        currentContract: PropTypes.object,
+        aGetContractDetail: PropTypes.func,
+    }
+
     componentWillMount() {
         const { match, aGetContractDetail, contracts } = this.props
         this.data = contracts.filter(item => item.id == match.params.id)[0]
@@ -86,14 +94,6 @@ class Detail extends Component {
             </Card>
         ])
     }
-}
-
-Detail.propTypes = {
-    match: PropTypes.object,
-    isFetching: PropTypes.bool,
-    contracts: PropTypes.array,
-    currentContract: PropTypes.object,
-    aGetContractDetail: PropTypes.func,
 }
 
 export default Detail
