@@ -31,14 +31,26 @@ const confirm = Modal.confirm
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class UserManage extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            selectedRowKeys: [],
-            modalVisible: false,
-            item: {},
-            page: 1,
-        }
+    static propTypes = {
+        uid: PropTypes.number,
+        total: PropTypes.number,
+        uState: PropTypes.number,
+        loading: PropTypes.bool,
+        history: PropTypes.object,
+        userLists: PropTypes.array,
+        isFetching: PropTypes.bool,
+        aSearchUser: PropTypes.func,
+        aDeleteUser: PropTypes.func,
+        aUpdateUser: PropTypes.func,
+        finishLoader: PropTypes.func,
+        aGetUserListPage: PropTypes.func,
+    }
+
+    state = {
+        selectedRowKeys: [],
+        modalVisible: false,
+        item: {},
+        page: 1,
     }
 
     componentWillMount() {
@@ -161,21 +173,6 @@ class UserManage extends PureComponent {
             </div>
         )
     }
-}
-
-UserManage.propTypes = {
-    uid: PropTypes.number,
-    total: PropTypes.number,
-    uState: PropTypes.number,
-    loading: PropTypes.bool,
-    history: PropTypes.object,
-    userLists: PropTypes.array,
-    isFetching: PropTypes.bool,
-    aSearchUser: PropTypes.func,
-    aDeleteUser: PropTypes.func,
-    aUpdateUser: PropTypes.func,
-    finishLoader: PropTypes.func,
-    aGetUserListPage: PropTypes.func,
 }
 
 export default UserManage

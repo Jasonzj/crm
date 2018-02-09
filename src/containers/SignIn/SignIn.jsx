@@ -26,11 +26,16 @@ const iconSize = { fontSize: 13 }
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class SignIn extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            loading: true,
-        }
+    static propTypes = {
+        form: PropTypes.object,
+        signIn: PropTypes.bool,
+        aSignIn: PropTypes.func,
+        history: PropTypes.object,
+        isFetching: PropTypes.bool,
+    }
+
+    state = {
+        loading: true
     }
 
     componentWillMount() {
@@ -129,13 +134,5 @@ class SignIn extends PureComponent {
 }
 
 const Index = Form.create()(SignIn)
-
-SignIn.propTypes = {
-    form: PropTypes.object,
-    signIn: PropTypes.bool,
-    aSignIn: PropTypes.func,
-    history: PropTypes.object,
-    isFetching: PropTypes.bool,
-}
 
 export default Index

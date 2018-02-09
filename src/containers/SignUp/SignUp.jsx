@@ -34,12 +34,16 @@ const footer = (
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class SignUp extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            confirmDirty: false,
-            resultVisible: false
-        }
+    static propTypes = {
+        form: PropTypes.object,
+        aSignUp: PropTypes.func,
+        history: PropTypes.object,
+        isFetching: PropTypes.bool,
+    }
+
+    state = {
+        confirmDirty: false,
+        resultVisible: false
     }
 
     handleConfirmBlur = (e) => {
@@ -247,12 +251,5 @@ class SignUp extends PureComponent {
 }
 
 const Index = Form.create()(SignUp)
-
-SignUp.propTypes = {
-    form: PropTypes.object,
-    aSignUp: PropTypes.func,
-    history: PropTypes.object,
-    isFetching: PropTypes.bool,
-}
 
 export default Index

@@ -28,14 +28,25 @@ const confirm = Modal.confirm
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class Visit extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            selectedRowKeys: [],
-            modalVisible: false,
-            item: {},
-            page: 1
-        }
+    static propTypes = {
+        uid: PropTypes.number,
+        total: PropTypes.number,
+        visits: PropTypes.array,
+        uState: PropTypes.number,
+        isFetching: PropTypes.bool,
+        aUpdateVisit: PropTypes.func,
+        aDeleteVisit: PropTypes.func,
+        aCreateVisit: PropTypes.func,
+        aGetVisitPage: PropTypes.func,
+        aSearchUserVisit: PropTypes.func,
+        aSearchCompanyVisit: PropTypes.func,
+    }
+
+    state = {
+        selectedRowKeys: [],
+        modalVisible: false,
+        item: {},
+        page: 1
     }
 
     componentWillMount() {
@@ -177,20 +188,6 @@ class Visit extends PureComponent {
             </div>
         )
     }
-}
-
-Visit.propTypes = {
-    uid: PropTypes.number,
-    total: PropTypes.number,
-    visits: PropTypes.array,
-    uState: PropTypes.number,
-    isFetching: PropTypes.bool,
-    aUpdateVisit: PropTypes.func,
-    aDeleteVisit: PropTypes.func,
-    aCreateVisit: PropTypes.func,
-    aGetVisitPage: PropTypes.func,
-    aSearchUserVisit: PropTypes.func,
-    aSearchCompanyVisit: PropTypes.func,
 }
 
 export default Visit
