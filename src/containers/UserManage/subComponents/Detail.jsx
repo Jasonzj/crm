@@ -54,7 +54,16 @@ class Detail extends PureComponent {
         }
     }
     componentWillMount() {
-        const { match, userLists, business, aGetUserBusiness, aGetUserVisit, agetUserDetail, currentUser } = this.props
+        const {
+            match,
+            business,
+            userLists,
+            currentUser,
+            aGetUserVisit,
+            agetUserDetail,
+            aGetUserBusiness,
+        } = this.props
+
         const uid = match.params.id
         const data = userLists.filter(item => item.uid === uid)[0]
         const init = (name) => {
