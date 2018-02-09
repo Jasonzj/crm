@@ -26,14 +26,25 @@ const confirm = Modal.confirm
     dispatch => bindActionCreators({ ...actions }, dispatch)
 )
 class Business extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            selectedRowKeys: [],
-            modalVisible: false,
-            item: {},
-            page: 1
-        }
+    static propTypes = {
+        uid: PropTypes.number,
+        total: PropTypes.number,
+        uState: PropTypes.number,
+        business: PropTypes.array,
+        isFetching: PropTypes.bool,
+        aUpdateBusiness: PropTypes.func,
+        aDeleteBusiness: PropTypes.func,
+        aCreateBusiness: PropTypes.func,
+        aGetBusinessPage: PropTypes.func,
+        aSearchUserBusiness: PropTypes.func,
+        aSearchCompanyBusiness: PropTypes.func,
+    }
+
+    state = {
+        selectedRowKeys: [],
+        modalVisible: false,
+        item: {},
+        page: 1
     }
 
     componentWillMount() {
@@ -175,20 +186,6 @@ class Business extends PureComponent {
             </div>
         )
     }
-}
-
-Business.propTypes = {
-    uid: PropTypes.number,
-    total: PropTypes.number,
-    uState: PropTypes.number,
-    business: PropTypes.array,
-    isFetching: PropTypes.bool,
-    aUpdateBusiness: PropTypes.func,
-    aDeleteBusiness: PropTypes.func,
-    aCreateBusiness: PropTypes.func,
-    aGetBusinessPage: PropTypes.func,
-    aSearchUserBusiness: PropTypes.func,
-    aSearchCompanyBusiness: PropTypes.func,
 }
 
 export default Business
