@@ -5,36 +5,7 @@ import PropTypes from 'prop-types'
 
 import styles from '../style'
 
-const breadcrumbNameMap = {
-    '/user': {
-        name: 'User',
-        icon: 'user'
-    },
-    '/user/*': {
-        name: 'User Detail',
-        icon: 'solution'
-    },
-    '/business': {
-        name: 'Business',
-        icon: 'pay-circle'
-    },
-    '/visit': {
-        name: 'Visit',
-        icon: 'bell'
-    },
-    '/sign_in': {
-        name: 'sign_in',
-        icon: 'bell'
-    },
-    '/contract': {
-        name: 'Contract',
-        icon: 'solution',
-    },
-    '/contract/*': {
-        name: 'Contract Detail',
-        icon: 'solution'
-    }
-}
+import breadcrumbNameMap from 'utils/breadcrumbNameMap'
 
 const Bread = ({
     location
