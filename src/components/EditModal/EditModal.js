@@ -7,6 +7,7 @@ import { isEmptyObject, getTime } from 'utils/func'
 const FormItem = Form.Item
 const Option = Select.Option
 const TextArea = Input.TextArea
+
 const formItemLayout = {
     labelCol: {
         span: 6,
@@ -15,6 +16,7 @@ const formItemLayout = {
         span: 14,
     },
 }
+
 const initFunc = (data, item) => {
     if (data.string) {
         return `${item[data.key]}`
@@ -23,6 +25,29 @@ const initFunc = (data, item) => {
         return item.address.split(' ')
     }
     return item[data.key]
+}
+
+const getFromDataContent = (data, isData) => {
+    const selectVal = data.selectVal
+    const selectKeys = data.type === 'select' && Object.keys(selectVal)
+    return {
+        input: <Input disabled={isData ? false : data.disabled} />,
+        number: <InputNumber min={data.min} max={data.max} />,
+        area: <TextArea autosize={{ minRows: 2, maxRows: 6 }} />,
+        address: <Cascader size="large" options={city} />,
+        select: (
+            <Select>
+                {
+                    selectKeys &&
+                    selectKeys.map(key => (
+                        <Option key={key} value={key}>
+                            {selectVal[key]}
+                        </Option>
+                    ))
+                }
+            </Select>
+        )
+    }[data.type]
 }
 
 const editModal = ({
@@ -98,49 +123,23 @@ const editModal = ({
         <Modal {...modalOpts}>
             <Form>
                 {
-                    formData.map((data) => {
-                        const selectVal = data.selectVal
-                        let content = null
-                        let selectKeys = null
-                        selectKeys = data.type === 'select' && Object.keys(selectVal)
-
-                        content = {
-                            input: <Input disabled={isData ? false : data.disabled} />,
-                            number: <InputNumber min={data.min} max={data.max} />,
-                            area: <TextArea autosize={{ minRows: 2, maxRows: 6 }} />,
-                            address: <Cascader size="large" options={city} />,
-                            select: (
-                                <Select>
-                                    {
-                                        selectKeys &&
-                                        selectKeys.map(key => (
-                                            <Option key={key} value={key}>
-                                                {selectVal[key]}
-                                            </Option>
-                                        ))
-                                    }
-                                </Select>
-                            )
-                        }[data.type]
-
-                        return (
-                            <FormItem
-                                key={data.id}
-                                label={data.label}
-                                hasFeedback
-                                {...formItemLayout}
-                            >
-                                {
-                                    getFieldDecorator(data.key, {
-                                        initialValue: isData ? '' : initFunc(data, item),
-                                        rules: data.rules
-                                    })(
-                                        content
-                                    )
-                                }
-                            </FormItem>
-                        )
-                    })
+                    formData.map(data => (
+                        <FormItem
+                            key={data.id}
+                            label={data.label}
+                            hasFeedback
+                            {...formItemLayout}
+                        >
+                            {
+                                getFieldDecorator(data.key, {
+                                    initialValue: isData ? '' : initFunc(data, item),
+                                    rules: data.rules
+                                })(
+                                    getFromDataContent(data, isData)
+                                )
+                            }
+                        </FormItem>
+                    ))
                 }
             </Form>
         </Modal>
