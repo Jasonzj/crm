@@ -1,10 +1,18 @@
 import React from 'react'
 import classNames from 'classnames'
 import { Col } from 'antd'
+import PropTypes from 'prop-types'
 import styles from './index.scss'
 import responsive from './responsive'
+import Description from './Description'
 
-const Description = ({ term, column, className, children, ...restProps }) => {
+const Description = ({
+    term,
+    column,
+    children,
+    className,
+    ...restProps
+}) => {
     const clsString = classNames(styles.description, className)
     return (
         <Col className={clsString} {...responsive[column]} {...restProps}>
@@ -14,4 +22,4 @@ const Description = ({ term, column, className, children, ...restProps }) => {
     )
 }
 
-export default Description;
+export default Description
