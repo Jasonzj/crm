@@ -4,7 +4,6 @@ import { Col } from 'antd'
 import PropTypes from 'prop-types'
 import styles from './index.scss'
 import responsive from './responsive'
-import Description from './Description'
 
 const Description = ({
     term,
