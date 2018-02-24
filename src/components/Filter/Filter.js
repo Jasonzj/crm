@@ -41,7 +41,11 @@ const Filter = ({
         <Col
             xs={{ span: 24 }}
             className={styles.remove}
-            sm={{ span: onSearchName ? onSearchCompany ? 8 : 16 : 24 }}
+            sm={{
+                span: onSearchName
+                    ? (onSearchCompany ? 8 : 16)
+                    : 24
+            }}
         >
             <span className={styles.selectSpan}>
                 {
