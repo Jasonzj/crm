@@ -37,7 +37,7 @@ exports.cssModule = {
         sourceMap: true,
         localIdentName: '[name]__[local]___[hash:base64:5]'
     }
-},
+}
 
 // config
 exports.config = {
