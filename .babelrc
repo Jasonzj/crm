@@ -17,13 +17,10 @@
         }],
         "react-hot-loader/babel",
         "transform-decorators-legacy",
-        [
-            "import",
-            {
-                "libraryName": "antd",
-                "libraryDirectory": "es",
-                "style": "css"
-            }
-        ]
+        ["import",{
+            "libraryName": "antd",
+            "libraryDirectory": "es",
+            "style": "css"
+        }]
     ]
 }
