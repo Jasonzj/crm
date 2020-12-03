@@ -38,7 +38,7 @@ class SignIn extends PureComponent {
         loading: true
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { signIn, history } = this.props
         this.jumpIndex(signIn, history)
         setTimeout(() => this.setState({ loading: false }), 50)

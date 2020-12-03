@@ -26,7 +26,7 @@ class DashBoard extends PureComponent {
         contract: PropTypes.array,
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.aSetData()
     }
 

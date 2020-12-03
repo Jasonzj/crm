@@ -44,10 +44,10 @@ class Business extends PureComponent {
         selectedRowKeys: [],
         modalVisible: false,
         item: {},
-        page: 1
+        page: 1,
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { business, aGetBusinessPage } = this.props
         business.length === 0 && aGetBusinessPage(1)
     }
@@ -59,7 +59,7 @@ class Business extends PureComponent {
         if (e.key === '1') {
             this.setState({
                 modalVisible: true,
-                item: { ...record, eid: uid }
+                item: { ...record, eid: uid },
             })
         } else if (e.key === '2') {
             confirm({
@@ -69,7 +69,7 @@ class Business extends PureComponent {
                     aDeleteBusiness(data).then((result) => {
                         result.data.success && onReset()
                     })
-                }
+                },
             })
         }
     }
@@ -140,13 +140,13 @@ class Business extends PureComponent {
         })
         const rowSelection = {
             selectedRowKeys,
-            onChange: this.onSelectChange
+            onChange: this.onSelectChange,
         }
         const pagination = {
             total,
             current: page,
             showQuickJumper: true,
-            onChange: this.onPageChnage
+            onChange: this.onPageChnage,
         }
         const modalProps = {
             item,
@@ -182,7 +182,7 @@ class Business extends PureComponent {
                     pagination={pagination}
                     rowSelection={rowSelection}
                 />
-                { modalVisible && <EditModal {...modalProps} /> }
+                {modalVisible && <EditModal {...modalProps} />}
             </div>
         )
     }

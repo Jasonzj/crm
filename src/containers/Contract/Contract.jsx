@@ -50,7 +50,7 @@ class Contract extends PureComponent {
         page: 1
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { contracts, aGetContractPage } = this.props
         contracts.length === 0 && aGetContractPage(1)
     }

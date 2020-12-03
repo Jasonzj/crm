@@ -49,7 +49,7 @@ class Visit extends PureComponent {
         page: 1
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { visits, aGetVisitPage } = this.props
         visits.length === 0 && aGetVisitPage(1)
     }

@@ -53,7 +53,7 @@ class UserManage extends PureComponent {
         page: 1,
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { userLists, aGetUserListPage } = this.props
         userLists.length === 0 && aGetUserListPage(1)
     }
